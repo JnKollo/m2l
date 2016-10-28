@@ -2,7 +2,7 @@
 
 body{
 	overflow: hidden;
-	background: url("../img/page-connexion/background.jpg") no-repeat center center / cover;
+	background: url("../Web/img/page-connexion/background.jpg") no-repeat center center / cover;
 	width: 100vw;
 	height: 100vh;
 	font-family: 'Roboto', sans-serif !important;
