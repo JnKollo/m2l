@@ -5,17 +5,17 @@ class View
     private $file;
     private $title;
 
-    public function __construct($action, $controleur = "") {
-        $fichier = "Views/";
-        if ($controleur != "") {
-            $fichier = $fichier . $controleur . "/";
+    public function __construct($action, $controller = "") {
+        $file = "Views/";
+        if ($controller != "") {
+            $file = $file . $controller . "/";
         }
-        $this->fichier = $fichier . $action . ".php";
+        $this->file = $file . $action . ".php";
     }
 
     public function generate($data) {
         $content = $this->generateFile($this->file, $data);
-        $vue = $this->generateFile('Views/Layout.php',
+        $vue = $this->generateFile('Views/layout.php',
             array('title' => $this->title, 'content' => $content));
         echo $vue;
     }

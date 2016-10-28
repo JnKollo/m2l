@@ -3,6 +3,7 @@
 require_once 'Request.php';
 require_once 'View.php';
 
+
 class Router
 {
     public function routeRequest() {
@@ -20,12 +21,12 @@ class Router
     }
 
     private function createController(Request $request) {
-        $controller = "Accueil";
+        $controller = "Index";
         if ($request->parametersExist('controller')) {
             $controller = $request->getParameters('controller');
             $controller = ucfirst(strtolower($controller));
         }
-        $classController = "Controller" . $controller;
+        $classController = $controller."Controller" ;
         $fileController = "Controller/" . $classController . ".php";
         if (file_exists($fileController)) {
             require($fileController);

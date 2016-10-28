@@ -28,7 +28,7 @@ abstract class Controller
 
     protected function generateVue($dataView = array()) {
         $classController = get_class($this);
-        $controller = str_replace("Controleur", "", $classController);
+        $controller = str_replace("Controller", "", $classController);
         $vue = new View($this->action, $controller);
         $vue->generate($dataView);
     }
