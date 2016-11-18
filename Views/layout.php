@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>M2L<?= - $title ?></title>
+	<title>M2L<?php if ($title) {echo " - ".$title;};?></title>
 	<meta charset="UTF-8">
 	<link href="/Web/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/Web/css/style.css" rel="stylesheet" type="text/css">
