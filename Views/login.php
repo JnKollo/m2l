@@ -1,6 +1,6 @@
-<?php $this->titre = "Connexion"; ?>
+<?php $this->title = "Connexion"; ?>
 
-<img id="logo" src="Web/img/commun/logo.png">
+<img id="logo" src="/Web/img/commun/logo.png">
 
 <!-- 	<h1>MAISON DES LIGUES DE LORRAINE</h1>
 	<h2>GESTIONNAIRE DE FORMATIONS</h2>
@@ -25,3 +25,4 @@
         <input type="submit" value="Envoyer" class="btn-cta">
     </form>
 </div>
+

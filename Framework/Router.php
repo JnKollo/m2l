@@ -21,7 +21,7 @@ class Router
     }
 
     private function createController(Request $request) {
-        $controller = "Index";
+        $controller = "Login";
         if ($request->parametersExist('controller')) {
             $controller = $request->getParameters('controller');
             $controller = ucfirst(strtolower($controller));
