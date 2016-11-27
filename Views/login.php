@@ -7,7 +7,7 @@
  -->
 
 <div id="modal-connexion" class="active">
-    <form>
+    <form action="/index.php?controller=security&action=index" method="post">
         <h3>SE CONNECTER</h3>
         <label for="connexion-id"><input type="text" name="connexion-id" placeholder="Identifiant"></label>
         <label for="connexion-password"><input type="text" name="connexion-password" placeholder="Password"></label>
@@ -17,7 +17,7 @@
 </div>
 
 <div id="modal-password">
-    <form>
+    <form action="/index.php?controller=security&action=forget" method="post">
         <h3>Mot de passe oublié ?</h3>
         <p class="text-modal">Veuillez entrer votre email ci-dessous, un email vous sera envoyer afin de modifier votre mot de passe.</p>
         <label for="connexion-id"><input type="text" name="connexion-id" placeholder="Entrer votre email"></label>
