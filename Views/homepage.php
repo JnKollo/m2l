@@ -3,5 +3,5 @@
 <img id="logo" src="/Web/img/commun/logo.png">
 
 <div>
-    <?= $data["connexion-id"]; ?>
+    <?= $data[0]["username"]; ?>
 </div>

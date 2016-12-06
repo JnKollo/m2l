@@ -6,13 +6,13 @@ abstract class Model
 {
     private static $bdd;
 
-    protected function executeRequest($sql, $params = null) {
-        if ($params == null) {
+    protected function executeRequest($sql, $parameters = null) {
+        if ($parameters === null) {
             $result = self::getBdd()->query($sql);
         }
         else {
             $result = self::getBdd()->prepare($sql);
-            $result->execute($params);
+            $result->execute($parameters);
         }
         return $result;
     }
