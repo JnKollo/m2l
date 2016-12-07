@@ -116,22 +116,24 @@ class EmployeeRepository extends Model
 
     public function setActivity()
     {
-        $this->is_active = true;
+        $this->is_active = 1;
         return $this;
     }
 
     public function removeActivity()
     {
-        $this->is_active = false;
+        $this->is_active = 0;
         return $this;
     }
 
-    public function loginChecker($loginUsername, $loginPassword) {
+    public function getEmployeeByLoginAndPassword($login, $password)
+    {
         $sql = "select *
                 from employee
                 where username = ? and password = ?";
-        $req = $this->executeRequest($sql, array($loginUsername, $loginPassword));
-        $result = $req->fetchAll();
+        $req = $this->executeRequest($sql, array($login, $password));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
+        $result = $req->fetch();
         return $result;
     }
 } 

@@ -1,7 +1,8 @@
-<?php $this->title = "Dashboard"; ?>
+<?php $this->title = "Dashboard";?>
 
-<img id="logo" src="/Web/img/commun/logo.png">
+<img id="logo" src=<?php ROOTDIR ?>"/m2l/Web/img/commun/logo.png">
 
 <div>
-    <?= $data[0]["username"]; ?>
+    <?= $_SESSION['employee']->getUsername(); ?>
+    <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=logout">log out</a>
 </div>

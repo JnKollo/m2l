@@ -7,7 +7,7 @@ class LoginController extends Controller
 {
     public function index() {
         $view = new View("login");
-         $data = ['ok'];
+        $data = ['ok'];
 
         $view->generate($data);
     }
