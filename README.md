@@ -1,100 +1,123 @@
-Présentation de la Maison des Ligues de Lorraine
+Introduction
+============
+
+![Bower version](https://img.shields.io/bower/v/adminlte.svg)
+[![npm version](https://img.shields.io/npm/v/admin-lte.svg)](https://www.npmjs.com/package/admin-lte)
+[![Packagist](https://img.shields.io/packagist/v/almasaeed2010/adminlte.svg)](https://packagist.org/packages/almasaeed2010/adminlte)
+
+**AdminLTE** -- is a fully responsive admin template. Based on **[Bootstrap 3](https://github.com/twbs/bootstrap)** framework. Highly customizable and easy to use. Fits many screen resolutions from small mobile devices to large desktops. Check out the live preview now and see for yourself.
+
+**Download & Preview on [Almsaeed Studio](https://almsaeedstudio.com)**
+
+Looking for Premium Templates?
+------------------------------
+**Almsaeed studio just opened a new premium templates page. Hand picked to insure the best quality and the most affordable prices. Visit https://almsaeedstudio.com/premium for more information.**
 
 
-La Maison des Ligues de Lorraine (M2L) a pour mission de fournir des espaces et des services aux différentes ligues sportives régionales et à d’autres structures hébergées. La M2L est une structure financée par le Conseil Régional de Lorraine dont l'administration est déléguée au Comité Régional Olympique et Sportif de Lorraine (CROSL).
+!["AdminLTE Presentation"] (https://almsaeedstudio.com/AdminLTE2.png "AdminLTE Presentation")
 
+**AdminLTE** has been carefully coded with clear comments in all of its JS, LESS and HTML files. LESS has been used to increase code customizability.
 
+Installation
+------------
+There are multiple ways to install AdminLTE.
 
-Le contexte 
+####Download:
 
-La Maison des Ligues souhaite faire réaliser un logiciel pour gérer les formations de ses salariés. La Maison des Ligues pense que le formation au cours de la vie professionnelle est très importante. Elle a décidé d’allouer à chaque salarié un certain nombre de jours de formation par an en plus des dispositifs nationaux qui existent comme le Compte Personnel de Formation.
+Download from Github or [visit Almsaeed Studio](https://almsaeedstudio.com) and download the latest release.
 
+####Using The Command Line:
 
+**Github**
 
-Présentation globale du projet
+- Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
+- Clone to your machine
+```
+git clone https://github.com/YOUR_USERNAME/AdminLTE.git
+```
 
-Le logiciel doit être accessible partout sans nécessité d’installer un logiciel. Un site web est recommandé sans ajout de logiciels supplémentaires.
+**Bower**
 
-Le logiciel doit faire partie de l’intranet de l’entreprise, il sera installé sur le serveur web de la Maison des Ligues.
+```
+bower install admin-lte
+```
 
-Le logiciel doit être en français.
+**npm**
 
-Le logiciel doit pouvoir gérer des droits d’accès. Seul les salariés de la Maison des Ligues auront accès au logiciel.
+```
+npm install --save admin-lte
+```
 
-Le logiciel doit fonctionner sur tous les navigateurs. La Maison des Ligues fonctionnent pricipalement avec Internet Explorer 10.
+**Composer**
 
-Le site devra respecter les bonnes pratiques pour l’accessibilité des sites internet.
+```
+composer require "almasaeed2010/adminlte=~2.0"
+```
 
-La politique de formation de la Maison des Ligues La formation des salariés est une priorité pour la Maison des Ligues. Dans cette optique chaque salarié a droit à 15 jours de formations par an. Le coût annuel des formations ne doit pas excéder 5000 crédits. Chaque salarié peut choisir la formation qu’il désire parmi une offre de formations sélectionnées par la Maison des Ligues. Une fois la formation choisie par le salarié, elle doit être validée par son supérieur hiérarchique.
+Documentation
+-------------
+Visit the [online documentation](https://almsaeedstudio.com/themes/AdminLTE/documentation/index.html) for the most
+updated guide. Information will be added on a weekly basis.
 
+Browser Support
+---------------
+- IE 9+
+- Firefox (latest)
+- Chrome (latest)
+- Safari (latest)
+- Opera (latest)
 
+Contribution
+------------
+Contribution are always **welcome and recommended**! Here is how:
 
+- Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
+- Clone to your machine ```git clone https://github.com/YOUR_USERNAME/AdminLTE.git```
+- Make your changes
+- Create a pull request
 
+#### Contribution Requirements:
 
-Description du projet
+- When you contribute, you agree to give a non-exclusive license to Almsaeed Studio to use that contribution in any context as we (Almsaeed Studio) see appropriate.
+- If you use content provided by another party, it must be appropriately licensed using an [open source](http://opensource.org/licenses) license.
+- Contributions are only accepted through Github pull requests.
+- Finally, contributed code must work in all supported browsers (see above for browser support).
 
+License
+-------
+AdminLTE is an open source project by [Almsaeed Studio](https://almsaeedstudio.com) that is licensed under [MIT](http://opensource.org/licenses/MIT). Almsaeed Studio
+reserves the right to change the license of future releases.
 
+Todo List
+---------
+- ~~Light sidebar colors~~ (Done v2.1.0)
+- ~~Right sidebar~~ (Done v2.1.0)
+- ~~Minified main-sidebar~~ (Done v2.1.0)
+- Right to left support
+- ~~Custom pace style~~ (Done v2.3.1)
 
-La gestion des droits
+Legacy Releases
+----------------
+AdminLTE 1.x can be easily upgraded to 2.x using [this guide](https://almsaeedstudio.com/themes/AdminLTE/documentation/index.html#upgrade), but if you intend to keep using AdminLTE 1.x, you can download the latest release from the [releases](https://github.com/almasaeed2010/AdminLTE/releases) section above.
 
+Change log
+----------
+**For the most recent change log, visit the [releases page](https://github.com/almasaeed2010/AdminLTE/releases) or the [changelog file](https://github.com/almasaeed2010/AdminLTE/blob/master/changelog.md).** We will add a detailed release notes to each new release. 
 
-L’accès au logiciel n’est autorisé qu’aux salariés de la Maison des Ligues, chaque employé aura un compte personnel avec un identifiant et un mot de passe.
+Image Credits
+-------------
+[Pixeden](http://www.pixeden.com/psd-web-elements/flat-responsive-showcase-psd)
 
-A la première utilisation un écran de connexion sera affiché, l’utilisateur doit taper son identifiant et son mot de passe pour accéder au site.
+[Graphicsfuel](http://www.graphicsfuel.com/2013/02/13-high-resolution-blur-backgrounds/)
 
-Pour les utilisations ultérieures l’utilisateur ne doit pas retaper à chaque fois son mot de passe s’il a quitté le site récemment.
+[Pickaface](http://pickaface.net/)
 
-Une fois sur le site l’utilisateur pourra à tout moment se déconnecter.
+[Unsplash](https://unsplash.com/)
 
+[Uifaces](http://uifaces.com/)
 
+Donations
+---------
+Donations are **greatly appreciated!**
 
-La gestion des formations pour un salarié 
-
-Une fois l’utilisateur connecté celui-ci voit une page d’accueil où il peut voir les différentes formations pour lesquels il est inscrit.
-
-Il peut aussi voir toutes les offres de formation disponibles. Pour chaque formation sont indiquées le contenu, la durée, la date, le nombre de jours, le lieu, les pré-requis, le prestataire.
-
-L’utilisateur peut faire défiler les formations et choisir celles qu’il désire. Si le salarié n’a pas assez de jours disponibles ou s’il a dépassé son crédit de formation un message d’avertissement est affiché.
-
-L’utilisateur peut aussi avoir accès à l’historique des formations pour l’année en cours.
-
-L’utilisateur peut imprimer les formations pour lesquelles il est inscrit en format PDF.
-
-L’utilisateur peut faire une recherche pour rechercher une formation particulière.
-
-La gestion des formations pour le chef d’équipe 
-
-Le chef d’équipe a les mêmes droits aux formations que les autres employés de la Maison des Ligues.
-
-Le chef d’équipe doit aussi valider les formations de ses employés.
-
-La liste des personnes de son équipe est affichée puis le chef d’équie peut sélectionner un employé. Il voit alors s’afficher la liste des formations sélectionnées par l’employé. Il décide de valider ou non les formations.
-
-Une formation a donc 3 états différents : « en cours de validation », « validée » ou « effectuée ».
-
-
-
-Cadre juridique
-
-
-L’objet du contrat : Réalisation d’un logiciel de gestion des formations pour la Maison des Ligues.
-
-Les lieux d’exécution et de livraison : La Maison des Ligues met à la disposition dans ses locaux tout le matériel pour développer le logiciel. La Maison des Ligues s’engage à répondre à toute demande matériel qui rentre dans le cadre du projet. Le développement se fera à l’intérieur des locaux de la Maison des Ligues.
-
-Les différents jalons du contrat: Le contrat commencera le 20 janvier, il se terminera le 1er juin. Le logiciel sera installé sur les serveur de la Maison des Ligues et sera entiérement fonctionnel.
-
-Les documents techniques ainsi que les cahier de tests devront être envoyés le 1 er Mars au plus tard à la Maison des Ligues.
-
-La recette logiciel sera effectuée le 20 mai dans les locaux de la Maisons des Ligues par les responsables validation de la Maison des Ligues. La recette ne pourra commencer que si tous les tests définis dans le cahier de tests approuvé par la Maison des Ligues ont été effectués.
-
-La Maison des Ligues doit avoir accès à la base de bugs répertoriés. La recette ne débutera que si les objectifs ci-dessous sont atteints :
-
- Aucun bug de priorité critique.
-
- Aucun bug de priorité majeur.
-
- 5 bugs de priorité mineur.
-
-Si le logiciel n’est pas accepté par les Maison des Ligues aux dates mentionnés ci-dessus, des pénalités de 200 euros par jour seront appliqués.
-
-Livraison attendue et maintenance : Tous les code source devront être remis à la Maison des Ligues. La période de maintenance s’étendra sur une période de 6 mois à partir de l’acceptation du logiciel par la Maison des Ligues. Pendant cette période la Maison des Ligues remontera tous les problèmes. Un bug de priorité critique doit être résolu en deux heures, un bug majeur en quatres heures. Tout dépassement de temps entrainera une pénalité de 50 euros par heure.
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "AdminLTE Presentation")](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=629XCUSXBHCBC "Donate")
