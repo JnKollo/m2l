@@ -21,8 +21,8 @@ class SecurityController extends Controller
             $employeeRepository = new EmployeeRepository();
             $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
 
-            $employee->setActivity();
-            $_SESSION['employee'] = $employee;
+            $employee->login($employee->getId());
+            $_SESSION['employee'] = serialize($employee);
             $view = new View("homepage");
             $view->generate(array('employee' => $employee));
         } else {
@@ -33,13 +33,12 @@ class SecurityController extends Controller
 
     public function logout() 
     {
-        $employee = $_SESSION['employee'];
-        $employee->removeActivity();
+        $employee = unserialize($_SESSION['employee']);
+        $employee->logout($employee->getId());
         session_destroy();
 
         $view = new View("login");
-        $data = ['Vous êtes déconnecté'];
 
-        $view->generate($data);
+        $view->generate(array('message' => 'Vous êtes déconnecté'));
     }
 }

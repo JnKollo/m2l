@@ -2,27 +2,25 @@
 
 require_once 'Framework/Model.php';
 
-class EmployeeRepository extends Model
+class FormationRepository extends Model
 {
     private $id;
-    private $username;
-    private $password;
-    private $email;
-    private $days_left;
-    private $credits_left;
-    private $is_manager;
-    private $team;
-    private $is_active;
-    private $last_login;
+    private $name;
+    private $description;
+    private $date;
+    private $duration;
+    private $place;
+    private $requirement;
+    private $provider;
 
     public function getId()
     {
         return $this->id;
     }
 
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
+        return $this->name;
     }
 
     public function getPassword()
@@ -139,14 +137,12 @@ class EmployeeRepository extends Model
 
     public function login($id)
     {
-        $this->setActivity();
         $sql = "UPDATE employee SET is_active=1, last_login=NOW() WHERE id=?";
         $req = $this->executeRequest($sql, array($id));
     }
 
     public function logout($id)
     {
-        $this->removeActivity();
         $sql = "UPDATE employee SET is_active=0 WHERE id=?";
         $req = $this->executeRequest($sql, array($id));
     }

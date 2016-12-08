@@ -14,4 +14,6 @@ class SecurityRepository extends Model
         $req->closeCursor();
         return $login;
     }
+
+    
 }

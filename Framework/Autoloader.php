@@ -7,7 +7,8 @@ class Autoloader
     }
 
     static function autoload($class){
-        require 'Model/' . $class . '.php';
+        require '../Model/' . $class . '.php';
     }
-
 }
+
+Autoloader::register();
