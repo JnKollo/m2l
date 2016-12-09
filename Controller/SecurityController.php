@@ -10,35 +10,47 @@ class SecurityController extends Controller
 {
     public function index() 
     {
-        $login = $this->request->getParameters("login");
-        $password = $this->request->getParameters("password");
-        $hash = crypt($password, 'rl');
-
-        $securityRepository = new SecurityRepository();
-        $isLogged = $securityRepository->loginChecker($login, $hash);
-
-        if ($isLogged) {
-            $employeeRepository = new EmployeeRepository();
-            $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
-
-            $employee->login($employee->getId());
-            $_SESSION['employee'] = serialize($employee);
+        if ($_SESSION) {
+            $employee = unserialize($_SESSION['employee']);
             $view = new View("home");
             $view->generate(array('employee' => $employee));
         } else {
-            $view = new View("error");
-            $view->generate(array('msgErreur' => "pas de message"));
+            $login = $this->request->getParameters("login");
+            $password = $this->request->getParameters("password");
+            $hash = crypt($password, 'rl');
+
+            $securityRepository = new SecurityRepository();
+            $isLogged = $securityRepository->loginChecker($login, $hash);
+
+            if ($isLogged) {
+                $employeeRepository = new EmployeeRepository();
+                $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
+
+                $employee->login($employee->getId());
+                $_SESSION['employee'] = serialize($employee);
+                $view = new View("home");
+                $view->generate(array('employee' => $employee));
+            } else {
+                $view = new View("error");
+                $view->generate(array('msgErreur' => "pas de message"));
+            }
         }
     }
 
     public function logout() 
     {
-        $employee = unserialize($_SESSION['employee']);
-        $employee->logout($employee->getId());
-        session_destroy();
+        if ($_SESSION) {
+            $employee = unserialize($_SESSION['employee']);
+            $employee->logout($employee->getId());
+            session_destroy();
 
-        $view = new View("login");
+            $view = new View("login");
 
-        $view->generateLogin(array('message' => 'Vous êtes déconnecté'));
+            $view->generateLogin(array('message' => 'Vous êtes déconnecté'));
+        } else {
+            $view = new View("error");
+            $view->generateLogin(array('msgErreur' => "page non trouvée"));
+        }
+        
     }
 }
