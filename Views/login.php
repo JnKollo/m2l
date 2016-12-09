@@ -9,7 +9,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Veuillez rentrer vos indentifiants</p>
 
-        <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=index" method="post">
+        <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=main&action=index" method="post">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="Identifiant" name="login">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

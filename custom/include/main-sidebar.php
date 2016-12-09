@@ -15,7 +15,7 @@
     <ul class="sidebar-menu">
       <li class="header"></li><!-- Optionally, you can add icons to the links -->
       <li>
-        <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=index"><i class="fa fa-link"></i> <span>Page d'accueil</span></a>
+        <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=main&action=index"><i class="fa fa-link"></i> <span>Page d'accueil</span></a>
       </li>
       <li>
         <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=formations&action=index"><i class="fa fa-link"></i> <span>Mes formation</span></a>

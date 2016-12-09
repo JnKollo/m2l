@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Framework/Model.php';
+require_once 'Model/FormationRepository.php';
 
 class EmployeeRepository extends Model
 {
@@ -14,6 +15,12 @@ class EmployeeRepository extends Model
     private $team;
     private $is_active;
     private $last_login;
+    private $formations;
+
+    public function __construct()
+    {
+        $this->formations = new FormationRepository();
+    }
 
     public function getId()
     {
@@ -63,6 +70,11 @@ class EmployeeRepository extends Model
     public function getLastLogin()
     {
         return $this->last_login;
+    }
+
+    public function getFormations()
+    {
+        return $this->formations;
     }
 
     public function setUsername($username)
@@ -126,6 +138,12 @@ class EmployeeRepository extends Model
         return $this;
     }
 
+    public function setFormations($formations)
+    {
+        $this->formations = $formations;
+        return $this;
+    }
+
     public function getEmployeeByLoginAndPassword($login, $password)
     {
         $sql = "select *
@@ -149,5 +167,19 @@ class EmployeeRepository extends Model
         $this->removeActivity();
         $sql = "UPDATE employee SET is_active=0 WHERE id=?";
         $req = $this->executeRequest($sql, array($id));
+    }
+
+    public function getFormationsByEmployee($id)
+    {
+        $sql = "select *
+                from formation
+                left join employee_formation
+                    on formation.id = employee_formation.id_formation
+                inner join employee
+                    on employee.id = employee_formation.id_employee
+                where employee_formation.id = ?";
+        $req = $this->executeRequest($sql, array($id));
+        $result = $req->fetchAll();
+        return $result;
     }
 } 

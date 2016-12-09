@@ -8,7 +8,7 @@
     <!-- Sidebar toggle button-->
      <a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button"><span class="sr-only">Toggle navigation</span></a> <!-- Navbar Right Menu -->
     <div class="navbar-custom-menu">
-      <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=logout">Déconnexion</a>
+      <a href=<?php ROOTDIR ?>"/m2l/index.php?controller=main&action=logout">Déconnexion</a>
     </div>
   </nav>
 </header><!-- Left side column. contains the logo and sidebar -->

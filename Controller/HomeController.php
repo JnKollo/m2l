@@ -7,8 +7,7 @@ class HomeController extends Controller
 {
     public function index() {
     	$employee = serialize($_SESSION['employee']);
-        $view = new View("home");
-        $data = ['ok'];
+        $view = new View("error");
         $view->generate(array('employee' => unserialize($employee)));
     }
 }

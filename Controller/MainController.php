@@ -3,10 +3,11 @@
 require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
 require_once 'Model/EmployeeRepository.php';
+require_once 'Model/FormationRepository.php';
 require_once 'Model/SecurityRepository.php';
 
 
-class SecurityController extends Controller
+class MainController extends Controller
 {
     public function index() 
     {
@@ -24,12 +25,14 @@ class SecurityController extends Controller
 
             if ($isLogged) {
                 $employeeRepository = new EmployeeRepository();
-                $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
+                $formationRepository = new FormationRepository();
 
+                $formations = $formationRepository->getAllFormationsOrderByDate();
+                $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
                 $employee->login($employee->getId());
                 $_SESSION['employee'] = serialize($employee);
                 $view = new View("home");
-                $view->generate(array('employee' => $employee));
+                $view->generate(array('employee' => $employee, 'formations' => $formations));
             } else {
                 $view = new View("error");
                 $view->generate(array('msgErreur' => "pas de message"));
