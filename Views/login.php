@@ -1,26 +1,34 @@
-<?php $this->title = "Connexion"; ?>
+<?php $this->classBody = "class= 'hold-transition login-page'" ?>
+<?php $this->title = "Connexion" ?>
 
-<img id="logo" src=<?php ROOTDIR ?>"/m2l/Web/img/commun/logo.png">
+<div class="login-box">
+    <div class="login-logo">
+        <b>M2L</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Veuillez rentrer vos indentifiants</p>
 
-<!-- 	<h1>MAISON DES LIGUES DE LORRAINE</h1>
-	<h2>GESTIONNAIRE DE FORMATIONS</h2>
- -->
-<div id="modal-connexion" class="active">
-    <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=index" method="post">
-        <h3>SE CONNECTER</h3>
-        <label for="connexion-id"><input type="text" name="connexion-id" placeholder="Identifiant"></label>
-        <label for="connexion-password"><input type="password" name="connexion-password" placeholder="Password"></label>
-        <p class="text-align-right">mot de passe oublié ?</p>
-        <input type="submit" value="connexion" class="btn-cta">
-    </form>
+        <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=index" method="post">
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="Identifiant" name="login">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Mot de passe" name="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+
+                <!-- /.col -->
+                <div class="col-xs-4 col-xs-offset-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+    </div>
+    <!-- /.login-box-body -->
 </div>
-
-<div id="modal-password">
-    <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=security&action=forget" method="post">
-        <h3>Mot de passe oublié ?</h3>
-        <p class="text-modal">Veuillez entrer votre email ci-dessous, un email vous sera envoyé afin de modifier votre mot de passe.</p>
-        <label for="connexion-id"><input type="text" name="connexion-id" placeholder="Entrer votre email"></label>
-        <p class="text-align-right">Oups, revenir en arrière</p>
-        <input type="submit" value="Envoyer" class="btn-cta">
-    </form>
-</div>
+<!-- /.login-box -->

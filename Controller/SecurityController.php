@@ -10,8 +10,8 @@ class SecurityController extends Controller
 {
     public function index() 
     {
-        $login = $this->request->getParameters("connexion-id");
-        $password = $this->request->getParameters("connexion-password");
+        $login = $this->request->getParameters("login");
+        $password = $this->request->getParameters("password");
         $hash = crypt($password, 'rl');
 
         $securityRepository = new SecurityRepository();
@@ -23,7 +23,7 @@ class SecurityController extends Controller
 
             $employee->login($employee->getId());
             $_SESSION['employee'] = serialize($employee);
-            $view = new View("homepage");
+            $view = new View("home");
             $view->generate(array('employee' => $employee));
         } else {
             $view = new View("error");
@@ -39,6 +39,6 @@ class SecurityController extends Controller
 
         $view = new View("login");
 
-        $view->generate(array('message' => 'Vous êtes déconnecté'));
+        $view->generateLogin(array('message' => 'Vous êtes déconnecté'));
     }
 }

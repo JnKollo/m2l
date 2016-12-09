@@ -6,8 +6,8 @@
     <div class="user-panel">
       <div class="pull-left image"><img alt="User Image" class="img-circle" src="dist/img/user2-160x160.jpg"></div>
       <div class="pull-left info">
-        <p>Alexander Pierce</p><!-- Status -->
-        <p><span class="badge bg-maroon">150 CF</span> <span class="badge bg-purple">2 jours</span></p>
+        <p> <?= $this->employee->getUsername();?></p><!-- Status -->
+        <p><span class="badge bg-maroon"><?= $this->employee->getCreditsLeft();?> CF</span> <span class="badge bg-purple"><?= $this->employee->getDaysLeft();?> jours</span></p>
         
       </div>
     </div><!-- search form (Optional) -->

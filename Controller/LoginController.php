@@ -9,6 +9,6 @@ class LoginController extends Controller
         $view = new View("login");
         $data = ['ok'];
 
-        $view->generate($data);
+        $view->generateLogin($data);
     }
 }
