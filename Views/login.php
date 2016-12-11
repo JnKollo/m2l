@@ -9,7 +9,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Veuillez rentrer vos indentifiants</p>
 
-        <form action=<?php ROOTDIR ?>"/m2l/index.php?controller=main&action=index" method="post">
+        <form action=<?php ROOTDIR ?>"/index.php?controller=security&action=loggedIn" method="post">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="Identifiant" name="login">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -22,7 +22,7 @@
 
                 <!-- /.col -->
                 <div class="col-xs-4 col-xs-offset-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                    <input type="submit" class="btn btn-primary btn-block btn-flat" name="submit" value="Connexion">
                 </div>
                 <!-- /.col -->
             </div>

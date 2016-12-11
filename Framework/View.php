@@ -4,8 +4,9 @@ class View
 {
     private $file;
     private $title;
-    private $body;
+    private $classBody;
     private $employee;
+    private $formations;
 
 
     public function __construct($action, $controller = "") {
@@ -17,16 +18,41 @@ class View
     }
 
     public function generate($data) {
-        $content = $this->generateFile($this->file, $data);
-        $vue = $this->generateFile('Views/layout.php',
-            array('title' => $this->title, 'classBody' => $this->classBody, 'content' => $content, 'employee' => $this->employee));
-        echo $vue;
+        if (isset($_SESSION['employee'])) {
+            $content = $this->generateFile($this->file, $data);
+            $vue = $this->generateFile('Views/layout.php',
+                array(
+                    'title' => $this->title,
+                    'classBody' => $this->classBody,
+                    'content' => $content,
+                    'employee' => $this->employee,
+                    'formations' => $this->formations
+                )
+            );
+            echo $vue;
+        } else {
+            $content = $this->generateFile("Views/login.php", $data);
+            $vue = $this->generateFile('Views/layout_login.php',
+                array(
+                    'title' => $this->title,
+                    'classBody' => $this->classBody,
+                    'content' => $content
+                )
+            );
+            echo $vue;
+        }
+
     }
 
     public function generateLogin($data) {
         $content = $this->generateFile($this->file, $data);
         $vue = $this->generateFile('Views/layout_login.php',
-            array('title' => $this->title, 'classBody' => $this->classBody, 'content' => $content));
+            array(
+                'title' => $this->title,
+                'classBody' => $this->classBody,
+                'content' => $content
+            )
+        );
         echo $vue;
     }
     private function generateFile($file, $data) {

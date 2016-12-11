@@ -17,10 +17,6 @@ class EmployeeRepository extends Model
     private $last_login;
     private $formations;
 
-    public function __construct()
-    {
-        $this->formations = new FormationRepository();
-    }
 
     public function getId()
     {
@@ -70,11 +66,6 @@ class EmployeeRepository extends Model
     public function getLastLogin()
     {
         return $this->last_login;
-    }
-
-    public function getFormations()
-    {
-        return $this->formations;
     }
 
     public function setUsername($username)
@@ -128,19 +119,24 @@ class EmployeeRepository extends Model
 
     public function setActivity()
     {
-        $this->is_active = true;
+        $this->is_active = 1;
         return $this;
     }
 
     public function removeActivity()
     {
-        $this->is_active = false;
+        $this->is_active = 0;
         return $this;
+    }
+
+    public function getFormations()
+    {
+        return $this->formations;
     }
 
     public function setFormations($formations)
     {
-        $this->formations = $formations;
+        $this->formations[] = $formations;
         return $this;
     }
 
@@ -171,15 +167,20 @@ class EmployeeRepository extends Model
 
     public function getFormationsByEmployee($id)
     {
-        $sql = "select *
+        $sql = "select formation.*
                 from formation
-                left join employee_formation
+                inner join employee_formation
                     on formation.id = employee_formation.id_formation
                 inner join employee
                     on employee.id = employee_formation.id_employee
-                where employee_formation.id = ?";
+                where employee_formation.id_employee = ?
+                order by date desc
+                limit 6";
         $req = $this->executeRequest($sql, array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
-        return $result;
+        foreach ($result as $formation) {
+            $this->setFormations($formation);
+        }
     }
 } 

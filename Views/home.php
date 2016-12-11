@@ -1,6 +1,8 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Accueil"?>
 <?php $this->employee = $employee; ?>
+<?php $this->formations = $formations; ?>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -71,7 +73,7 @@
             <div class="col-md-6">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Les nouvelles formations disponibles</h3>
+                        <h3 class="box-title">Les nouvelles formations</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
@@ -81,53 +83,15 @@
                     <div class="box-body no-padding">
                         <table class="table table-striped">
                             <tr>
-                                <th style="width: 10px">#</th>
                                 <th>Nom</th>
                                 <th>Date</th>
-                                <th style="width: 40px">Statut</th>
                             </tr>
+                            <?php foreach($formations as $formation): ?>
                             <tr>
-                                <td>1.</td>
-                                <td>Initiation à Java</td>
-                                <td>25/11/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>                                    
+                                <td><?= $formation->getName(); ?></td>
+                                <td><?= $formation->getDate(); ?></td>
                             </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>Méthode de tri avancée</td>
-                                <td>22/11/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>Cron job running</td>
-                                <td>05/1/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4.</td>
-                                <td>Fix and squish bugs</td>
-                                <td>15/10/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5.</td>
-                                <td>Méthode de tri avancée</td>
-                                <td>22/11/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6.</td>
-                                <td>Cron job running</td>
-                                <td>05/1/2016</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-                                </td>
-                            </tr>
+                            <?php endforeach ?>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -153,53 +117,15 @@
                         <table class="table table-striped">
                             <table class="table table-striped">
                                 <tr>
-                                    <th style="width: 10px">#</th>
                                     <th>Nom</th>
                                     <th>Date</th>
-                                    <th style="width: 40px">Statut</th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td><span class="badge bg-yellow">En cours de validation</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td><span class="badge bg-yellow">En cours de validation</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Cron job running</td>
-                                    <td>05/1/2016</td>
-                                    <td><span class="badge bg-yellow">En cours de validation</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Initiation à Java</td>
-                                    <td>25/11/2016</td>
-                                    <td><span class="badge bg-green">Validée</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5.</td>
-                                    <td>Initiation à Java</td>
-                                    <td>25/11/2016</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6.</td>
-                                    <td>Fix and squish bugs</td>
-                                    <td>15/10/2016</td>
-                                    <td><span class="badge bg-red">Refusée</span>
-                                    </td>
-                                </tr>
+                                <?php foreach($employee->getFormations() as $formation): ?>
+                                    <tr>
+                                        <td><?= $formation->getName(); ?></td>
+                                        <td><?= $formation->getDate(); ?></td>
+                                    </tr>
+                                <?php endforeach ?>
                             </table>
                         </table>
                     </div>
