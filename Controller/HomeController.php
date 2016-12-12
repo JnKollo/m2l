@@ -4,7 +4,6 @@ require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
 require_once 'Model/EmployeeRepository.php';
 require_once 'Model/FormationRepository.php';
-require_once 'Model/SecurityRepository.php';
 
 
 class HomeController extends Controller
@@ -13,11 +12,17 @@ class HomeController extends Controller
     {
     }
 
-    public function home($employee, $formations)
+    public function home()
     {
-        $view = new View("home");
-        $view->generate(array('employee' => $employee, 'formations' => $formations));
-    }
+        $formationRepository = new FormationRepository();
+        $formations = $formationRepository->getAllFormationsOrderByDate();
+        $_SESSION['formations'] = serialize($formations);
 
+        $view = new View("home");
+        $view->generate(array(
+            'employee' => unserialize($_SESSION['employee']),
+            'formations' => array_slice(unserialize($_SESSION['formations']), 0, 6, true)
+        ));
+    }
 
 }

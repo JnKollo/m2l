@@ -32,4 +32,11 @@ abstract class Controller
         $vue = new View($this->action, $controller);
         $vue->generate($dataView);
     }
+
+    public function redirect($controller, $method = "index")
+    {
+        $location = "/index.php?controller=" . $controller . "&action=" . $method;
+        header("Location: " . $location);
+        exit;
+    }
 }

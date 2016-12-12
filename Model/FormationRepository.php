@@ -150,18 +150,6 @@ class FormationRepository extends Model
                 order by date desc";
         $req = $this->executeRequest($sql);
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
-        $result = $req->fetch();
-        return $result;
-    }
-
-    public function getAllFormationsOrderByDateForHome()
-    {
-        $sql = "select *
-                from formation
-                order by date desc
-                limit 6";
-        $req = $this->executeRequest($sql);
-        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
         return $result;
     }

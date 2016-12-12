@@ -3,14 +3,13 @@
 <?php $this->employee = $employee; ?>
 <?php $this->formations = $formations; ?>
 
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>Page d'accueil</h1>
     </section>
-    <!-- Main content <--></-->
+    <!-- Main content -->
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -96,7 +95,7 @@
                     </div>
                     <!-- /.box-body -->
                                                 <div class="box-footer text-center">
-                        <a href="formations.php" class="uppercase">Voir plus</a>
+                        <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=index" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>

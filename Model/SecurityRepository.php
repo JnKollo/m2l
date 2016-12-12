@@ -10,9 +10,9 @@ class SecurityRepository extends Model
                 where username = ? and password = ?";
         $req = $this->executeRequest($sql, array($loginUsername, $loginPassword));
         $result = $req->fetch();
-        $login = ($result[0] > 0) ? true : false;
+        $hasAccount = ($result[0] > 0) ? true : false;
         $req->closeCursor();
-        return $login;
+        return $hasAccount;
     }
 
     

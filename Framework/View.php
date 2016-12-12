@@ -9,38 +9,23 @@ class View
     private $formations;
 
 
-    public function __construct($action, $controller = "") {
+    public function __construct($action) {
         $file = "Views/";
-        if ($controller != "") {
-            $file = $file . $controller . "/";
-        }
         $this->file = $file . $action . ".php";
     }
 
     public function generate($data) {
-        if (isset($_SESSION['employee'])) {
-            $content = $this->generateFile($this->file, $data);
-            $vue = $this->generateFile('Views/layout.php',
-                array(
-                    'title' => $this->title,
-                    'classBody' => $this->classBody,
-                    'content' => $content,
-                    'employee' => $this->employee,
-                    'formations' => $this->formations
-                )
-            );
-            echo $vue;
-        } else {
-            $content = $this->generateFile("Views/login.php", $data);
-            $vue = $this->generateFile('Views/layout_login.php',
-                array(
-                    'title' => $this->title,
-                    'classBody' => $this->classBody,
-                    'content' => $content
-                )
-            );
-            echo $vue;
-        }
+        $content = $this->generateFile($this->file, $data);
+        $vue = $this->generateFile('Views/layout.php',
+            array(
+                'title' => $this->title,
+                'classBody' => $this->classBody,
+                'content' => $content,
+                'employee' => $this->employee,
+                'formations' => $this->formations
+            )
+        );
+        echo $vue;
 
     }
 
