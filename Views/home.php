@@ -30,7 +30,7 @@
                 <!-- small box -->
                 <div class="small-box bg-purple">
                     <div class="inner">
-                        <h3><?= $employee->getDaygstsLeft(); ?></h3>
+                        <h3><?= $employee->getDaysLeft(); ?></h3>
                         <p>Jours restants</p>
                     </div>
                     <div class="icon">
