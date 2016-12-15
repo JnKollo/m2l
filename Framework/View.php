@@ -8,7 +8,6 @@ class View
     private $employee;
     private $formations;
 
-
     public function __construct($action) {
         $file = "Views/";
         $this->file = $file . $action . ".php";
@@ -26,7 +25,6 @@ class View
             )
         );
         echo $vue;
-
     }
 
     public function generateLogin($data) {
@@ -40,6 +38,7 @@ class View
         );
         echo $vue;
     }
+
     private function generateFile($file, $data) {
         if (file_exists($file)) {
             extract($data);

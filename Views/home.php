@@ -17,7 +17,7 @@
                 <!-- small box -->
                 <div class="small-box bg-maroon">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3><?= $employee->getCreditsLeft(); ?></h3>
                         <p>Crédits formation</p>
                     </div>
                     <div class="icon">
@@ -30,7 +30,7 @@
                 <!-- small box -->
                 <div class="small-box bg-purple">
                     <div class="inner">
-                        <h3>2</h3>
+                        <h3><?= $employee->getDaysLeft(); ?></h3>
                         <p>Jours restants</p>
                     </div>
                     <div class="icon">

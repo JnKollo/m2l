@@ -17,9 +17,10 @@
 <body <?= $this->classBody;?> >
 
 	<div class="wrapper">
-  
+
+
 	    <?php include(ROOTDIR."/custom/include/header.php"); ?>
-	    <?php include(ROOTDIR."/custom/include/main-sidebar.php"); ?>
+		<?php include(ROOTDIR."/custom/include/main-sidebar.php"); ?>
 	    <?= $content ?>
 
 
