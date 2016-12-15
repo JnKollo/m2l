@@ -36,7 +36,7 @@
                             </tr>
                             <tr>
                                 <td>1.</td>
-                                <td><a href="editFormation.php">Initiation à Java</a></td>
+                                <td><a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=show&id=1">Initiation à Java</a></td>
                                 <td>25/11/2016</td>
                                 <td>5</td>
                                 <td>2</td>

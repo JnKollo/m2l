@@ -12,8 +12,12 @@ class Router
 
             $controller = $this->createController($request);
             $action = $this->createAction($request);
+            $parameters = '';
+            if ($request->parametersExist('id')) {
+                $parameters = $request->getParameters('id');
+            }
 
-            $controller->executeAction($action);
+            $controller->executeAction($action, $parameters);
         }
         catch (Exception $e) {
             $this->generateError($e);

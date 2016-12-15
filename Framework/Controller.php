@@ -13,10 +13,10 @@ abstract class Controller
         $this->request = $request;
     }
 
-    public function executeAction($action) {
+    public function executeAction($action, $parameters = null) {
         if (method_exists($this, $action)) {
             $this->action = $action;
-            $this->{$this->action}();
+            $this->{$this->action}($parameters);
         }
         else {
             $classController = get_class($this);

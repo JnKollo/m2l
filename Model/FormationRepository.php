@@ -153,4 +153,28 @@ class FormationRepository extends Model
         $result = $req->fetchAll();
         return $result;
     }
+
+    public function getAllFormationsOrderByDateAndPaginate($limit, $offset)
+    {
+        $sql = "select *
+                from formation
+                order by date desc
+                limit ?
+                offset ?";
+        $req = $this->executeRequest($sql, array($limit, $offset));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
+        $result = $req->fetchAll();
+        return $result;
+    }
+
+    public function getOneFormationById($id)
+    {
+        $sql = "select *
+                from formation
+                where id = ?";
+        $req = $this->executeRequest($sql, array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
+        $result = $req->fetch();
+        return $result;
+    }
 } 

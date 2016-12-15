@@ -6,13 +6,13 @@
     <div class="user-panel">
       <div class="pull-left image"><img alt="User Image" class="img-circle" src=<?php ROOTDIR ?>"/dist/img/user2-160x160.jpg"></div>
       <div class="pull-left info">
-        <p> <?= $employee->getUsername(); ?></p><!-- Status -->
-        <p><span class="badge bg-maroon"><?= $employee->getCreditsLeft(); ?> CF</span> <span class="badge bg-purple"><?= $employee->getDaysLeft(); ?> jours</span></p>
+        <p> <?= $this->employee->getUsername(); ?></p><!-- Status -->
+        <p><span class="badge bg-maroon"><?= $this->employee->getCreditsLeft(); ?> CF</span> <span class="badge bg-purple"><?= $this->employee->getDaysLeft(); ?> jours</span></p>
 
       </div>
     </div><!-- search form (Optional) -->
     <!-- Sidebar Menu -->
-    <ul class="sidebar-menu">gs
+    <ul class="sidebar-menu">
       <li class="header"></li><!-- Optionally, you can add icons to the links -->
       <li>
         <a href=<?php ROOTDIR ?>"/index.php?controller=home&action=home"><i class="fa fa-link"></i> <span>Page d'accueil</span></a>
