@@ -7,21 +7,30 @@ require_once 'Framework/Request.php';
 class FormationController extends Controller
 {
     public function index() {
+        $employeeRepository = new EmployeeRepository();
+        $formationRepository = new FormationRepository();
+
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+        $formations = $formationRepository->getAllFormationsOrderByDate();
+
         $view = new View("formations");
         $view->generate(array(
-            'employee' => unserialize($_SESSION['employee']),
-            'formations' => unserialize($_SESSION['formations'])
+            'employee' => $employee,
+            'formations' => $formations
         ));
     }
 
     public function show($idFormation) {
         $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
+
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
         $formation = $formationRepository->getOneFormationById($idFormation);
-        $hasFormation = $employeeRepository->hasFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
+        $hasFormation = $employeeRepository->hasFormation($_SESSION['employee']['id'], $idFormation);
+
         $view = new View("editFormation");
         $view->generate(array(
-            'employee' => unserialize($_SESSION['employee']),
+            'employee' => $employee,
             'formation' => $formation,
             'hasFormation' => $hasFormation
         ));
@@ -30,16 +39,16 @@ class FormationController extends Controller
     public function add($idFormation)
     {
         $employeeRepository = new EmployeeRepository();
-        $employeeRepository->AddFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
-        $_SESSION['employee'] = serialize($employeeRepository->refreshEmployeeData(unserialize($_SESSION['employee'])->getId()));
+        $employeeRepository->AddFormation($_SESSION['employee']['id'], $idFormation);
+
         $this->redirect('formation', 'show', $idFormation);
     }
 
     public function remove($idFormation)
     {
         $employeeRepository = new EmployeeRepository();
-        $employeeRepository->RemoveFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
-        $_SESSION['employee'] = serialize($employeeRepository->refreshEmployeeData(unserialize($_SESSION['employee'])->getId()));
+        $employeeRepository->RemoveFormation($_SESSION['employee']['id'], $idFormation);
+
         $this->redirect('formation', 'show', $idFormation);
     }
 

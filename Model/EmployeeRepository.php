@@ -1,7 +1,6 @@
 <?php
 
 require_once 'Framework/Model.php';
-require_once 'Model/FormationRepository.php';
 
 class EmployeeRepository extends Model
 {
@@ -140,7 +139,7 @@ class EmployeeRepository extends Model
         return $this;
     }
 
-    public function refreshEmployeeData($id)
+    public function getEmployeeById($id)
     {
         $sql = "select *
                 from employee
@@ -152,13 +151,12 @@ class EmployeeRepository extends Model
         return $result;
     }
 
-    public function getEmployeeByLoginAndPassword($login, $password)
+    public function getIdByLoginAndPassword($login, $password)
     {
-        $sql = "select *
+        $sql = "select id
                 from employee
                 where username = ? and password = ?";
         $req = $this->executeRequest($sql, array($login, $password));
-        $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
         $result = $req->fetch();
         return $result;
     }

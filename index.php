@@ -1,10 +1,24 @@
 <?php
 include_once 'Model/EmployeeRepository.php';
 include_once 'Model/FormationRepository.php';
+include_once 'Model/SecurityRepository.php';
+
 session_start();
+
 define("ROOTDIR", $_SERVER['DOCUMENT_ROOT']);
 
 require 'Framework/Router.php';
+
+$inactive = 600;
+if (isset($_SESSION["timeout"])) {
+    $sessionTTL = time() - $_SESSION["timeout"];
+    if ($sessionTTL > $inactive) {
+        session_destroy();
+        header("Location: /index.php?controller=security&action=logout");
+    }
+}
+
+$_SESSION["timeout"] = time();
 
 $router = new Router();
 $router->routeRequest();

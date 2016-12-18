@@ -6,7 +6,6 @@ class View
     private $title;
     private $classBody;
     private $employee;
-    private $formation;
     private $formations;
 
     public function __construct($action) {
@@ -23,7 +22,6 @@ class View
                 'content' => $content,
                 'employee' => $this->employee,
                 'formations' => $this->formations,
-                'formation' => $this->formation
             )
         );
         echo $vue;

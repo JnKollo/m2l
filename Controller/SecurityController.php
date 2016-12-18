@@ -2,11 +2,8 @@
 
 require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
-require_once 'Model/EmployeeRepository.php';
-require_once 'Model/SecurityRepository.php';
 require_once 'HomeController.php';
 require_once 'LoginController.php';
-
 
 class SecurityController extends Controller
 {
@@ -16,7 +13,7 @@ class SecurityController extends Controller
 
     public function loginCheck()
     {
-        if ($_SESSION['employee']) {
+        if (isset($_SESSION['employee'])) {
             $this->redirect('home', 'home');
         }else {
             $login = $this->request->getParameters("login");
@@ -31,10 +28,8 @@ class SecurityController extends Controller
 
                 if ($hasAccount) {
                     $employeeRepository = new EmployeeRepository();
-                    $employee = $employeeRepository->getEmployeeByLoginAndPassword($login, $hash);
-                    $employee->login($employee->getId());
-                    $employee->getFormationsByEmployee($employee->getId());
-                    $_SESSION['employee'] = serialize($employee);
+                    $idEmployee = $employeeRepository->getIdByLoginAndPassword($login, $hash);
+                    $_SESSION['employee'] = $idEmployee;
                     $this->redirect('home', 'home');
                 } else {
                     $this->redirect('login', 'index');
@@ -45,9 +40,9 @@ class SecurityController extends Controller
 
     public function logout()
     {
-        if ($_SESSION['employee']) {
-            $employee = unserialize($_SESSION['employee']);
-            $employee->logout($employee->getId());
+        if (isset($_SESSION['employee'])) {
+            $employeeRepository = new EmployeeRepository();
+            $employeeRepository->logout($_SESSION['employee']['id']);
             session_unset();
             session_destroy();
         }
