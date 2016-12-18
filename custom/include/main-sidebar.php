@@ -20,9 +20,11 @@
       <li>
         <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=index"><i class="fa fa-link"></i> <span>Mes formations</span></a>
       </li>
-      <li>
-        <a href=<?php ROOTDIR ?>"/index.php?controller=manage&action=index"><i class="fa fa-link"></i> <span>Gestion d'équipe</span></a>
-      </li>
+      <?php if($this->employee->isManager()) { ?>
+        <li>
+          <a href=<?php ROOTDIR ?>"/index.php?controller=team&action=index"><i class="fa fa-link"></i> <span>Gestion d'équipe</span></a>
+        </li>
+      <?php } ?>
     </ul><!-- /.sidebar-menu -->
   </section><!-- /.sidebar -->
 </aside>

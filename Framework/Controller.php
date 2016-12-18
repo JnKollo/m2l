@@ -33,9 +33,13 @@ abstract class Controller
         $vue->generate($dataView);
     }
 
-    public function redirect($controller, $method = "index")
+    public function redirect($controller, $action = "index", $parameters = null)
     {
-        $location = "/index.php?controller=" . $controller . "&action=" . $method;
+        if ($parameters) {
+            $location = "/index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters;
+        } else {
+            $location = "/index.php?controller=" . $controller . "&action=" . $action;
+        }
         header("Location: " . $location);
         exit;
     }

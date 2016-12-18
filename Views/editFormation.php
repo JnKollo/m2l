@@ -2,6 +2,7 @@
 <?php $this->title = "Ma formation"?>
 <?php $this->employee = $employee; ?>
 <?php $this->formation = $formation; ?>
+<?php $this->hasFormation = $hasFormation ?>
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -90,10 +91,18 @@
         </div>
         <!-- /.row -->
 
+
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                    <!-- <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button> -->
-                    <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
+                    <?php if($this->hasFormation == 0) { ?>
+                    <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=add&id=1">
+                        <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
+                    </a>
+                    <?php }elseif ($this->hasFormation == 1) { ?>
+                    <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=remove&id=1">
+                        <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
+                    </a>
+                    <?php } ?>
             </div>
             <!-- ./col -->
         </div>

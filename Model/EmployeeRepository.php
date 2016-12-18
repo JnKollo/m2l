@@ -101,13 +101,13 @@ class EmployeeRepository extends Model
 
     public function setManager()
     {
-        $this->is_manager = true;
+        $this->is_manager = 1;
         return $this;
     }
 
     public function removeManager()
     {
-        $this->is_manager = false;
+        $this->is_manager = 0;
         return $this;
     }
 
@@ -138,6 +138,18 @@ class EmployeeRepository extends Model
     {
         $this->formations[] = $formations;
         return $this;
+    }
+
+    public function refreshEmployeeData($id)
+    {
+        $sql = "select *
+                from employee
+                where id = ?";
+        $req = $this->executeRequest($sql, array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
+        $result = $req->fetch();
+        $result->getFormationsByEmployee($id);
+        return $result;
     }
 
     public function getEmployeeByLoginAndPassword($login, $password)
@@ -171,8 +183,6 @@ class EmployeeRepository extends Model
                 from formation
                 inner join employee_formation
                     on formation.id = employee_formation.id_formation
-                inner join employee
-                    on employee.id = employee_formation.id_employee
                 where employee_formation.id_employee = ?
                 order by date desc
                 limit 6";
@@ -182,5 +192,32 @@ class EmployeeRepository extends Model
         foreach ($result as $formation) {
             $this->setFormations($formation);
         }
+    }
+
+    public function hasFormation($idEmployee, $idFormation)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_employee = ?
+        and employee_formation.id_formation = ?";
+        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
+        return $req->fetchColumn();
+    }
+
+    public function AddFormation($idEmployee, $idFormation)
+    {
+        $sql = "insert into employee_formation (id_formation, id_employee, state_of_validation)
+                values (?, ?, 'en cours de validation')";
+        $this->executeRequest($sql, array($idFormation, $idEmployee));
+        $this->getFormationsByEmployee($idEmployee);
+    }
+
+    public function RemoveFormation($idEmployee, $idFormation)
+    {
+        $sql = "delete from employee_formation
+                where id_employee = ?
+                and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $this->getFormationsByEmployee($idEmployee);
     }
 } 

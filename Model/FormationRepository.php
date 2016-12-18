@@ -177,4 +177,5 @@ class FormationRepository extends Model
         $result = $req->fetch();
         return $result;
     }
+
 } 

@@ -15,5 +15,4 @@ class SecurityRepository extends Model
         return $hasAccount;
     }
 
-    
 }

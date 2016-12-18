@@ -138,6 +138,7 @@
             </div>
             <!-- ./col -->
         </div>
+        <?php if($employee->isManager()) { ?>
         <!-- /.row -->
         <div class="row">
             <div class="col-md-12">
@@ -199,6 +200,7 @@
             </div>
         </div>
         <!-- /.row -->
+        <?php } ?>
         <!-- Your Page Content Here -->
     </section>
     <!-- /.content -->

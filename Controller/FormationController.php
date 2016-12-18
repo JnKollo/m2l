@@ -14,17 +14,33 @@ class FormationController extends Controller
         ));
     }
 
-    public function show($id) {
+    public function show($idFormation) {
+        $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
-        $formation = $formationRepository->getOneFormationById($id);
+        $formation = $formationRepository->getOneFormationById($idFormation);
+        $hasFormation = $employeeRepository->hasFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
         $view = new View("editFormation");
         $view->generate(array(
             'employee' => unserialize($_SESSION['employee']),
-            'formation' => $formation
+            'formation' => $formation,
+            'hasFormation' => $hasFormation
         ));
     }
 
-    public function edit() {
-
+    public function add($idFormation)
+    {
+        $employeeRepository = new EmployeeRepository();
+        $employeeRepository->AddFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
+        $_SESSION['employee'] = serialize($employeeRepository->refreshEmployeeData(unserialize($_SESSION['employee'])->getId()));
+        $this->redirect('formation', 'show', $idFormation);
     }
+
+    public function remove($idFormation)
+    {
+        $employeeRepository = new EmployeeRepository();
+        $employeeRepository->RemoveFormation(unserialize($_SESSION['employee'])->getId(), $idFormation);
+        $_SESSION['employee'] = serialize($employeeRepository->refreshEmployeeData(unserialize($_SESSION['employee'])->getId()));
+        $this->redirect('formation', 'show', $idFormation);
+    }
+
 }
