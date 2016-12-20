@@ -1,5 +1,5 @@
 # Parameters
-/src/public/Config/dev.ini
+Config/dev.ini
 
 docker-compose.yml
 

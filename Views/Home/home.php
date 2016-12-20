@@ -167,7 +167,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="../Team/manage.php" class="uppercase">Voir plus</a>
+                        <a href=<?php ROOTDIR ?>"/index.php?controller=team&action=show" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
