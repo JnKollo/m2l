@@ -57,7 +57,7 @@
 					</li>
 					<?php if($this->employee->isManager()) { ?>
 						<li>
-							<a href=<?php ROOTDIR ?>"/index.php?controller=team&action=index"><i class="fa fa-link"></i> <span>Gestion d'équipe</span></a>
+							<a href=<?php ROOTDIR ?>"/index.php?controller=team&action=show"><i class="fa fa-link"></i> <span>Gestion d'équipe</span></a>
 						</li>
 					<?php } ?>
 				</ul><!-- /.sidebar-menu -->

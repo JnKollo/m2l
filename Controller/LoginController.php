@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function index() {
         if (isset($_SESSION['employee'])) {
-            $this->redirect('home', 'home');
+            $this->redirect('Home', 'home');
         } else {
             $view = new View('Login',"login");
             $data = ['ok'];

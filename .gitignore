@@ -1,6 +1,2 @@
-# Parameters
-/src/public/Config/dev.ini
-
-docker-compose.yml
-
+Config/
 .idea/

@@ -15,6 +15,7 @@ class EmployeeRepository extends Model
     private $is_active;
     private $last_login;
     private $formations;
+    private $pendingFormations;
 
 
     public function getId()
@@ -55,6 +56,17 @@ class EmployeeRepository extends Model
     public function getTeam()
     {
         return $this->id_team;
+    }
+
+    public function getPendingFormations()
+    {
+        return $this->pendingFormations;
+    }
+
+    public function setPendingFormations($pendingFormations)
+    {
+        $this->pendingFormations = $pendingFormations;
+        return $this;
     }
 
     public function isActive()
@@ -212,7 +224,17 @@ class EmployeeRepository extends Model
 
     public function getEmployeeByTeam($id_team)
     {
-        $sql = "select id, username
+        $sql = "select id, username, credits_left, days_left
+                from employee
+                where id_team = ?";
+        $req = $this->executeRequest($sql, array($id_team));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
+        return $req->fetchAll();
+    }
+
+    public function getformationByTeam($id_team)
+    {
+        $sql = "select id, username, credits_left, days_left
                 from employee
                 where id_team = ?";
         $req = $this->executeRequest($sql, array($id_team));
@@ -248,4 +270,5 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($idEmployee));
         return $req->fetchColumn();
     }
+
 } 
