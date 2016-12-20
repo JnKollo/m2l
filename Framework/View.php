@@ -8,9 +8,9 @@ class View
     private $employee;
     private $formations;
 
-    public function __construct($action) {
-        $file = "Views/";
-        $this->file = $file . $action . ".php";
+    public function __construct($controller, $action) {
+        $directory = "Views/" .$controller. "/";
+        $this->file = $directory . $action . ".php";
     }
 
     public function generate($data) {

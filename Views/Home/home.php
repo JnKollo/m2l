@@ -2,6 +2,7 @@
 <?php $this->title = "Accueil"?>
 <?php $this->employee = $employee; ?>
 <?php $this->formations = $formations; ?>
+<?php $this->team = $team ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -43,7 +44,7 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>11</h3>
+                        <h3><?= $pastFormations; ?></h3>
                         <p>Formations effectuées</p>
                     </div>
                     <div class="icon">
@@ -56,7 +57,7 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>15</h3>
+                        <h3><?= $pendingFormations; ?></h3>
                         <p>Formations en cours de validation</p>
                     </div>
                     <div class="icon">
@@ -130,7 +131,7 @@
                     </div>
                     <!-- /.box-body -->
                                                 <div class="box-footer text-center">
-                        <a href="formations.php" class="uppercase">Voir plus</a>
+                        <a href="../Formation/formations.php" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -138,7 +139,7 @@
             </div>
             <!-- ./col -->
         </div>
-        <?php if($employee->isManager()) { ?>
+        <?php if($employee->isManager()): ?>
         <!-- /.row -->
         <div class="row">
             <div class="col-md-12">
@@ -155,44 +156,18 @@
                     <!-- /.box-header -->
                     <div class="box-body no-padding">
                         <ul class="users-list clearfix">
-                            <li>
-                                <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Alexander Pierce</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Norman</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Jane</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">John</a>
-                            </li>
-                            <li>
-                               <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Alexander</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Sarah</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Nora</a>
-                            </li>
-                            <li>
-                                <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                                <a class="users-list-name" href="#">Nadia</a>
-                            </li>
+                            <?php foreach($team as $member): ?>
+                                <li>
+                                    <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                                    <a class="users-list-name" href=<?php ROOTDIR ?>"/index.php?controller=team&action=show&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
+                                </li>
+                            <?php endforeach ?>
                         </ul>
                         <!-- /.users-list -->
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="manage.php" class="uppercase">Voir plus</a>
+                        <a href="../Team/manage.php" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -200,7 +175,7 @@
             </div>
         </div>
         <!-- /.row -->
-        <?php } ?>
+        <?php endif ?>
         <!-- Your Page Content Here -->
     </section>
     <!-- /.content -->

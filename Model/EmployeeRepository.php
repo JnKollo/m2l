@@ -11,7 +11,7 @@ class EmployeeRepository extends Model
     private $days_left;
     private $credits_left;
     private $is_manager;
-    private $team;
+    private $id_team;
     private $is_active;
     private $last_login;
     private $formations;
@@ -54,7 +54,7 @@ class EmployeeRepository extends Model
 
     public function getTeam()
     {
-        return $this->team;
+        return $this->id_team;
     }
 
     public function isActive()
@@ -202,7 +202,7 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-    public function AddFormation($idEmployee, $idFormation)
+    public function addFormation($idEmployee, $idFormation)
     {
         $sql = "insert into employee_formation (id_formation, id_employee, state_of_validation)
                 values (?, ?, 'en cours de validation')";
@@ -210,12 +210,42 @@ class EmployeeRepository extends Model
         $this->getFormationsByEmployee($idEmployee);
     }
 
-    public function RemoveFormation($idEmployee, $idFormation)
+    public function getEmployeeByTeam($id_team)
+    {
+        $sql = "select id, username
+                from employee
+                where id_team = ?";
+        $req = $this->executeRequest($sql, array($id_team));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
+        return $req->fetchAll();
+    }
+
+    public function removeFormation($idEmployee, $idFormation)
     {
         $sql = "delete from employee_formation
                 where id_employee = ?
                 and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
         $this->getFormationsByEmployee($idEmployee);
+    }
+
+    public function getValidateFormationByEmployee($idEmployee)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_employee = ?
+        and employee_formation.state_of_validation = 'validée'";
+        $req = $this->executeRequest($sql, array($idEmployee));
+        return $req->fetchColumn();
+    }
+
+    public function getPendingFormationByEmployee($idEmployee)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_employee = ?
+        and employee_formation.state_of_validation = 'en cours de validation'";
+        $req = $this->executeRequest($sql, array($idEmployee));
+        return $req->fetchColumn();
     }
 } 

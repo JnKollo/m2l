@@ -4,6 +4,9 @@ require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
 require_once 'HomeController.php';
 require_once 'LoginController.php';
+require_once 'Model/EmployeeRepository.php';
+require_once 'Model/SecurityRepository.php';
+
 
 class SecurityController extends Controller
 {

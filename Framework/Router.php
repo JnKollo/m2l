@@ -51,7 +51,7 @@ class Router
     }
 
     private function generateError(Exception $exception) {
-        $vue = new View('error');
+        $vue = new View('Error', 'error');
         $vue->generate(array('msgErreur' => $exception->getMessage()));
     }
 }

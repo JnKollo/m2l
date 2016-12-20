@@ -8,6 +8,7 @@ class FormationRepository extends Model
     private $name;
     private $description;
     private $date;
+    private $credits;
     private $duration;
     private $place;
     private $requirement;
@@ -22,13 +23,19 @@ class FormationRepository extends Model
     }
 
     /**
-     * @param mixed $id
-     * @return FormationRepository
+     * @return mixed
      */
-    public function setId($id)
+    public function getDays()
     {
-        $this->id = $id;
-        return $this;
+        return $this->days;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCredits()
+    {
+        return $this->credits;
     }
 
     /**
@@ -40,27 +47,11 @@ class FormationRepository extends Model
     }
 
     /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
      * @return mixed
      */
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * @param mixed $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
     }
 
     /**
@@ -72,27 +63,11 @@ class FormationRepository extends Model
     }
 
     /**
-     * @param mixed $duration
-     */
-    public function setDuration($duration)
-    {
-        $this->duration = $duration;
-    }
-
-    /**
      * @return mixed
      */
     public function getPlace()
     {
         return $this->place;
-    }
-
-    /**
-     * @param mixed $place
-     */
-    public function setPlace($place)
-    {
-        $this->place = $place;
     }
 
     /**
@@ -104,14 +79,6 @@ class FormationRepository extends Model
     }
 
     /**
-     * @param mixed $requirement
-     */
-    public function setRequirement($requirement)
-    {
-        $this->requirement = $requirement;
-    }
-
-    /**
      * @return mixed
      */
     public function getProvider()
@@ -120,27 +87,11 @@ class FormationRepository extends Model
     }
 
     /**
-     * @param mixed $provider
-     */
-    public function setProvider($provider)
-    {
-        $this->provider = $provider;
-    }
-
-    /**
      * @return mixed
      */
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
     }
 
     public function getAllFormationsOrderByDate()
@@ -163,7 +114,8 @@ class FormationRepository extends Model
                 offset ?";
         $req = $this->executeRequest($sql, array($limit, $offset));
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
-        $result = $req->fetchAll();
+        $result['result'] = $req->fetchAll();
+        $result['totalHits'] = $req->rowCount();
         return $result;
     }
 
@@ -177,5 +129,4 @@ class FormationRepository extends Model
         $result = $req->fetch();
         return $result;
     }
-
 } 

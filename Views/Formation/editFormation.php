@@ -53,7 +53,7 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Points requis</p>
-                                    <span class="product-description">120</span>
+                                    <span class="product-description"><?= $this->formation->getCredits() ?></span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -95,11 +95,11 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                     <?php if($this->hasFormation == 0) { ?>
-                    <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=add&id=1">
+                    <a href=<?php ROOTDIR ?>"/index.php?controller=employee&action=addFormation&id=1">
                         <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
                     </a>
                     <?php }elseif ($this->hasFormation == 1) { ?>
-                    <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=remove&id=1">
+                    <a href=<?php ROOTDIR ?>"/index.php?controller=employee&action=removeFormation&id=1">
                         <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                     </a>
                     <?php } ?>
