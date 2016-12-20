@@ -36,9 +36,9 @@ abstract class Controller
     public function redirect($controller, $action = "index", $parameters = null)
     {
         if ($parameters) {
-            $location = "/index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters;
+            $location = "index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters;
         } else {
-            $location = "/index.php?controller=" . $controller . "&action=" . $action;
+            $location = "index.php?controller=" . $controller . "&action=" . $action;
         }
         header("Location: " . $location);
         exit;

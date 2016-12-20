@@ -33,7 +33,7 @@ class HomeController extends Controller
                 'pendingFormations' => $pendingFormations
             ));
         }else {
-            header("Location: /index.php?controller=security&action=logout");
+            header("Location: index.php?controller=security&action=logout");
         }
     }
 
