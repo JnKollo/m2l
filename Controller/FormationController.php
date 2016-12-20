@@ -23,7 +23,7 @@ class FormationController extends Controller
                 'formations' => $formations
             ));
         }else {
-            header("Location: index.php?controller=security&action=logout");
+            $this->redirect('Security', 'logout');
         }
     }
 
@@ -62,7 +62,7 @@ class FormationController extends Controller
 
             ));
         }else {
-            header("Location: index.php?controller=security&action=logout");
+            $this->redirect('Security', 'logout');
         }
     }
 
@@ -82,7 +82,7 @@ class FormationController extends Controller
                 'hasFormation' => $hasFormation
             ));
         }else {
-            header("Location: index.php?controller=security&action=logout");
+            $this->redirect('Security', 'logout');
         }
     }
 
