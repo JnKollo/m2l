@@ -12,33 +12,33 @@ class EmployeeController extends Controller
     {
     }
 
-    public function addFormation($idFormation)
+    public function addFormation($parameters)
     {
+        $idFormation = $parameters['id'];
         $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
-        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
 
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
         $formation = $formationRepository->getOneFormationById($idFormation);
 
         if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
             $employee->addFormation($_SESSION['employee']['id'], $idFormation);
         }
-
         $this->redirect('formation', 'show', $idFormation);
     }
 
-    public function removeFormation($idFormation)
+    public function removeFormation($parameters)
     {
+        $idFormation = $parameters['id'];
         $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
-        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
 
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
         $formation = $formationRepository->getOneFormationById($idFormation);
 
         if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
             $employee->removeFormation($_SESSION['employee']['id'], $idFormation);
         }
-
         $this->redirect('formation', 'show', $idFormation);
     }
 }

@@ -10,12 +10,29 @@ require_once 'Model/SecurityRepository.php';
 class FormationController extends Controller
 {
     public function index() {
+        if (isset($_SESSION['employee'])) {
+            $this->redirect('Formation', 'home');
+        } else {
+            $view = new View('Login',"login");
+            $data = ['ok'];
+
+            $view->generateLogin($data);
+        }
+    }
+
+    public function home($parameters = null) {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            $formations = $formationRepository->getAllFormationsOrderByDate();
+            if($parameters['page']) {
+                $pageNumber = $parameters['page'];
+                $limit  = 10;
+                $offset = ($pageNumber - 1)*$limit;
+
+            }
+            $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate();
 
             $view = new View('Formation',"formations");
             $view->generate(array(
@@ -27,47 +44,9 @@ class FormationController extends Controller
         }
     }
 
-    public function test($pageNumber = 1) {
+    public function show($parameters) {
         if (isset($_SESSION["employee"])) {
-            $employeeRepository = new EmployeeRepository();
-            $formationRepository = new FormationRepository();
-
-            $limit = 6;
-            $offset = ($pageNumber - 1) * $limit;
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            $formations = $formationRepository->getAllFormationsOrderByDate();
-
-            $totalRows = $formations['totalRows'];
-            $numberOfPage = ceil($totalRows / $limit);
-
-            if(isset($pageNumber)) {
-                $currentPage = intval($pageNumber);
-
-                if($currentPage > $numberOfPage) {
-                    $currentPage = $numberOfPage;
-                }
-            } else {
-                $currentPage = 1;
-            }
-
-            $view = new View('Formation',"all_formations");
-            $view->generate(array(
-                'employee' => $employee,
-                'formations' => $formations,
-                'totalRows' => $totalRows,
-                'numberOfPage' => $numberOfPage,
-                'currentPage' => $currentPage,
-                'limit' => $limit,
-                'offset' => $offset
-
-            ));
-        }else {
-            $this->redirect('Security', 'logout');
-        }
-    }
-
-    public function show($idFormation) {
-        if (isset($_SESSION["employee"])) {
+            $idFormation = $parameters['id'];
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 

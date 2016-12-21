@@ -23,7 +23,6 @@ class TeamController extends Controller
                 if($member->getId() == $employee->getId()) {
                     unset($member);
                 }
-                $member->getFormationsByEmployee($member->getId());
                 $member->setPendingFormations($member->getPendingFormationByEmployee($member->getId()));
             }
 
@@ -37,15 +36,14 @@ class TeamController extends Controller
         }
     }
 
-    public function manage($idTeamMember)
+    public function manage($parameters)
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
 
+            $idTeamMember = $parameters['id'];
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-
-            $member = $employeeRepository->getOneEmployeeByTeam($employee->getTeam(), $idTeamMember);
-
+            $member = $employeeRepository->getOneEmployeeByTeam($idTeamMember);
 
             $view = new View('Team', "manageFormation");
             $view->generate(array(
