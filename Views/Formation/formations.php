@@ -2,12 +2,16 @@
 <?php $this->title = "Mes Formations"?>
 <?php $this->employee = $employee; ?>
 <?php $this->formations = $formations; ?>
+<?php $breadCrumbArray = [
+0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
+1 => ['controller' => 'formation','action' => 'index','name' => 'Gestion des formations']
+] ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Gestion des formations</h1>
+
     </section>
     <!-- Main content -->
     <section class="content">
@@ -394,3 +398,30 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+    function displayBreadCrum(){
+        <?php
+            $breadCrumbArrayJs = json_encode($breadCrumbArray);
+            echo "var breadCrumbArray = ". $breadCrumbArrayJs . ";";
+        ?>
+        var contentHeader = document.querySelector("section.content-header");
+        var breadCrumbHtml = "<h5>";
+        var i = "";
+
+        breadCrumbArray.forEach(
+            function(element){
+                breadCrumbHtml += i+"<a href=<?php ROOTDIR ?>'index.php?controller="+element.controller+"&action="+element.action+"'>" + element.name + "</a>";
+                i = " <i class='fa fa-breadcrum fa-chevron-right'></i> ";
+        })
+
+        breadCrumbHtml += "</h5>";
+        contentHeader.innerHTML = breadCrumbHtml;
+    }
+    displayBreadCrum();
+</script>
+
+
+
+
+<!-- <h5><a href="#">Accueil</a> <i class="fa fa-breadcrum fa-chevron-right"></i> <a href="#">Gestion d'équipe</a> <i class="fa fa-breadcrum fa-chevron-right"></i> <a href="#">Gérer ma formation</a></h5> -->
