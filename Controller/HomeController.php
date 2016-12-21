@@ -21,7 +21,7 @@ class HomeController extends Controller
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
             $pastFormations = $employeeRepository->getValidateFormationByEmployee($employee->getId());
             $pendingFormations = $employeeRepository->getPendingFormationByEmployee($employee->getId());
-            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam());
+            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
             $view = new View('Home', "home");

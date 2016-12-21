@@ -222,24 +222,29 @@ class EmployeeRepository extends Model
         $this->getFormationsByEmployee($idEmployee);
     }
 
-    public function getEmployeeByTeam($id_team)
+    public function getEmployeeByTeam($id_team, $id_employee)
     {
         $sql = "select id, username, credits_left, days_left
                 from employee
-                where id_team = ?";
-        $req = $this->executeRequest($sql, array($id_team));
+                where id_team = ?
+                and id <> ?";
+        $req = $this->executeRequest($sql, array($id_team, $id_employee));
         $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
         return $req->fetchAll();
     }
 
-    public function getformationByTeam($id_team)
+    public function getOneEmployeeByTeam($id_team, $id_employee)
     {
+
         $sql = "select id, username, credits_left, days_left
                 from employee
-                where id_team = ?";
-        $req = $this->executeRequest($sql, array($id_team));
+                where id_team = ?
+                and id = ?";
+        $req = $this->executeRequest($sql, array($id_team, $id_employee));
         $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
-        return $req->fetchAll();
+        $result = $req->fetch();
+        $result->getFormationsByEmployee($id_employee);
+        return $result;
     }
 
     public function removeFormation($idEmployee, $idFormation)
