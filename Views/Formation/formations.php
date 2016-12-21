@@ -2,17 +2,22 @@
 <?php $this->title = "Mes Formations"?>
 <?php $this->employee = $employee; ?>
 <?php $this->formations = $formations; ?>
+<?php $breadCrumbArray = [
+0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
+1 => ['controller' => 'formation','action' => 'index','name' => 'Gestion des formations']
+] ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Gestion des formations</h1>
+
     </section>
     <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-md-12">
+                <div id="__allFormations"></div>
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">Toutes les formations</h3>
@@ -36,7 +41,7 @@
                             </tr>
                             <tr>
                                 <td>1.</td>
-                                <td><a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=show&id=1">Initiation à Java</a></td>
+                                <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=1">Initiation à Java</a></td>
                                 <td>25/11/2016</td>
                                 <td>5</td>
                                 <td>2</td>
@@ -44,7 +49,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>2.</td>
@@ -56,7 +61,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>3.</td>
@@ -68,7 +73,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>4.</td>
@@ -80,7 +85,7 @@
                                 <td><span class="badge bg-yellow">En cours de validaton</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>5.</td>
@@ -92,7 +97,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>6.</td>
@@ -104,7 +109,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>7.</td>
@@ -116,7 +121,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>8.</td>
@@ -128,7 +133,7 @@
                                 <td><span class="badge bg-yellow">En cours de validaton</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>9.</td>
@@ -141,7 +146,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                             <tr>
                                 <td>10.</td>
@@ -153,7 +158,7 @@
                                 <td><span class="badge bg-light-blue">Disponible</span>
 
                                 </td>
-                                <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
                         </table>
                     </div>
@@ -179,6 +184,7 @@
 
         <div class="row">
             <div class="col-md-12">
+                <div id="__askFormations"></div>
                 <div class="box">
                     <div class="box-header">
                         <h3 class="box-title">Formations demandées</h3>
@@ -210,7 +216,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-green">Validée</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>2.</td>
@@ -221,7 +227,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-green">Validée</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>3.</td>
@@ -232,7 +238,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-yellow">En cours de validaton</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>4.</td>
@@ -243,7 +249,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-yellow">En cours de validaton</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>5.</td>
@@ -254,7 +260,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-yellow">En cours de validaton</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>6.</td>
@@ -265,7 +271,7 @@
                                     <td>120</td>
                                     <td><span class="badge bg-red">Refusée</span>
                                     </td>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                             </table>
                         </table>
@@ -315,7 +321,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>2.</td>
@@ -325,7 +331,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>3.</td>
@@ -335,7 +341,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>4.</td>
@@ -345,7 +351,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>5.</td>
@@ -355,7 +361,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td>+.</td>
@@ -365,7 +371,7 @@
                                     <td>2</td>
                                     <td>120</td>
                                     <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-sign-out"></i></a></td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                             </table>
                         </table>
@@ -392,3 +398,30 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+    function displayBreadCrum(){
+        <?php
+            $breadCrumbArrayJs = json_encode($breadCrumbArray);
+            echo "var breadCrumbArray = ". $breadCrumbArrayJs . ";";
+        ?>
+        var contentHeader = document.querySelector("section.content-header");
+        var breadCrumbHtml = "<h5>";
+        var i = "";
+
+        breadCrumbArray.forEach(
+            function(element){
+                breadCrumbHtml += i+"<a href=<?php ROOTDIR ?>'index.php?controller="+element.controller+"&action="+element.action+"'>" + element.name + "</a>";
+                i = " <i class='fa fa-breadcrum fa-chevron-right'></i> ";
+        })
+
+        breadCrumbHtml += "</h5>";
+        contentHeader.innerHTML = breadCrumbHtml;
+    }
+    displayBreadCrum();
+</script>
+
+
+
+
+<!-- <h5><a href="#">Accueil</a> <i class="fa fa-breadcrum fa-chevron-right"></i> <a href="#">Gestion d'équipe</a> <i class="fa fa-breadcrum fa-chevron-right"></i> <a href="#">Gérer ma formation</a></h5> -->

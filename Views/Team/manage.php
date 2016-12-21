@@ -36,7 +36,7 @@
                  </li>
                </ul>
 
-               <a href=<?php ROOTDIR ?>"/index.php?controller=team&action=manage&id=<?= $member->getId() ?>" class="btn btn-info btn-block"><b>Gérer les demandes</b></a>
+               <a href=<?php ROOTDIR ?>"index.php?controller=team&action=manage&id=<?= $member->getId() ?>" class="btn btn-info btn-block"><b>Gérer les demandes</b></a>
              </div>
              <!-- /.box-body -->
            </div>
