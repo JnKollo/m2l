@@ -18,7 +18,14 @@ class TeamController extends Controller
             $employeeRepository = new EmployeeRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam());
+            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
+            foreach ($team as $member) {
+                if($member->getId() == $employee->getId()) {
+                    unset($member);
+                }
+                $member->getFormationsByEmployee($member->getId());
+                $member->setPendingFormations($member->getPendingFormationByEmployee($member->getId()));
+            }
 
             $view = new View('Team', "manage");
             $view->generate(array(
@@ -36,13 +43,14 @@ class TeamController extends Controller
             $employeeRepository = new EmployeeRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam());
-            $formation = $employeeRepository->getFormationsByEmployee($idTeamMember);
+
+            $member = $employeeRepository->getOneEmployeeByTeam($employee->getTeam(), $idTeamMember);
+
 
             $view = new View('Team', "manageFormation");
             $view->generate(array(
                 'employee' => $employee,
-                'team' => $team
+                'member' => $member
             ));
         }else {
             $this->redirect('Security', 'logout');
