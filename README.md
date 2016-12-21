@@ -6,6 +6,7 @@
 Modifier la configuration de connexion à la base de données.
 
 - Créer un dossier CONFIG
+- Créer un fichier dev.ini
 - Copier / Coller ces lignes :
 ```
 #!php
