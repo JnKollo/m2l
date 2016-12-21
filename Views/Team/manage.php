@@ -1,7 +1,6 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Gestion d'équipe"?>
 <?php $this->employee = $employee; ?>
-<?php $this->formations = $formations; ?>
 <?php $this->team = $team ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -37,7 +36,7 @@
                  </li>
                </ul>
 
-               <a href=<?php ROOTDIR ?>"/index.php?controller=team&action=manage&id=<?= $member->getId() ?>" class="btn btn-info btn-block"><b>Gérer les demandes</b></a>
+               <a href=<?php ROOTDIR ?>"index.php?controller=team&action=manage&id=<?= $member->getId() ?>" class="btn btn-info btn-block"><b>Gérer les demandes</b></a>
              </div>
              <!-- /.box-body -->
            </div>

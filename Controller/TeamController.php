@@ -10,6 +10,7 @@ class TeamController extends Controller
 {
     public function index()
     {
+        $this->redirect('Team','show');
     }
 
     public function show()
