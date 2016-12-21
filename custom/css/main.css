@@ -24,3 +24,13 @@
 	height: 50px;
 	widows: 50px;
 }
+#disconnect{
+	padding: 15px 15px;
+	color: white;
+	float: right;
+}
+
+#disconnect > a{
+	color: white;
+}
+

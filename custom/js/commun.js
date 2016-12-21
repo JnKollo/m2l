@@ -1,12 +1,8 @@
-function initJs(){
+function initJsCommun(){
 	function activeSideBarMenu(){
 		var sideBarMenu = document.querySelectorAll(".sidebar-menu > li");
 	    var pageName = document.querySelector(".content-header > h1").innerText;
-
-
-	    console.log(pageName);
-
-
+	    console.log("pageNae")
 	    if(pageName.indexOf("Gestion d'équipe") !== -1 ){
 	        sideBarMenu[3].classList.add("active");
 	    } else if(pageName.indexOf("Gestion des formations") !== -1){
@@ -18,4 +14,4 @@ function initJs(){
 	activeSideBarMenu();
 }
 
-initJs();
+window.addEventListener("DOMContentLoaded",initJsCommun);

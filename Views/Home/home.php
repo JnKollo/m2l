@@ -95,8 +95,8 @@
                         </table>
                     </div>
                     <!-- /.box-body -->
-                                                <div class="box-footer text-center">
-                        <a href=<?php ROOTDIR ?>"/index.php?controller=formation&action=index" class="uppercase">Voir plus</a>
+                    <div class="box-footer text-center">
+                        <a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -106,7 +106,7 @@
             <div class="col-md-6">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Mes formations</h3>
+                        <h3 class="box-title">Formations demandées</h3>
                           <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
@@ -130,8 +130,8 @@
                         </table>
                     </div>
                     <!-- /.box-body -->
-                                                <div class="box-footer text-center">
-                        <a href="../Formation/formations.php" class="uppercase">Voir plus</a>
+                    <div class="box-footer text-center">
+                        <a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index#__askFormations" class="uppercase">Voir plus</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -159,7 +159,7 @@
                             <?php foreach($team as $member): ?>
                                 <li>
                                     <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                                    <a class="users-list-name" href=<?php ROOTDIR ?>"/index.php?controller=team&action=show&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
+                                    <a class="users-list-name" href=<?php ROOTDIR ?>"index.php?controller=team&action=show&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
                                 </li>
                             <?php endforeach ?>
                         </ul>

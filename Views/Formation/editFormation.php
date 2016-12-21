@@ -74,7 +74,7 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Statut</p>
-                                    <span class="badge bg-green">Effectuée</span>
+                                    <span class="badge bg-green"><?= $this->formation->getRequirement() ?></span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -93,16 +93,30 @@
 
 
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                    <?php if($this->hasFormation == 0) { ?>
-                    <a href=<?php ROOTDIR ?>"/index.php?controller=employee&action=addFormation&id=1">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-6">
+                <a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index">
+                    <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
+                </a>
+            </div>
+            <div class="col-md-6">
+                    <?php if($this->hasFormation == 0) : ?>
+                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=1">
                         <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
                     </a>
-                    <?php }elseif ($this->hasFormation == 1) { ?>
-                    <a href=<?php ROOTDIR ?>"/index.php?controller=employee&action=removeFormation&id=1">
+                    <?php elseif($this->hasFormation == 1) : ?>
+                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=removeFormation&id=1">
                         <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                     </a>
-                    <?php } ?>
+                    <?php endif ?>
+                    <!-- 
+
+                    !TODO! Si statut = effectuée alors on met le bouton suivant 
+                    Ajouter la class disable quand la formation a le statut 4 (effectuée)
+
+                    -->
+            </div>
+            <!-- ./col -->
             </div>
             <!-- ./col -->
         </div>
