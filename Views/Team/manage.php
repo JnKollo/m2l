@@ -1,7 +1,6 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Gestion d'équipe"?>
 <?php $this->employee = $employee; ?>
-<?php $this->formations = $formations; ?>
 <?php $this->team = $team ?>
 
 <!-- Content Wrapper. Contains page content -->

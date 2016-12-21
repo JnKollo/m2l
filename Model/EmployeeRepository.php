@@ -216,8 +216,8 @@ class EmployeeRepository extends Model
 
     public function addFormation($idEmployee, $idFormation)
     {
-        $sql = "insert into employee_formation (id_formation, id_employee, state_of_validation)
-                values (?, ?, 'en cours de validation')";
+        $sql = "insert into employee_formation (id_formation, id_employee, id_formation_status)
+                values (?, ?, 2)";
         $this->executeRequest($sql, array($idFormation, $idEmployee));
         $this->getFormationsByEmployee($idEmployee);
     }
@@ -233,14 +233,12 @@ class EmployeeRepository extends Model
         return $req->fetchAll();
     }
 
-    public function getOneEmployeeByTeam($id_team, $id_employee)
+    public function getOneEmployeeByTeam($id_employee)
     {
-
         $sql = "select id, username, credits_left, days_left
                 from employee
-                where id_team = ?
-                and id = ?";
-        $req = $this->executeRequest($sql, array($id_team, $id_employee));
+                where id = ?";
+        $req = $this->executeRequest($sql, array($id_employee));
         $req->setFetchMode(PDO::FETCH_CLASS, 'EmployeeRepository');
         $result = $req->fetch();
         $result->getFormationsByEmployee($id_employee);
@@ -261,7 +259,7 @@ class EmployeeRepository extends Model
         $sql = "select count(*)
         from employee_formation
         where employee_formation.id_employee = ?
-        and employee_formation.state_of_validation = 'validée'";
+        and employee_formation.id_formation_status = 1";
         $req = $this->executeRequest($sql, array($idEmployee));
         return $req->fetchColumn();
     }
@@ -271,7 +269,7 @@ class EmployeeRepository extends Model
         $sql = "select count(*)
         from employee_formation
         where employee_formation.id_employee = ?
-        and employee_formation.state_of_validation = 'en cours de validation'";
+        and employee_formation.id_formation_status = 2";
         $req = $this->executeRequest($sql, array($idEmployee));
         return $req->fetchColumn();
     }

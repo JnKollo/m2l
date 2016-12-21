@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 20 Décembre 2016 à 16:09
+-- Généré le :  Mer 21 Décembre 2016 à 13:03
 -- Version du serveur :  5.7.16-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.8-0ubuntu0.16.04.3
 
@@ -156,16 +156,8 @@ CREATE TABLE `employee_formation` (
   `id` int(11) UNSIGNED NOT NULL,
   `id_formation` int(11) UNSIGNED NOT NULL,
   `id_employee` int(11) UNSIGNED NOT NULL,
-  `state_of_validation` varchar(50) NOT NULL
+  `id_formation_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `employee_formation`
---
-
-INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `state_of_validation`) VALUES
-(2, 4, 1, 'validée'),
-(20, 1, 1, 'en cours de validation');
 
 -- --------------------------------------------------------
 
@@ -237,6 +229,26 @@ INSERT INTO `formation` (`id`, `name`, `description`, `date`, `duration`, `days`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `formation_status`
+--
+
+CREATE TABLE `formation_status` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `state_of_validation` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `formation_status`
+--
+
+INSERT INTO `formation_status` (`id`, `state_of_validation`) VALUES
+(1, 'validée'),
+(2, 'en cours de validation'),
+(3, 'refusée');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `team`
 --
 
@@ -277,7 +289,8 @@ ALTER TABLE `employee`
 ALTER TABLE `employee_formation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_employee_id` (`id_employee`),
-  ADD KEY `fk_formation_id` (`id_formation`);
+  ADD KEY `fk_formation_id` (`id_formation`),
+  ADD KEY `fk_formation_status_id` (`id_formation_status`);
 
 --
 -- Index pour la table `employee_team`
@@ -291,6 +304,12 @@ ALTER TABLE `employee_team`
 -- Index pour la table `formation`
 --
 ALTER TABLE `formation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `formation_status`
+--
+ALTER TABLE `formation_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -312,7 +331,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT pour la table `employee_formation`
 --
 ALTER TABLE `employee_formation`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT pour la table `employee_team`
 --
@@ -323,6 +342,11 @@ ALTER TABLE `employee_team`
 --
 ALTER TABLE `formation`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT pour la table `formation_status`
+--
+ALTER TABLE `formation_status`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `team`
 --

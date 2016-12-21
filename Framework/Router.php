@@ -12,9 +12,15 @@ class Router
 
             $controller = $this->createController($request);
             $action = $this->createAction($request);
-            $parameters = '';
+            $parameters = [];
             if ($request->parametersExist('id')) {
-                $parameters = $request->getParameters('id');
+                $parameters['id'] = $request->getParameters('id');
+            }
+            if ($request->parametersExist('page')) {
+                $parameters['page'] = $request->getParameters('page');
+            }
+            if ($request->parametersExist('tableau')) {
+                $parameters['tableau'] = $request->getParameters('tableau');
             }
 
             $controller->executeAction($action, $parameters);
