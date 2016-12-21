@@ -26,13 +26,8 @@ class FormationController extends Controller
             $formationRepository = new FormationRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            if($parameters['page']) {
-                $pageNumber = $parameters['page'];
-                $limit  = 10;
-                $offset = ($pageNumber - 1)*$limit;
 
-            }
-            $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate();
+            $formations = $formationRepository->getAllFormationsOrderByDate();
 
             $view = new View('Formation',"formations");
             $view->generate(array(
