@@ -35,15 +35,10 @@ abstract class Controller
 
     public function redirect($controller, $action = "index", $parameters = null)
     {
-        $location = "/index.php?controller=" . $controller . "&action=" . $action;
-        if ($parameters['id']) {
-            $location = "/index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters['id'];
-        } elseif($parameters['tableau']) {
-            if($parameters['page']) {
-                $location = "/index.php?controller=" . $controller . "&action=" . $action . "&tableau=" . $parameters['tableau'] . "&page=" . $parameters['page'];
-            } else {
-                $location = "/index.php?controller=" . $controller . "&action=" . $action . "&tableau=" . $parameters['tableau'];
-            }
+        $location = "index.php?controller=" . $controller . "&action=" . $action;
+
+        if ($parameters) {
+            $location = "index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters;
         }
         header("Location: " . $location);
         exit;
