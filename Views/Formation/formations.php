@@ -1,6 +1,7 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Mes Formations"?>
 <?php $this->employee = $employee; ?>
+<?php $this->employeeFormations = $employeeFormations; ?>
 <?php $this->formations = $formations; ?>
 <?php $breadCrumbArray = [
 0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
@@ -30,136 +31,22 @@
                     <div class="box-body no-padding">
                         <table class="table table-striped">
                             <tr>
-                                <th style="width: 10px">#</th>
                                 <th>Nom</th>
                                 <th>Date</th>
                                 <th>Durée (en heure)</th>
                                 <th>Jours / requis</th>
                                 <th>Points / requis</th>
-                                <th style="width: 185px">Statut</th>
-                                <th style="width: 80px"></th>
                             </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=1">Initiation à Java</a></td>
-                                <td>25/11/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
 
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>Méthode de tri avancée</td>
-                                <td>22/11/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>Cron job running</td>
-                                <td>05/1/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>4.</td>
-                                <td>Fix and squish bugs</td>
-                                <td>15/10/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-yellow">En cours de validaton</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>5.</td>
-                                <td>Initiation à Java</td>
-                                <td>25/11/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>6.</td>
-                                <td>Méthode de tri avancée</td>
-                                <td>22/11/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>7.</td>
-                                <td>Cron job running</td>
-                                <td>05/1/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>8.</td>
-                                <td>Fix and squish bugs</td>
-                                <td>15/10/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-yellow">En cours de validaton</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>9.</td>
-                                <td>Méthode de tri avancée</td>
-
-                                <td>22/11/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td>10.</td>
-                                <td>Cron job running</td>
-                                <td>05/1/2016</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>120</td>
-                                <td><span class="badge bg-light-blue">Disponible</span>
-
-                                </td>
-                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                            </tr>
+                            <?php foreach($formations as $formation): ?>
+                                <tr>
+                                    <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
+                                    <td><?= $formation->getDate() ?></td>
+                                    <td><?= $formation->getDuration() ?></td>
+                                    <td><?= $formation->getDays() ?></td>
+                                    <td><?= $formation->getCredits() ?></td>
+                                </tr>
+                            <?php endforeach ?>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -198,7 +85,6 @@
                         <table class="table table-striped">
                             <table class="table table-striped">
                                 <tr>
-                                    <th style="width: 10px">#</th>
                                     <th>Nom</th>
                                     <th>Date</th>
                                     <th>Durée (en heure)</th>
@@ -207,72 +93,18 @@
                                     <th style="width: 185px">Statut</th>
                                     <th style="width: 80px"></th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Validée</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Validée</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-yellow">En cours de validaton</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-yellow">En cours de validaton</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>5.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-yellow">En cours de validaton</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>6.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-red">Refusée</span>
-                                    </td>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
+                                <?php foreach($employeeFormations as $formation): ?>
+                                    <tr>
+                                        <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
+                                        <td><?= $formation->getDate() ?></td>
+                                        <td><?= $formation->getDuration() ?></td>
+                                        <td><?= $formation->getDays() ?></td>
+                                        <td><?= $formation->getCredits() ?></td>
+                                        <td><span class="badge bg-green">validée</span>
+                                        </td>
+                                        <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                                    </tr>
+                                <?php endforeach ?>
                             </table>
                         </table>
                     </div>
@@ -400,6 +232,7 @@
 <!-- /.content-wrapper -->
 
 <script>
+    var body = document.querySelector("body");
     function displayBreadCrum(){
         <?php
             $breadCrumbArrayJs = json_encode($breadCrumbArray);
@@ -419,6 +252,30 @@
         contentHeader.innerHTML = breadCrumbHtml;
     }
     displayBreadCrum();
+
+    setTimeout(function(){
+        if (window.XMLHttpRequest) { // Mozilla, Safari, ...²
+            httpRequest = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) { // IE
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        httpRequest.overrideMimeType('text/xml');
+
+
+        httpRequest.open('GET', "<?php ROOTDIR ?>index.php?controller=formation&action=paginate&tableau=all&page=2", true);
+        httpRequest.send();
+
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState == 4) {
+                var reponse = this.response;
+                var p = document.createElement("p");
+                p.innerHTML = reponse;
+                body.appendChild(p);
+            }
+        };
+    },1000);
 </script>
 
 

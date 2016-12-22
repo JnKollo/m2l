@@ -25,13 +25,16 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
+            $limit = 10;
+            $offset = 0;
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-
-            $formations = $formationRepository->getAllFormationsOrderByDate();
+            $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
+            $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
             $view = new View('Formation',"formations");
             $view->generate(array(
                 'employee' => $employee,
+                'employeeFormations' => $employeeFormations,
                 'formations' => $formations
             ));
         }else {
@@ -55,6 +58,36 @@ class FormationController extends Controller
                 'formation' => $formation,
                 'hasFormation' => $hasFormation
             ));
+        }else {
+            $this->redirect('Security', 'logout');
+        }
+    }
+
+    //Methode a modifier
+
+    public function paginate($parameters) {
+        if (isset($_SESSION["employee"])) {
+            $employeeRepository = new EmployeeRepository();
+            $formationRepository = new FormationRepository();
+
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $formations = [];
+            $limit = 10;
+            $offset = 0;
+            if (isset($parameters['tableau'], $parameters['page'])) {
+                $pageNumber = $parameters['page'];
+                $offset = ($pageNumber - 1) * $limit;
+
+                $table = $parameters['tableau'];
+                if ($table == 'all') {
+                    $formations = $formationRepository->getAjaxFormationsOrderByDateAndPaginate($limit, $offset);
+                } elseif($table == 'myFormation') {
+                    $formations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
+                }
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode(array('formations' => $formations));
         }else {
             $this->redirect('Security', 'logout');
         }

@@ -101,11 +101,11 @@
             </div>
             <div class="col-md-6">
                     <?php if($this->hasFormation == 0) : ?>
-                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=1">
+                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
                         <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
                     </a>
                     <?php elseif($this->hasFormation == 1) : ?>
-                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=removeFormation&id=1">
+                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=removeFormation&id=<?= $this->formation->getId() ?>">
                         <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                     </a>
                     <?php endif ?>

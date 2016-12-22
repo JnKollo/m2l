@@ -7,12 +7,14 @@ class FormationRepository extends Model
     private $id;
     private $name;
     private $description;
+    private $days;
     private $date;
     private $credits;
     private $duration;
     private $place;
     private $requirement;
     private $provider;
+    private $status;
 
     /**
      * @return mixed
@@ -94,6 +96,12 @@ class FormationRepository extends Model
         return $this->name;
     }
 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+
     public function getAllFormationsOrderByDate()
     {
         $sql = "select *
@@ -110,12 +118,23 @@ class FormationRepository extends Model
         $sql = "select *
                 from formation
                 order by date desc
-                limit ?
-                offset ?";
-        $req = $this->executeRequest($sql, array($limit, $offset));
+                limit $limit
+                offset $offset";
+        $req = $this->executeRequest($sql);
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
-        $result['result'] = $req->fetchAll();
-        $result['totalHits'] = $req->rowCount();
+        $result = $req->fetchAll();
+        return $result;
+    }
+
+    public function getAjaxFormationsOrderByDateAndPaginate($limit, $offset)
+    {
+        $sql = "select *
+                from formation
+                order by date desc
+                limit $limit
+                offset $offset";
+        $req = $this->executeRequest($sql);
+        $result = $req->fetchAll();
         return $result;
     }
 

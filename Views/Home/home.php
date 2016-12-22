@@ -1,6 +1,7 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Accueil"?>
 <?php $this->employee = $employee; ?>
+<?php $this->employeeFormations = $employeeFormations; ?>
 <?php $this->formations = $formations; ?>
 <?php $this->team = $team ?>
 
@@ -120,7 +121,7 @@
                                     <th>Nom</th>
                                     <th>Date</th>
                                 </tr>
-                                <?php foreach($employee->getFormations() as $formation): ?>
+                                <?php foreach($employeeFormations as $formation): ?>
                                     <tr>
                                         <td><?= $formation->getName(); ?></td>
                                         <td><?= $formation->getDate(); ?></td>

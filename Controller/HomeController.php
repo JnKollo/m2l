@@ -19,6 +19,7 @@ class HomeController extends Controller
             $formationRepository = new FormationRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employeeFormations = $employee->getFormations();
             $pastFormations = $employeeRepository->getValidateFormationByEmployee($employee->getId());
             $pendingFormations = $employeeRepository->getPendingFormationByEmployee($employee->getId());
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
@@ -27,6 +28,7 @@ class HomeController extends Controller
             $view = new View('Home', "home");
             $view->generate(array(
                 'employee' => $employee,
+                'employeeFormations' => array_slice($employeeFormations, 0, 6, true),
                 'formations' => array_slice($formations, 0, 6, true),
                 'team' => $team,
                 'pastFormations' => $pastFormations,
