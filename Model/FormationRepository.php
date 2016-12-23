@@ -148,4 +148,9 @@ class FormationRepository extends Model
         $result = $req->fetch();
         return $result;
     }
+
+    public function getSearchFormations($parameters)
+    {
+        $sql = "select * from formations if ";
+    }
 } 
