@@ -4,9 +4,7 @@
 .box.box-yellow{
 	border-top-color: #f39c12 !important;
 }
-.bg-purple{
-	background-color: #8e63ca;
-}
+
 .bg-green-light{
 	background-color: #28d63d;
 }
@@ -36,4 +34,15 @@
 
 .fa-breadcrum{
 	font-size: 11px!important;
+}
+
+/* searchFormation */
+
+
+
+#purple .slider-selection {
+	background-color: #605ca8 !important
+}
+#maroon .slider-selection {
+	background: #d81b60;
 }

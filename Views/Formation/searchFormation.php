@@ -1,9 +1,9 @@
-<?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
-<?php $this->title = "Mes Formations"?>
+<?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'" ?>
+<?php $this->title = "Mes Formations" ?>
 <?php $this->employee = $employee; ?>
 <?php $breadCrumbArray = [
-0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
-1 => ['controller' => 'formation','action' => 'index','name' => 'Gestion des formations']
+    0 => ['controller' => 'home', 'action' => 'home', 'name' => 'Accueil'],
+    1 => ['controller' => 'formation', 'action' => 'index', 'name' => 'Gestion des formations']
 ] ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -15,12 +15,42 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-md-12">
-                <div class="box">
+            <div class="col-xs-12">
+                <div class="box box-primary">
                     <div class="box-header">
-                        <h3 class="box-title">Toutes les formations</h3>
+                        <h3 class="box-title">Bootstrap Slider</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-sm-6">
+
+                                <input type="text" value="" class="slider form-control" data-slider-min="-200"
+                                       data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]"
+                                       data-slider-orientation="horizontal" data-slider-selection="before"
+                                       data-slider-tooltip="show" data-slider-id="purple">
+                                <input type="text" value="" class="slider form-control" data-slider-min="-200"
+                                       data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]"
+                                       data-slider-orientation="horizontal" data-slider-selection="before"
+                                       data-slider-tooltip="show" data-slider-id="maroon">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">Résultat(s) de la recherche</h3>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
                             </button>
                         </div>
                     </div>
@@ -40,7 +70,8 @@
                             </tr>
                             <tr>
                                 <td>1.</td>
-                                <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=1">Initiation à Java</a></td>
+                                <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=1">Initiation
+                                        à Java</a></td>
                                 <td>25/11/2016</td>
                                 <td>5</td>
                                 <td>2</td>
@@ -159,91 +190,188 @@
                                 </td>
                                 <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                             </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Cron job running</td>
+                                <td>05/1/2016</td>
+                                <td>5</td>
+                                <td>2</td>
+                                <td>120</td>
+                                <td><span class="badge bg-light-blue">Disponible</span>
+
+                                </td>
+                                <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                            </tr>
                         </table>
                     </div>
                     <!-- /.box-body -->
-
-                        <div class="col-xs-12">
-                          <div class="box box-primary">
-                            <div class="box-header">
-                              <h3 class="box-title">Bootstrap Slider</h3>
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                              <div class="row margin">
-                                <div class="col-sm-6">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="red">
-
-                                  <p>data-slider-id="red"</p>
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
-
-                                  <p>data-slider-id="blue"</p>
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="green">
-
-                                  <p>data-slider-id="green"</p>
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="yellow">
-
-                                  <p>data-slider-id="yellow"</p>
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="aqua">
-
-                                  <p>data-slider-id="aqua"</p>
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="horizontal" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="purple">
-
-                                  <p style="margin-top: 10px">data-slider-id="purple"</p>
-                                </div>
-                                <div class="col-sm-6 text-center">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="red">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="blue">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="green">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="yellow">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="aqua">
-                                  <input type="text" value="" class="slider form-control" data-slider-min="-200" data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]" data-slider-orientation="vertical" data-slider-selection="before" data-slider-tooltip="show" data-slider-id="purple">
-                                </div>
-                              </div>
-                            </div>
-                            <!-- /.box-body -->
-                          </div>
-                          <!-- /.box -->
-                        </div>
-                        <!-- /.col -->
-
-                    <div class="box-footer clearfix">
-                        <ul class="pagination pagination-sm no-margin pull-right">
-                            <li><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-
-                    <!-- /.box -->
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- ./col -->
         </div>
-        <!-- /.row -->
     </section>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
 <script>
-    function displayBreadCrum(){
+    function displayBreadCrum() {
         <?php
-            $breadCrumbArrayJs = json_encode($breadCrumbArray);
-            echo "var breadCrumbArray = ". $breadCrumbArrayJs . ";";
+        $breadCrumbArrayJs = json_encode($breadCrumbArray);
+        echo "var breadCrumbArray = " . $breadCrumbArrayJs . ";";
         ?>
         var contentHeader = document.querySelector("section.content-header");
         var breadCrumbHtml = "<h5>";
         var i = "";
 
         breadCrumbArray.forEach(
-            function(element){
-                breadCrumbHtml += i+"<a href=<?php ROOTDIR ?>'index.php?controller="+element.controller+"&action="+element.action+"'>" + element.name + "</a>";
+            function (element) {
+                breadCrumbHtml += i + "<a href=<?php ROOTDIR ?>'index.php?controller=" + element.controller + "&action=" + element.action + "'>" + element.name + "</a>";
                 i = " <i class='fa fa-breadcrum fa-chevron-right'></i> ";
-        })
+            })
 
         breadCrumbHtml += "</h5>";
         contentHeader.innerHTML = breadCrumbHtml;

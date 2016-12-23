@@ -93,4 +93,18 @@ class FormationController extends Controller
         }
     }
 
+    public function search() {
+        if (isset($_SESSION["employee"])) {
+            $employeeRepository = new EmployeeRepository();
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+
+            $view = new View('Formation', "searchFormation");
+            $view->generate(array(
+                'employee' => $employee,
+            ));
+        }else {
+            $this->redirect('Security', 'logout');
+        }
+    }
+
 }

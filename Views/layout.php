@@ -65,7 +65,7 @@
 			          <ul class="treeview-menu">
 			            <li><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index"><i class="fa fa-circle-o"></i> Formations disponibles</a></li>
 			            <li><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index#__askFormations"><i class="fa fa-circle-o"></i> Formations demandées</a></li>
-			            <li><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index"><i class="fa fa-circle-o"></i> Rechercher une formation</a></li>
+			            <li><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=search"><i class="fa fa-circle-o"></i> Rechercher une formation</a></li>
 			          </ul>
 			        </li>
 
