@@ -87,12 +87,15 @@
                                 <th>Nom</th>
                                 <th>Date</th>
                             </tr>
-                            <?php foreach($formations as $formation): ?>
-                            <tr>
-                                <td><?= $formation->getName(); ?></td>
-                                <td><?= $formation->getDate(); ?></td>
-                            </tr>
-                            <?php endforeach ?>
+
+                            <?php if($formations != null):?>
+                                 <?php foreach($formations as $formation): ?>
+                                <tr>
+                                    <td><?= $formation->getName(); ?></td>
+                                    <td><?= $formation->getDate(); ?></td>
+                                </tr>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -121,12 +124,15 @@
                                     <th>Nom</th>
                                     <th>Date</th>
                                 </tr>
+
+                                <?php if($employeeFormations != null):?>
                                 <?php foreach($employeeFormations as $formation): ?>
                                     <tr>
                                         <td><?= $formation->getName(); ?></td>
                                         <td><?= $formation->getDate(); ?></td>
                                     </tr>
                                 <?php endforeach ?>
+                                <?php endif ?>
                             </table>
                         </table>
                     </div>

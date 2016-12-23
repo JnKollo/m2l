@@ -12,6 +12,7 @@
 	<link href=<?php ROOTDIR ?>"dist/css/AdminLTE.css" rel="stylesheet">
 	<link href=<?php ROOTDIR ?>"dist/css/skins/skin-blue.min.css" rel="stylesheet">
 	<link href=<?php ROOTDIR ?>"custom/css/main.css" rel="stylesheet">
+	<link href=<?php ROOTDIR ?>"plugins/bootstrap-slider/slider.css" rel="stylesheet">
 </head>
 
 <body <?= $classBody;?> >
@@ -82,7 +83,10 @@
 		<script src=<?php ROOTDIR ?>"plugins/jQuery/jquery-2.2.3.min.js"></script> <!-- Bootstrap 3.3.6 -->
 		<script src=<?php ROOTDIR ?>"bootstrap/js/bootstrap.min.js"></script> <!-- AdminLTE App -->
 		<script src=<?php ROOTDIR ?>"dist/js/app.min.js"></script>
+		<script src=<?php ROOTDIR ?>"plugins/ionslider/ion.rangeSlider.min.js"></script>
+		<script src=<?php ROOTDIR ?>"plugins/bootstrap-slider/bootstrap-slider.js"></script>
 		<script src=<?php ROOTDIR ?>"custom/js/commun.js"></script>
+
 		<!-- Main Footer -->
 		<footer class="main-footer">
 			<!-- To the right -->
