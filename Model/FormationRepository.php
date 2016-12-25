@@ -138,6 +138,15 @@ class FormationRepository extends Model
         return $result;
     }
 
+    public function CountFormations()
+    {
+        $sql = "select count(*)
+                from formation";
+        $req = $this->executeRequest($sql);
+        $result = $req->fetch();
+        return $result;
+    }
+
     public function getOneFormationById($id)
     {
         $sql = "select *

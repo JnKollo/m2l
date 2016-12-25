@@ -203,18 +203,37 @@ class EmployeeRepository extends Model
         }
     }
 
-    public function getFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
+    public function getFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
     {
         $sql = "select formation.*
                 from formation
                 inner join employee_formation
                     on formation.id = employee_formation.id_formation
                 where employee_formation.id_employee = ?
+                and formation.date >= ?
+                and formation.date < ?
                 order by date desc
                 limit $limit
                 offset $offset";
-        $req = $this->executeRequest($sql, array($idEmployee));
+        $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
+        $result = $req->fetchAll();
+        return $result;
+    }
+
+    public function getAjaxFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
+    {
+        $sql = "select formation.*
+                from formation
+                inner join employee_formation
+                    on formation.id = employee_formation.id_formation
+                where employee_formation.id_employee = ?
+                and formation.date >= ?
+                and formation.date < ?
+                order by date desc
+                limit $limit
+                offset $offset";
+        $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
         $result = $req->fetchAll();
         return $result;
     }
@@ -269,7 +288,20 @@ class EmployeeRepository extends Model
         $this->getFormationsByEmployee($idEmployee);
     }
 
-    public function getValidateFormationByEmployee($idEmployee)
+    public function countFormationsByEmployee($idEmployee, $startYear, $endYear)
+    {
+        $sql = "select count(*)
+                from employee_formation
+                  inner join formation
+                    on formation.id = employee_formation.id_formation
+                where employee_formation.id_employee = ?
+                  and (employee_formation.id_formation_status = 1 or employee_formation.id_formation_status = 2)
+                  and formation.date >= ? and formation.date < ?";
+        $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
+        return $req->fetchColumn();
+    }
+
+    public function countValidateFormationByEmployee($idEmployee)
     {
         $sql = "select count(*)
         from employee_formation
@@ -279,7 +311,7 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-    public function getPendingFormationByEmployee($idEmployee)
+    public function countPendingFormationByEmployee($idEmployee)
     {
         $sql = "select count(*)
         from employee_formation

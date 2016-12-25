@@ -25,10 +25,12 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
+            $startYear = date('Y');
+            $endYear = date("Y", strtotime(date("Y", strtotime($startYear)) . " + 1 year"));
             $limit = 10;
             $offset = 0;
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
-            $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
+            $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
             $view = new View('Formation',"formations");
@@ -72,22 +74,32 @@ class FormationController extends Controller
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
             $formations = [];
+            $totalCount = 0;
             $limit = 10;
             $offset = 0;
-            if (isset($parameters['tableau'], $parameters['page'])) {
-                $pageNumber = $parameters['page'];
-                $offset = ($pageNumber - 1) * $limit;
 
-                $table = $parameters['tableau'];
-                if ($table == 'all') {
+            if (isset($parameters['tableau'], $parameters['page'])) {
+                $currentPage = $parameters['page'];
+                $offset = ($currentPage - 1) * $limit;
+                $startYear = date('Y');
+                $endYear = date("Y", strtotime(date("Y", strtotime($startYear)) . " + 1 year"));
+
+                $block = $parameters['tableau'];
+                if ($block == 'all') {
                     $formations = $formationRepository->getAjaxFormationsOrderByDateAndPaginate($limit, $offset);
-                } elseif($table == 'myFormation') {
-                    $formations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
+                    $totalCount = $formationRepository->CountFormations();
+                } elseif($block == 'myFormation') {
+                    $formations = $employeeRepository->getAjaxFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
+                    $totalCount = $employeeRepository->countFormationsByEmployee($employee->getId(), $startYear, $endYear);
                 }
             }
 
             header('Content-Type: application/json');
-            echo json_encode(array('formations' => $formations));
+            echo json_encode(array(
+                'maxRow' => $limit,
+                'totalCount' => $totalCount,
+                'formations' => $formations
+            ));
         }else {
             $this->redirect('Security', 'logout');
         }

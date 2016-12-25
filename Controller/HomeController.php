@@ -20,8 +20,8 @@ class HomeController extends Controller
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
             $employeeFormations = $employee->getFormations();
-            $pastFormations = $employeeRepository->getValidateFormationByEmployee($employee->getId());
-            $pendingFormations = $employeeRepository->getPendingFormationByEmployee($employee->getId());
+            $pastFormations = $employeeRepository->countValidateFormationByEmployee($employee->getId());
+            $pendingFormations = $employeeRepository->countPendingFormationByEmployee($employee->getId());
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
