@@ -33,8 +33,8 @@ et mdp => mot de passe phpmyadmin
 git rebase origin/master
 git status
 git add -u
-git commit -m ''
-git push origin (branche à pusher) (ou juste git push)
+git commit -m 'message de commit'
+git push origin branche à pusher (ou juste git push)
 ```
 
 
@@ -52,7 +52,7 @@ git push origin recette
 ```
 
 
-## Tester sur le site ##
+## Tester sur le site avec le compte manager et le compte employé ##
 
 ### chef d'équipe ### 
 *  id : papa
