@@ -30,6 +30,7 @@ et mdp => mot de passe phpmyadmin
 
 ```
 #!shell
+git fetch origin
 git rebase origin/master
 git status
 git add -u
