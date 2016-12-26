@@ -30,7 +30,7 @@ et mdp => mot de passe phpmyadmin
 
 ```
 #!shell
-git fetch origin
+git fetch
 git rebase origin/master
 git status
 git add -u
@@ -45,6 +45,7 @@ git push origin branche à pusher
 ```
 #!shell
 git checkout recette
+git fetch
 git reset --hard origin/master
 git merge origin/(branche à merger)
 git push origin recette
