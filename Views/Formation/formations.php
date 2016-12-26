@@ -2,6 +2,7 @@
 <?php $this->title = "Mes Formations"?>
 <?php $this->employee = $employee; ?>
 <?php $this->employeeFormations = $employeeFormations; ?>
+<?php $this->performedFormations = $performedFormations; ?>
 <?php $this->formations = $formations; ?>
 <?php $breadCrumbArray = [
 0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
@@ -38,15 +39,17 @@
                                 <th>Points / requis</th>
                             </tr>
 
-                            <?php foreach($formations as $formation): ?>
-                                <tr>
-                                    <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
-                                    <td><?= $formation->getDate() ?></td>
-                                    <td><?= $formation->getDuration() ?></td>
-                                    <td><?= $formation->getDays() ?></td>
-                                    <td><?= $formation->getCredits() ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                            <?php if($formations != null):?>
+                                <?php foreach($formations as $formation): ?>
+                                    <tr>
+                                        <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
+                                        <td><?= $formation->getDate() ?></td>
+                                        <td><?= $formation->getDuration() ?></td>
+                                        <td><?= $formation->getDays() ?></td>
+                                        <td><?= $formation->getCredits() ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -74,7 +77,7 @@
                 <div id="__askFormations"></div>
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Formations demandées</h3>
+                        <h3 class="box-title">Mes formations en <?= date('Y') ?></h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
@@ -93,18 +96,20 @@
                                     <th style="width: 185px">Statut</th>
                                     <th style="width: 80px"></th>
                                 </tr>
-                                <?php foreach($employeeFormations as $formation): ?>
-                                    <tr>
-                                        <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
-                                        <td><?= $formation->getDate() ?></td>
-                                        <td><?= $formation->getDuration() ?></td>
-                                        <td><?= $formation->getDays() ?></td>
-                                        <td><?= $formation->getCredits() ?></td>
-                                        <td><span class="badge bg-green">validée</span>
-                                        </td>
-                                        <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                    </tr>
-                                <?php endforeach ?>
+                                <?php if($employeeFormations != null):?>
+                                    <?php foreach($employeeFormations as $formation): ?>
+                                        <tr>
+                                            <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
+                                            <td><?= $formation->getDate() ?></td>
+                                            <td><?= $formation->getDuration() ?></td>
+                                            <td><?= $formation->getDays() ?></td>
+                                            <td><?= $formation->getCredits() ?></td>
+                                            <td><span class="badge bg-green"><?= $formation->getStatus() ?></span>
+                                            </td>
+                                            <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </table>
                         </table>
                     </div>
@@ -136,7 +141,6 @@
                         <table class="table table-striped">
                             <table class="table table-striped">
                                 <tr>
-                                    <th style="width: 10px">#</th>
                                     <th>Nom</th>
                                     <th>Date</th>
                                     <th>Durée (en heure)</th>
@@ -145,66 +149,19 @@
                                     <th style="width: 185px">Statut</th>
                                     <th style="width: 80px"></th>
                                 </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td><a>Méthode de tri avancée</a></td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>5.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>+.</td>
-                                    <td>Méthode de tri avancée</td>
-                                    <td>22/11/2016</td>
-                                    <td>5</td>
-                                    <td>2</td>
-                                    <td>120</td>
-                                    <td><span class="badge bg-green">Effectuée</span>
-                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
-                                </tr>
+                                <?php if($performedFormations != null):?>
+                                    <?php foreach($performedFormations as $formation) :?>
+                                        <tr>
+                                            <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
+                                            <td><?= $formation->getDate() ?></td>
+                                            <td><?= $formation->getDuration() ?></td>
+                                            <td><?= $formation->getDays() ?></td>
+                                            <td><?= $formation->getCredits() ?></td>
+                                            <td><span class="badge bg-green">Effectuée</span>
+                                            <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </table>
                         </table>
                     </div>

@@ -24,7 +24,7 @@ class TeamController extends Controller
                 if($member->getId() == $employee->getId()) {
                     unset($member);
                 }
-                $member->setPendingFormations($member->getPendingFormationByEmployee($member->getId()));
+                $member->setPendingFormations($member->countPendingFormationByEmployee($member->getId()));
             }
 
             $view = new View('Team', "manage");

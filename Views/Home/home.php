@@ -91,7 +91,7 @@
                             <?php if($formations != null):?>
                                  <?php foreach($formations as $formation): ?>
                                 <tr>
-                                    <td><?= $formation->getName(); ?></td>
+                                    <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
                                     <td><?= $formation->getDate(); ?></td>
                                 </tr>
                                 <?php endforeach ?>
@@ -124,14 +124,13 @@
                                     <th>Nom</th>
                                     <th>Date</th>
                                 </tr>
-
                                 <?php if($employeeFormations != null):?>
-                                <?php foreach($employeeFormations as $formation): ?>
-                                    <tr>
-                                        <td><?= $formation->getName(); ?></td>
-                                        <td><?= $formation->getDate(); ?></td>
-                                    </tr>
-                                <?php endforeach ?>
+                                    <?php foreach($employeeFormations as $formation): ?>
+                                        <tr>
+                                            <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
+                                            <td><?= $formation->getDate(); ?></td>
+                                        </tr>
+                                    <?php endforeach ?>
                                 <?php endif ?>
                             </table>
                         </table>
@@ -166,7 +165,7 @@
                             <?php foreach($team as $member): ?>
                                 <li>
                                     <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                                    <a class="users-list-name" href=<?php ROOTDIR ?>"index.php?controller=team&action=show&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
+                                    <a class="users-list-name" href=<?php ROOTDIR ?>"index.php?controller=team&action=manage&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
                                 </li>
                             <?php endforeach ?>
                         </ul>

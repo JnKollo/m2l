@@ -20,7 +20,7 @@ class FormationController extends Controller
         }
     }
 
-    public function home($parameters = null) {
+    public function home() {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
@@ -31,12 +31,14 @@ class FormationController extends Controller
             $offset = 0;
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
             $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
+            $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
             $view = new View('Formation',"formations");
             $view->generate(array(
                 'employee' => $employee,
                 'employeeFormations' => $employeeFormations,
+                'performedFormations' => $performedFormations,
                 'formations' => $formations
             ));
         }else {
@@ -91,6 +93,9 @@ class FormationController extends Controller
                 } elseif($block == 'myFormation') {
                     $formations = $employeeRepository->getAjaxFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
                     $totalCount = $employeeRepository->countFormationsByEmployee($employee->getId(), $startYear, $endYear);
+                } elseif($block == 'performedFormation') {
+                    $formations = $employeeRepository->getAjaxPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
+                    $totalCount = $employeeRepository->countPerformedFormationsByEmployee($employee->getId());
                 }
             }
 
@@ -108,11 +113,14 @@ class FormationController extends Controller
     public function search() {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
+            $formationRepository = new FormationRepository();
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $formations = $formationRepository->getAllFormationsOrderByDate();
 
             $view = new View('Formation', "searchFormation");
             $view->generate(array(
                 'employee' => $employee,
+                'formations' => $formations
             ));
         }else {
             $this->redirect('Security', 'logout');
