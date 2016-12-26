@@ -201,6 +201,7 @@ class EmployeeRepository extends Model
         $result = $req->fetchAll();
         foreach ($result as $formation) {
             $this->setFormations($formation);
+            $formation->setStatus($formation->getId(), $id);
         }
     }
 
@@ -235,6 +236,9 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
+        foreach ($result as $formation) {
+            $formation->setStatus($formation->getId(), $idEmployee);
+        }
         return $result;
     }
 
@@ -251,7 +255,7 @@ class EmployeeRepository extends Model
                 limit $limit
                 offset $offset";
         $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
-        $result = $req->fetchAll();
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -284,7 +288,7 @@ class EmployeeRepository extends Model
                 limit $limit
                 offset $offset";
         $req = $this->executeRequest($sql, array($idEmployee));
-        $result = $req->fetchAll();
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -304,6 +308,33 @@ class EmployeeRepository extends Model
                 values (?, ?, 2)";
         $this->executeRequest($sql, array($idFormation, $idEmployee));
         $this->getFormationsByEmployee($idEmployee);
+    }
+
+    public function removeFormation($idEmployee, $idFormation)
+    {
+        $sql = "delete from employee_formation
+                where id_employee = ?
+                and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $this->getFormationsByEmployee($idEmployee);
+    }
+
+    public function acceptFormation($idEmployee, $idFormation)
+    {
+        $sql = "update employee_formation
+        set id_formation_status = 1
+        where id_employee = ?
+        and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+    }
+
+    public function refuseFormation($idEmployee, $idFormation)
+    {
+        $sql = "update employee_formation
+        set id_formation_status = 3
+        where id_employee = ?
+        and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
     }
 
     public function getEmployeeByTeam($id_team, $id_employee)
@@ -327,15 +358,6 @@ class EmployeeRepository extends Model
         $result = $req->fetch();
         $result->getPendingFormationsByEmployee($id_employee);
         return $result;
-    }
-
-    public function removeFormation($idEmployee, $idFormation)
-    {
-        $sql = "delete from employee_formation
-                where id_employee = ?
-                and id_formation = ?";
-        $this->executeRequest($sql, array($idEmployee, $idFormation));
-        $this->getFormationsByEmployee($idEmployee);
     }
 
     public function countFormationsByEmployee($idEmployee, $startYear, $endYear)
@@ -382,5 +404,6 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($idEmployee));
         return $req->fetchColumn();
     }
+
 
 } 

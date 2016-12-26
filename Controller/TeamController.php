@@ -55,4 +55,34 @@ class TeamController extends Controller
             $this->redirect('Security', 'logout');
         }
     }
+
+    public function accept($parameters)
+    {
+        if (isset($_SESSION["employee"])) {
+            $member = new EmployeeRepository();
+
+            $idTeamMember = $parameters['id'];
+            $idFormation = $parameters['formation'];
+            $member->acceptFormation($idTeamMember, $idFormation);
+
+            $this->redirect('Team', 'manage', $idTeamMember);
+        }else {
+            $this->redirect('Security', 'logout');
+        }
+    }
+
+    public function refuse($parameters)
+    {
+        if (isset($_SESSION["employee"])) {
+            $member = new EmployeeRepository();
+
+            $idTeamMember = $parameters['id'];
+            $idFormation = $parameters['formation'];
+            $member->refuseFormation($idTeamMember, $idFormation);
+
+            $this->redirect('Team', 'manage', $idTeamMember);
+        }else {
+            $this->redirect('Security', 'logout');
+        }
+    }
 }

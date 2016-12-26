@@ -22,6 +22,9 @@ class Router
             if ($request->parametersExist('tableau')) {
                 $parameters['tableau'] = $request->getParameters('tableau');
             }
+            if ($request->parametersExist('formation')) {
+                $parameters['formation'] = $request->getParameters('formation');
+            }
 
             $controller->executeAction($action, $parameters);
         }

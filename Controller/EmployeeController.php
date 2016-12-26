@@ -23,7 +23,11 @@ class EmployeeController extends Controller
 
         if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
             $employee->addFormation($_SESSION['employee']['id'], $idFormation);
+            if ($employee->isMAnager()){
+                $employee->acceptFormation($employee->getId(), $idFormation);
+            }
         }
+
         $this->redirect('formation', 'show', $idFormation);
     }
 

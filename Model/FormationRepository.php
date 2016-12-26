@@ -101,7 +101,6 @@ class FormationRepository extends Model
         return $this->status;
     }
 
-
     public function getAllFormationsOrderByDate()
     {
         $sql = "select *
@@ -134,7 +133,7 @@ class FormationRepository extends Model
                 limit $limit
                 offset $offset";
         $req = $this->executeRequest($sql);
-        $result = $req->fetchAll();
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -143,7 +142,7 @@ class FormationRepository extends Model
         $sql = "select count(*)
                 from formation";
         $req = $this->executeRequest($sql);
-        $result = $req->fetch();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -161,5 +160,17 @@ class FormationRepository extends Model
     public function getSearchFormations($parameters)
     {
         $sql = "select * from formations if ";
+    }
+
+    public function setStatus($idFormation, $idEmployee)
+    {
+        $sql = "select state_of_validation
+        from formation_status
+        inner join employee_formation
+        on formation_status.id = employee_formation.id_formation_status
+        where employee_formation.id_formation = ?
+        and employee_formation.id_employee = ?";
+        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
+        $this->status = $req->fetch(PDO::FETCH_ASSOC);
     }
 } 

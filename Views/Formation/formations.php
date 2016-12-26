@@ -104,7 +104,7 @@
                                             <td><?= $formation->getDuration() ?></td>
                                             <td><?= $formation->getDays() ?></td>
                                             <td><?= $formation->getCredits() ?></td>
-                                            <td><span class="badge bg-green"><?= $formation->getStatus() ?></span>
+                                            <td><span class="badge bg-green"><?= $formation->getStatus()['state_of_validation'] ?></span>
                                             </td>
                                             <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                         </tr>

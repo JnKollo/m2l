@@ -120,11 +120,22 @@
                                         <!-- /.item -->
                                         <li class="item">
                                             <div class="product-info">
+                                                <p class="product-title">Statut</p>
+                                                <span class="badge bg-green"><?= $formation->getStatus()['state_of_validation'] ?></span>
+                                            </div>
+                                        </li>
+                                        <!-- /.item -->
+                                        <li class="item">
+                                            <div class="product-info">
                                                 <div class="col-xs-6">
-                                                    <button type="button" class="btn btn-block btn-info btn-normal">Valider</button>
+                                                    <a href=<?php ROOTDIR ?>"index.php?controller=team&action=accept&id=<?= $member->getId() ?>&formation=<?= $formation->getId() ?>">
+                                                        <button type="button" class="btn btn-block btn-info btn-normal">Valider</button>
+                                                    </a>
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <button type="button" class="btn btn-block btn-danger btn-normal">Refuser</button>
+                                                    <a href=<?php ROOTDIR ?>"index.php?controller=team&action=refuse&id=<?= $member->getId() ?>&formation=<?= $formation->getId() ?>">
+                                                        <button type="button" class="btn btn-block btn-danger btn-normal">Refuser</button>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </li>
