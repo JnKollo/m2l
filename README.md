@@ -47,5 +47,12 @@ git rebase origin/master
 git merge origin/(branche à merger)
 git push origin recette
 
-```
-Tester le site
+## Tester sur le site ##
+
+### chef d'équipe ### 
+ id : papa
+mdp : papa
+
+### employé ###
+id : fiston
+mdp : fiston
