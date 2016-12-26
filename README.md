@@ -22,3 +22,30 @@ mdp = ''
 avec login => identifiant phpmyadmin 
 
 et mdp => mot de passe phpmyadmin
+
+
+## Mise en recette
+
+### Sur la branche courante ###
+```
+#!shell
+git rebase origin/master
+git status
+git add -u (git add que les modifications à garder)
+git commit -m ''
+git push origin (branche à pusher) (ou juste git push)
+```
+
+### Sur la branche recette ###
+
+
+```
+#!shell
+git checkout recette
+git pull origin recette
+git rebase origin/master
+git merge origin/(branche à merger)
+git push origin recette
+
+```
+Tester le site
