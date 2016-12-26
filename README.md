@@ -32,7 +32,7 @@ et mdp => mot de passe phpmyadmin
 #!shell
 git rebase origin/master
 git status
-git add -u (git add que les modifications à garder)
+git add -u
 git commit -m ''
 git push origin (branche à pusher) (ou juste git push)
 ```
