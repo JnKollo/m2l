@@ -35,7 +35,7 @@ git rebase origin/master
 git status
 git add -u
 git commit -m 'message de commit'
-git push origin branche à pusher (ou juste git push)
+git push origin branche à pusher
 ```
 
 
