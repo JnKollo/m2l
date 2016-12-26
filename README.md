@@ -45,8 +45,7 @@ git push origin branche à pusher
 ```
 #!shell
 git checkout recette
-git pull origin recette
-git rebase origin/master
+git reset --hard origin/master
 git merge origin/(branche à merger)
 git push origin recette
 
