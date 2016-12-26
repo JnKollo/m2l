@@ -54,7 +54,7 @@ git push origin recette
 
 ## Tester sur le site avec le compte manager et le compte employé ##
 
-### chef d'équipe ### 
+### chef d'équipe
 *  id : papa
 * mdp : papa
 
