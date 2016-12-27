@@ -86,13 +86,25 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Date</th>
+                                <th style="width: 185px">Statut</th>
+                                <th style="width: 80px"></th>
                             </tr>
 
                             <?php if($formations != null):?>
                                  <?php foreach($formations as $formation): ?>
-                                <tr>
+                                    <?php $status = 'disponible' ?>
+                                    <tr>
                                     <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
                                     <td><?= date('d/m/Y', strtotime($formation->getDate())); ?></td>
+                                    <?php foreach($employee->getFormations() as $myFormation): ?>
+                                        <?php if($myFormation->getId() == $formation->getId()): ?>
+                                            <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
+                                            <?php break; ?>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                    <td><span class="badge bg-green"><?= $status ?></span>
+                                    </td>
+                                    <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                                 <?php endforeach ?>
                             <?php endif ?>
@@ -123,12 +135,17 @@
                                 <tr>
                                     <th>Nom</th>
                                     <th>Date</th>
+                                    <th style="width: 185px">Statut</th>
+                                    <th style="width: 80px"></th>
                                 </tr>
                                 <?php if($employeeFormations != null):?>
                                     <?php foreach($employeeFormations as $formation): ?>
                                         <tr>
                                             <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
                                             <td><?= date('d/m/Y', strtotime($formation->getDate())); ?></td>
+                                            <td><span class="badge bg-green"><?= $formation->getStatus()['state_of_validation'] ?></span>
+                                            </td>
+                                            <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                         </tr>
                                     <?php endforeach ?>
                                 <?php endif ?>

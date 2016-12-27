@@ -150,7 +150,7 @@ class FormationRepository extends Model
     {
         $sql = "select *
                 from formation
-                where id = ?";
+                where formation.id = ?";
         $req = $this->executeRequest($sql, array($id));
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetch();

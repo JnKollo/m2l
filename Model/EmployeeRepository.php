@@ -217,6 +217,7 @@ class EmployeeRepository extends Model
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
         foreach ($result as $formation) {
+            $formation->setStatus($formation->getId(), $id);
             $this->setFormations($formation);
         }
     }
