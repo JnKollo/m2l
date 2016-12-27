@@ -86,7 +86,7 @@
                                         <li class="item">
                                             <div class="product-info">
                                                 <p class="product-title">Date</p>
-                                                <span class="product-description"><?= $formation->getDate() ?></span>
+                                                <span class="product-description"><?= date('d/m/Y', strtotime($formation->getDate())) ?></span>
                                             </div>
                                         </li>
                                         <!-- /.item -->
