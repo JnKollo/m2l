@@ -60,10 +60,15 @@ class TeamController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $member = new EmployeeRepository();
+            $formationRepository = new FormationRepository();
 
             $idTeamMember = $parameters['id'];
             $idFormation = $parameters['formation'];
-            $member->acceptFormation($idTeamMember, $idFormation);
+            $formation = $formationRepository->getOneFormationById($idFormation);
+
+            $creditsFormation = $formation->getCredits();
+            $daysFormation = $formation->getDays();
+            $member->acceptFormation($idTeamMember, $idFormation, $creditsFormation, $daysFormation);
 
             $this->redirect('Team', 'manage', $idTeamMember);
         }else {

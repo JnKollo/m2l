@@ -319,13 +319,31 @@ class EmployeeRepository extends Model
         $this->getFormationsByEmployee($idEmployee);
     }
 
-    public function acceptFormation($idEmployee, $idFormation)
+    public function acceptFormation($idEmployee, $idFormation, $creditsFormation, $daysFormation)
     {
         $sql = "update employee_formation
         set id_formation_status = 1
         where id_employee = ?
         and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $this->updateCreditsForEmployee($idEmployee, $creditsFormation);
+        $this->updateDaysForEmployee($idEmployee, $daysFormation);
+    }
+
+    public function updateCreditsForEmployee($idEmployee, $creditsFormation)
+    {
+        $sql = "update employee
+        set credits_left = credits_left - $creditsFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateDaysForEmployee($idEmployee, $daysFormation)
+    {
+        $sql = "update employee
+        set days_left = days_left - $daysFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
     }
 
     public function refuseFormation($idEmployee, $idFormation)
