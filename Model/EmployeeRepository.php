@@ -218,6 +218,9 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($idEmployee));
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
+        foreach ($result as $formation) {
+            $formation->setStatus($formation->getId(), $idEmployee);
+        }
         return $result;
     }
 
@@ -364,12 +367,12 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-    public function countValidateFormationByEmployee($idEmployee)
+    public function countPerfomedFormationByEmployee($idEmployee)
     {
         $sql = "select count(*)
         from employee_formation
         where employee_formation.id_employee = ?
-        and employee_formation.id_formation_status = 1";
+        and employee_formation.id_formation_status = 5";
         $req = $this->executeRequest($sql, array($idEmployee));
         return $req->fetchColumn();
     }
@@ -391,6 +394,28 @@ class EmployeeRepository extends Model
         where employee_formation.id_formation = ?
         and employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 2";
+        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
+        return $req->fetchColumn();
+    }
+
+    public function isAvailableFormation($idFormation, $idEmployee)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_formation = ?
+        and employee_formation.id_employee = ?
+        and employee_formation.id_formation_status = 4";
+        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
+        return $req->fetchColumn();
+    }
+
+    public function isValidateFormation($idFormation, $idEmployee)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_formation = ?
+        and employee_formation.id_employee = ?
+        and employee_formation.id_formation_status = 1";
         $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
         return $req->fetchColumn();
     }

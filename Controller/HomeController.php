@@ -19,20 +19,23 @@ class HomeController extends Controller
             $formationRepository = new FormationRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
-            $employeeFormations = $employee->getFormations();
-            $pastFormations = $employeeRepository->countValidateFormationByEmployee($employee->getId());
+            $employeeFormations = $employee->getFormations() ? array_slice($employee->getFormations(), 0, 6, true) : null;
+            $performedFormations = $employeeRepository->countPerfomedFormationByEmployee($employee->getId());
             $pendingFormations = $employeeRepository->countPendingFormationByEmployee($employee->getId());
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
+            $status = 'disponible';
+
             $view = new View('Home', "home");
             $view->generate(array(
                 'employee' => $employee,
-                'employeeFormations' => array_slice($employeeFormations, 0, 6, true),
+                'employeeFormations' => $employeeFormations,
                 'formations' => array_slice($formations, 0, 6, true),
                 'team' => $team,
-                'pastFormations' => $pastFormations,
-                'pendingFormations' => $pendingFormations
+                'performedFormations' => $performedFormations,
+                'pendingFormations' => $pendingFormations,
+                'status' => $status
             ));
         }else {
             $this->redirect('Security', 'logout');

@@ -56,13 +56,34 @@ class FormationController extends Controller
             $formation = $formationRepository->getOneFormationById($idFormation);
             $hasFormation = $employeeRepository->hasFormation($employee->getId(), $idFormation);
             $isPendingFormation = $employeeRepository->isPendingFormation($idFormation, $employee->getId());
+            $isAvailableFormation = $employeeRepository->isAvailableformation($idFormation, $employee->getId());
+            $isValidateFormation = $employeeRepository->isValidateFormation($idFormation, $employee->getId());
+
+            $isSubscribable = 1;
+            $status = 'disponible';
+            if (strtotime($formation->getDate()) <= time()) {
+                $isSubscribable = 0;
+                $status = 'indisponible';
+            }
+            foreach ($employee->getFormations() as $myFormation) {
+                if($myFormation->getId() == $formation->getId()){
+                    if($isPendingFormation != 1) {
+                        $isSubscribable = 0;
+                        break;
+                    }
+                }
+            }
 
             $view = new View('Formation', "editFormation");
             $view->generate(array(
                 'employee' => $employee,
                 'formation' => $formation,
                 'hasFormation' => $hasFormation,
-                'isPendingFormation' => $isPendingFormation
+                'isPendingFormation' => $isPendingFormation,
+                'isPerformedFormation' => $isAvailableFormation,
+                'isSubscribable' => $isSubscribable,
+                'isValidateFormation' => $isValidateFormation,
+                'status' => $status
             ));
         }else {
             $this->redirect('Security', 'logout');

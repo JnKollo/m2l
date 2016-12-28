@@ -4,8 +4,9 @@
 <?php $this->formation = $formation; ?>
 <?php $this->hasFormation = $hasFormation ?>
 <?php $this->isPendingFormation = $isPendingFormation ?>
-
-
+<?php $this->isSubscribable = $isSubscribable ?>
+<?php $this->isValidateFormation = $isValidateFormation ?>
+<?php $this->status = $status ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -76,14 +77,15 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Statut</p>
-                                    <?php foreach($employee->getFormations() as $myFormation): ?>
-                                        <?php $status = 'disponible' ?>
-                                        <?php if($myFormation->getId() == $this->formation->getId()): ?>
-                                            <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
-                                            <?php break; ?>
-                                        <?php endif ?>
-                                    <?php endforeach ?>
-                                    <span class="badge bg-green"><?= $status ?></span>
+                                    <?php if($employee->getFormations()): ?>
+                                        <?php foreach($employee->getFormations() as $myFormation): ?>
+                                            <?php if($myFormation->getId() == $this->formation->getId()): ?>
+                                                <?php $this->status = $myFormation->getStatus()['state_of_validation'] ?>
+                                                <?php break; ?>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+                                    <span class="badge bg-green"><?= $this->status ?></span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -108,7 +110,7 @@
                         <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
                     </a>
                 </div>
-                <?php if($isPendingFormation == 1): ?>
+                <?php if($this->isSubscribable == 1 || ($this->isValidateFormation == 1 && $employee->isManager() == 1)): ?>
                     <div class="col-md-6">
                         <?php if($this->hasFormation == 0) : ?>
                             <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
@@ -119,10 +121,6 @@
                                 <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                             </a>
                         <?php endif ?>
-                        <!--
-                        !TODO! Si statut = effectuée alors on met le bouton suivant
-                        Ajouter la class disable quand la formation a le statut 4 (effectuée)
-                            -->
                     </div>
                     <!-- ./col -->
                 <?php endif ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 28 Décembre 2016 à 02:13
+-- Généré le :  Mer 28 Décembre 2016 à 19:35
 -- Version du serveur :  5.7.16-0ubuntu0.16.04.1
 -- Version de PHP :  7.0.8-0ubuntu0.16.04.3
 
@@ -44,8 +44,8 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `username`, `password`, `email`, `days_left`, `credits_left`, `is_manager`, `id_team`, `is_active`, `last_login`) VALUES
-(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 18, 3758, 1, 1, 0, '2016-12-28 01:58:59'),
-(2, 'fiston', 'rl4nYQV5i.PvA', 'fiston@gmail.com', 31, 1954, 0, 1, 1, '2016-12-28 02:09:55'),
+(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 18, 3758, 1, 1, 1, '2016-12-28 19:30:25'),
+(2, 'fiston', 'rl4nYQV5i.PvA', 'fiston@gmail.com', 31, 1954, 0, 1, 0, '2016-12-28 18:24:05'),
 (3, 'Addison', 'QRX09NDC1CS', 'neque@Curabiturvellectus.edu', 14, 804, 1, 3, 0, '2016-01-24 03:58:29'),
 (4, 'Carly', 'ZFN16WHU8AD', 'Integer.vulputate.risus@accumsan.org', 11, 4994, 1, 4, 0, '2016-08-18 23:47:29'),
 (5, 'Callie', 'RAT44OHF0RR', 'Nam@ornareFusce.co.uk', 29, 2899, 1, 5, 0, '2017-03-02 14:49:19'),
@@ -146,6 +146,20 @@ INSERT INTO `employee` (`id`, `username`, `password`, `email`, `days_left`, `cre
 (100, 'Cullen', 'UYW36NTW0XU', 'malesuada.Integer.id@Donecnonjusto.edu', 45, 4137, 0, 10, 0, '2017-10-05 20:56:56'),
 (101, 'Jin', 'OIK14HRV1DO', 'diam.nunc.ullamcorper@aliquet.ca', 21, 4666, 1, 10, 0, '2016-03-06 21:01:17');
 
+--
+-- Déclencheurs `employee`
+--
+DELIMITER $$
+CREATE TRIGGER `after_update_employee` AFTER UPDATE ON `employee` FOR EACH ROW UPDATE employee_formation
+INNER JOIN formation
+ON employee_formation.id_formation = formation.id
+SET employee_formation.id_formation_status = 
+IF (formation.days <= TIMESTAMPDIFF(DAY, formation.date, CURRENT_TIMESTAMP), 5, employee_formation.id_formation_status)
+WHERE employee_formation.id_employee = OLD.id
+AND employee_formation.id_formation_status = 1
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -217,7 +231,7 @@ INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `id_forma
 (51, 6, 91, 2),
 (52, 3, 5, 2),
 (53, 30, 60, 1),
-(54, 7, 2, 1),
+(54, 7, 2, 5),
 (55, 20, 70, 3),
 (56, 23, 54, 3),
 (57, 27, 91, 3),
@@ -264,8 +278,8 @@ INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `id_forma
 (98, 5, 34, 2),
 (99, 9, 80, 1),
 (100, 28, 41, 1),
-(130, 1, 2, 1),
-(133, 4, 2, 1),
+(130, 1, 2, 5),
+(133, 4, 2, 5),
 (134, 30, 2, 3),
 (136, 18, 2, 2);
 
@@ -305,36 +319,36 @@ CREATE TABLE `formation` (
 --
 
 INSERT INTO `formation` (`id`, `name`, `description`, `date`, `duration`, `days`, `credits`, `place`, `requirement`, `provider`) VALUES
-(1, 'Phasellus Ornare Fusce Ltd', 'tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada', '2016-01-24 00:00:00', 14, 4, 148, 'Patalillo', 'hendrerit consectetuer, cursus et, magna. Praesent', 'Nostra Per Inceptos Corp.'),
-(2, 'Odio LLC', 'Curabitur egestas nunc sed libero. Proin sed turpis nec mauris', '2016-08-31 00:00:00', 6, 4, 108, 'Talagante', 'dolor sit amet,', 'Odio Auctor Vitae Incorporated'),
-(3, 'Posuere Cubilia Curae; Foundation', 'sit amet ante. Vivamus non', '2016-05-20 00:00:00', 19, 3, 196, 'Gateshead', 'elit, pharetra ut, pharetra sed, hendrerit a,', 'Pharetra Felis Corp.'),
-(4, 'Quisque Associates', 'dictum', '2016-06-16 00:00:00', 3, 5, 185, 'Rechnitz', 'Nullam lobortis quam', 'Arcu Industries'),
-(5, 'Elit Sed Inc.', 'id enim. Curabitur massa. Vestibulum accumsan neque et nunc. Quisque', '2016-11-27 00:00:00', 6, 3, 89, 'Fontanellato', 'Aenean', 'Fringilla Mi Lacinia PC'),
-(6, 'Nulla Eu Neque LLP', 'sociis natoque penatibus et magnis dis parturient', '2016-04-06 00:00:00', 10, 5, 247, 'Ligosullo', 'eros non enim commodo hendrerit. Donec porttitor', 'Velit Egestas Industries'),
-(7, 'Aliquam Iaculis Lacus Foundation', 'vel lectus. Cum sociis natoque', '2016-09-03 00:00:00', 19, 4, 107, 'Meldert', 'Nam ligula elit, pretium et, rutrum non,', 'Mauris LLP'),
-(8, 'Fusce Mollis Duis Institute', 'diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus', '2016-10-14 00:00:00', 29, 4, 218, 'Preston', 'nascetur ridiculus', 'Feugiat PC'),
-(9, 'Sollicitudin Consulting', 'euismod in, dolor. Fusce feugiat. Lorem ipsum', '2016-03-04 00:00:00', 21, 1, 137, 'Neudörfl', 'sit', 'Lobortis Quam LLC'),
-(10, 'Velit Industries', 'at, libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit', '2016-06-08 00:00:00', 5, 2, 137, 'Torres del Paine', 'orci sem eget massa. Suspendisse eleifend. Cras sed leo.', 'Natoque Penatibus Et Limited'),
-(11, 'Ut PC', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices', '2016-11-24 00:00:00', 3, 5, 148, 'Wolfurt', 'pede. Praesent', 'Donec Tempus Institute'),
-(12, 'Hendrerit Consectetuer Institute', 'et libero. Proin mi. Aliquam gravida mauris ut mi.', '2016-03-28 00:00:00', 25, 3, 157, 'College', 'nec quam.', 'Purus Incorporated'),
-(13, 'Mi Fringilla Incorporated', 'Sed nec metus facilisis lorem tristique aliquet. Phasellus', '2016-11-14 00:00:00', 24, 3, 204, 'Monacilioni', 'pede ac urna. Ut tincidunt', 'Tempor Consulting'),
-(14, 'Vel Foundation', 'leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor', '2016-07-21 00:00:00', 5, 5, 98, 'Rock Springs', 'Ut sagittis lobortis mauris. Suspendisse aliquet molestie', 'Ultricies Institute'),
-(15, 'Integer Mollis Integer Industries', 'nec, cursus a,', '2016-10-15 00:00:00', 19, 1, 90, 'Vinci', 'odio', 'Mauris LLP'),
-(16, 'Et Ultrices Ltd', 'vel, vulputate eu, odio. Phasellus at', '2016-03-29 00:00:00', 24, 4, 236, 'Saint-Eug�ne-de-Ladri�re', 'nonummy ipsum', 'Malesuada Fames Ac Corporation'),
-(17, 'Rutrum Ltd', 'nec tempus mauris erat', '2017-01-05 00:00:00', 27, 3, 195, 'Futrono', 'Nulla interdum. Curabitur dictum. Phasellus', 'Magna A Company'),
-(18, 'Pede Ltd', 'amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque,', '2016-10-02 00:00:00', 29, 2, 127, 'Ghlin', 'est, mollis non,', 'Aliquam Consulting'),
-(19, 'Enim Nunc Ut Ltd', 'Morbi non sapien molestie orci tincidunt adipiscing. Mauris', '2016-11-18 00:00:00', 20, 5, 116, 'Waterbury', 'commodo hendrerit. Donec porttitor', 'Dui Nec PC'),
-(20, 'Sapien Nunc Pulvinar Institute', 'eleifend non, dapibus rutrum, justo. Praesent luctus.', '2017-01-09 00:00:00', 17, 1, 105, 'Beausejour', 'Aliquam tincidunt, nunc ac', 'Ultricies Ornare Foundation'),
-(21, 'Donec Tempus Inc.', 'Aliquam ultrices', '2016-02-04 00:00:00', 24, 1, 201, 'Värnamo', 'non leo.', 'Tortor Institute'),
-(22, 'Justo Sit LLC', 'risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est tempor', '2016-07-02 00:00:00', 30, 3, 137, 'Westlock', 'lobortis quam a felis ullamcorper', 'Mauris Id Sapien Ltd'),
-(23, 'Donec Porttitor Tellus Foundation', 'iaculis aliquet diam. Sed diam lorem,', '2016-03-01 00:00:00', 25, 5, 59, 'Mount Gambier', 'sollicitudin', 'Hendrerit Incorporated'),
-(24, 'Sodales Purus In Consulting', 'magnis dis parturient montes, nascetur ridiculus mus. Donec', '2016-11-14 00:00:00', 16, 5, 193, 'Herstal', 'turpis egestas.', 'Blandit Nam Associates'),
-(25, 'Nunc Nulla PC', 'in, hendrerit consectetuer,', '2015-12-30 00:00:00', 24, 2, 221, 'Estevan', 'tempor', 'Magnis Dis Parturient Inc.'),
-(26, 'Vel Corp.', 'fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et', '2016-11-06 00:00:00', 20, 5, 112, 'Canora', 'pede. Cum sociis natoque penatibus et magnis', 'Nulla Institute'),
-(27, 'At Consulting', 'nec,', '2016-01-30 00:00:00', 23, 4, 153, 'Thorn', 'eget, venenatis a, magna. Lorem ipsum dolor sit', 'Elementum Sem Vitae LLP'),
-(28, 'Ridiculus Mus Ltd', 'risus,', '2016-02-02 00:00:00', 1, 4, 191, 'Burdinne', 'tempus scelerisque, lorem ipsum sodales purus, in molestie tortor', 'Purus Gravida Sagittis LLC'),
-(29, 'Ultrices Mauris Ipsum Limited', 'a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus', '2016-12-11 00:00:00', 13, 4, 61, 'Sint-Genesius-Rode', 'metus.', 'Enim Nisl Elementum Incorporated'),
-(30, 'Eu Dolor Limited', 'dolor elit, pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa. Mauris', '2016-06-04 00:00:00', 18, 3, 61, 'Traralgon', 'netus et malesuada fames', 'Duis Corp.');
+(1, 'Phasellus Ornare Fusce Ltd', 'tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada', '2016-09-15 18:45:34', 14, 4, 148, 'Patalillo', 'hendrerit consectetuer, cursus et, magna. Praesent', 'Nostra Per Inceptos Corp.'),
+(2, 'Odio LLC', 'Curabitur egestas nunc sed libero. Proin sed turpis nec mauris', '2017-06-07 21:50:36', 6, 4, 108, 'Talagante', 'dolor sit amet,', 'Odio Auctor Vitae Incorporated'),
+(3, 'Posuere Cubilia Curae; Foundation', 'sit amet ante. Vivamus non', '2017-06-29 17:06:10', 19, 3, 196, 'Gateshead', 'elit, pharetra ut, pharetra sed, hendrerit a,', 'Pharetra Felis Corp.'),
+(4, 'Quisque Associates', 'dictum', '2016-08-30 01:04:29', 3, 5, 185, 'Rechnitz', 'Nullam lobortis quam', 'Arcu Industries'),
+(5, 'Elit Sed Inc.', 'id enim. Curabitur massa. Vestibulum accumsan neque et nunc. Quisque', '2017-05-18 21:32:13', 6, 3, 89, 'Fontanellato', 'Aenean', 'Fringilla Mi Lacinia PC'),
+(6, 'Nulla Eu Neque LLP', 'sociis natoque penatibus et magnis dis parturient', '2017-05-10 11:48:05', 10, 5, 247, 'Ligosullo', 'eros non enim commodo hendrerit. Donec porttitor', 'Velit Egestas Industries'),
+(7, 'Aliquam Iaculis Lacus Foundation', 'vel lectus. Cum sociis natoque', '2017-03-22 11:35:57', 19, 4, 107, 'Meldert', 'Nam ligula elit, pretium et, rutrum non,', 'Mauris LLP'),
+(8, 'Fusce Mollis Duis Institute', 'diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus', '2017-05-06 03:49:18', 29, 4, 218, 'Preston', 'nascetur ridiculus', 'Feugiat PC'),
+(9, 'Sollicitudin Consulting', 'euismod in, dolor. Fusce feugiat. Lorem ipsum', '2017-05-07 14:58:10', 21, 1, 137, 'Neudörfl', 'sit', 'Lobortis Quam LLC'),
+(10, 'Velit Industries', 'at, libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit', '2016-09-26 21:36:58', 5, 2, 137, 'Torres del Paine', 'orci sem eget massa. Suspendisse eleifend. Cras sed leo.', 'Natoque Penatibus Et Limited'),
+(11, 'Ut PC', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices', '2016-12-10 13:06:16', 3, 5, 148, 'Wolfurt', 'pede. Praesent', 'Donec Tempus Institute'),
+(12, 'Hendrerit Consectetuer Institute', 'et libero. Proin mi. Aliquam gravida mauris ut mi.', '2017-03-22 18:02:10', 25, 3, 157, 'College', 'nec quam.', 'Purus Incorporated'),
+(13, 'Mi Fringilla Incorporated', 'Sed nec metus facilisis lorem tristique aliquet. Phasellus', '2016-10-18 20:52:20', 24, 3, 204, 'Monacilioni', 'pede ac urna. Ut tincidunt', 'Tempor Consulting'),
+(14, 'Vel Foundation', 'leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor', '2016-12-18 17:42:21', 5, 5, 98, 'Rock Springs', 'Ut sagittis lobortis mauris. Suspendisse aliquet molestie', 'Ultricies Institute'),
+(15, 'Integer Mollis Integer Industries', 'nec, cursus a,', '2017-06-11 15:08:17', 19, 1, 90, 'Vinci', 'odio', 'Mauris LLP'),
+(16, 'Et Ultrices Ltd', 'vel, vulputate eu, odio. Phasellus at', '2017-04-14 12:42:32', 24, 4, 236, 'Saint-Eug�ne-de-Ladri�re', 'nonummy ipsum', 'Malesuada Fames Ac Corporation'),
+(17, 'Rutrum Ltd', 'nec tempus mauris erat', '2016-08-30 10:34:10', 27, 3, 195, 'Futrono', 'Nulla interdum. Curabitur dictum. Phasellus', 'Magna A Company'),
+(18, 'Pede Ltd', 'amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque,', '2017-04-22 04:28:34', 29, 2, 127, 'Ghlin', 'est, mollis non,', 'Aliquam Consulting'),
+(19, 'Enim Nunc Ut Ltd', 'Morbi non sapien molestie orci tincidunt adipiscing. Mauris', '2016-10-25 15:07:56', 20, 5, 116, 'Waterbury', 'commodo hendrerit. Donec porttitor', 'Dui Nec PC'),
+(20, 'Sapien Nunc Pulvinar Institute', 'eleifend non, dapibus rutrum, justo. Praesent luctus.', '2017-01-07 14:16:47', 17, 1, 105, 'Beausejour', 'Aliquam tincidunt, nunc ac', 'Ultricies Ornare Foundation'),
+(21, 'Donec Tempus Inc.', 'Aliquam ultrices', '2016-10-28 19:31:05', 24, 1, 201, 'Värnamo', 'non leo.', 'Tortor Institute'),
+(22, 'Justo Sit LLC', 'risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est tempor', '2016-09-19 16:44:31', 30, 3, 137, 'Westlock', 'lobortis quam a felis ullamcorper', 'Mauris Id Sapien Ltd'),
+(23, 'Donec Porttitor Tellus Foundation', 'iaculis aliquet diam. Sed diam lorem,', '2016-10-05 20:31:24', 25, 5, 59, 'Mount Gambier', 'sollicitudin', 'Hendrerit Incorporated'),
+(24, 'Sodales Purus In Consulting', 'magnis dis parturient montes, nascetur ridiculus mus. Donec', '2016-07-19 13:56:30', 16, 5, 193, 'Herstal', 'turpis egestas.', 'Blandit Nam Associates'),
+(25, 'Nunc Nulla PC', 'in, hendrerit consectetuer,', '2016-08-16 20:22:11', 24, 2, 221, 'Estevan', 'tempor', 'Magnis Dis Parturient Inc.'),
+(26, 'Vel Corp.', 'fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et', '2017-02-18 13:32:25', 20, 5, 112, 'Canora', 'pede. Cum sociis natoque penatibus et magnis', 'Nulla Institute'),
+(27, 'At Consulting', 'nec,', '2016-09-07 04:50:43', 23, 4, 153, 'Thorn', 'eget, venenatis a, magna. Lorem ipsum dolor sit', 'Elementum Sem Vitae LLP'),
+(28, 'Ridiculus Mus Ltd', 'risus,', '2016-11-26 01:38:26', 1, 4, 191, 'Burdinne', 'tempus scelerisque, lorem ipsum sodales purus, in molestie tortor', 'Purus Gravida Sagittis LLC'),
+(29, 'Ultrices Mauris Ipsum Limited', 'a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus', '2016-09-14 02:12:55', 13, 4, 61, 'Sint-Genesius-Rode', 'metus.', 'Enim Nisl Elementum Incorporated'),
+(30, 'Eu Dolor Limited', 'dolor elit, pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa. Mauris', '2017-03-05 01:53:43', 18, 3, 61, 'Traralgon', 'netus et malesuada fames', 'Duis Corp.');
 
 -- --------------------------------------------------------
 
@@ -443,7 +457,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT pour la table `employee_formation`
 --
 ALTER TABLE `employee_formation`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 --
 -- AUTO_INCREMENT pour la table `employee_team`
 --
