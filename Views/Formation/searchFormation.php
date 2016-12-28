@@ -34,6 +34,15 @@
                                        data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]"
                                        data-slider-orientation="horizontal" data-slider-selection="before"
                                        data-slider-tooltip="show" data-slider-id="maroon">
+                                <script>
+                                    setInterval(function(){
+                                        var dataMaroonMax = document.querySelector("#maroon > div.slider-track > div.max-slider-handle");
+                                        var dataMaroonMin = document.querySelector("#maroon > div.slider-track > div.min-slider-handle");
+
+                                        console.log(dataMaroonMin.getAttribute("aria-valuenow"));
+                                        console.log(dataMaroonMax.getAttribute("aria-valuenow"));
+                                    },2000);
+                                </script>
                             </div>
                         </div>
                     </div>
