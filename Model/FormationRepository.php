@@ -128,6 +128,7 @@ class FormationRepository extends Model
 
     public function getAjaxFormationsOrderByDateAndPaginate($limit, $offset)
     {
+
         $sql = "select *
                 from formation
                 order by date desc
