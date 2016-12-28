@@ -50,12 +50,14 @@
                                         <td><?= $formation->getDuration() ?></td>
                                         <td><?= $formation->getDays() ?></td>
                                         <td><?= $formation->getCredits() ?></td>
-                                        <?php foreach($employee->getFormations() as $myFormation): ?>
-                                            <?php if($myFormation->getId() == $formation->getId()): ?>
-                                                <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
-                                                <?php break; ?>
-                                            <?php endif ?>
-                                        <?php endforeach ?>
+                                        <?php if($employee->getFormations() != null): ?>
+                                            <?php foreach($employee->getFormations() as $myFormation): ?>
+                                                <?php if($myFormation->getId() == $formation->getId()): ?>
+                                                    <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
+                                                    <?php break; ?>
+                                                <?php endif ?>
+                                            <?php endforeach ?>
+                                        <?php endif ?>
                                         <td><span class="badge bg-green"><?= $status ?></span>
                                         </td>
                                         <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
