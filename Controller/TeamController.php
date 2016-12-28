@@ -18,7 +18,7 @@ class TeamController extends Controller
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
 
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             foreach ($team as $member) {
                 if($member->getId() == $employee->getId()) {
@@ -43,7 +43,7 @@ class TeamController extends Controller
             $employeeRepository = new EmployeeRepository();
 
             $idTeamMember = $parameters['id'];
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $member = $employeeRepository->getOneEmployeeByTeam($idTeamMember);
 
             $view = new View('Team', "manageFormation");

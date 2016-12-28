@@ -3,6 +3,8 @@
 <?php $this->employee = $employee; ?>
 <?php $this->formation = $formation; ?>
 <?php $this->hasFormation = $hasFormation ?>
+<?php $this->isPendingFormation = $isPendingFormation ?>
+
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -46,7 +48,7 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Jours requis</p>
-                                    <span class="product-description"><?= $this->formation->getDuration() ?></span>
+                                    <span class="product-description"><?= $this->formation->getDays() ?></span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -74,7 +76,14 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Statut</p>
-                                    <span class="badge bg-green"><?= $this->formation->getRequirement() ?></span>
+                                    <?php foreach($employee->getFormations() as $myFormation): ?>
+                                        <?php $status = 'disponible' ?>
+                                        <?php if($myFormation->getId() == $this->formation->getId()): ?>
+                                            <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
+                                            <?php break; ?>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                    <span class="badge bg-green"><?= $status ?></span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -93,30 +102,30 @@
 
 
         <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="col-md-6">
-                <a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index">
-                    <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
-                </a>
-            </div>
-            <div class="col-md-6">
-                    <?php if($this->hasFormation == 0) : ?>
-                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
-                        <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <a href=<?php ROOTDIR ?>"index.php?controller=formation&action=index">
+                        <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
                     </a>
-                    <?php elseif($this->hasFormation == 1) : ?>
-                    <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=removeFormation&id=<?= $this->formation->getId() ?>">
-                        <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
-                    </a>
-                    <?php endif ?>
-                    <!-- 
-
-                    !TODO! Si statut = effectuée alors on met le bouton suivant 
-                    Ajouter la class disable quand la formation a le statut 4 (effectuée)
-
-                    -->
-            </div>
-            <!-- ./col -->
+                </div>
+                <?php if($isPendingFormation == 1): ?>
+                    <div class="col-md-6">
+                        <?php if($this->hasFormation == 0) : ?>
+                            <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
+                                <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
+                            </a>
+                        <?php elseif($this->hasFormation == 1) : ?>
+                            <a href=<?php ROOTDIR ?>"index.php?controller=employee&action=removeFormation&id=<?= $this->formation->getId() ?>">
+                                <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
+                            </a>
+                        <?php endif ?>
+                        <!--
+                        !TODO! Si statut = effectuée alors on met le bouton suivant
+                        Ajouter la class disable quand la formation a le statut 4 (effectuée)
+                            -->
+                    </div>
+                    <!-- ./col -->
+                <?php endif ?>
             </div>
             <!-- ./col -->
         </div>

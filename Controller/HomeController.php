@@ -18,7 +18,7 @@ class HomeController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $employeeFormations = $employee->getFormations();
             $pastFormations = $employeeRepository->countValidateFormationByEmployee($employee->getId());
             $pendingFormations = $employeeRepository->countPendingFormationByEmployee($employee->getId());

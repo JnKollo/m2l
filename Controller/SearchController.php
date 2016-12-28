@@ -17,7 +17,7 @@ class SearchController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
 
             $view = new View('Search', 'searchFormation');
             $view->generate(array(
@@ -34,7 +34,7 @@ class SearchController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $employeeFormations = $employee->getFormations();
             $searchFormation = $formationRepository->getSearchFormation($parameters);
 

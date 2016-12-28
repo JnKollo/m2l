@@ -12,7 +12,6 @@ class EmployeeRepository extends Model
     private $credits_left;
     private $is_manager;
     private $id_team;
-    private $is_active;
     private $last_login;
     private $formations;
     private $pendingFormations;
@@ -69,11 +68,6 @@ class EmployeeRepository extends Model
         return $this;
     }
 
-    public function isActive()
-    {
-        return $this->is_active;
-    }
-
     public function getLastLogin()
     {
         return $this->last_login;
@@ -89,54 +83,6 @@ class EmployeeRepository extends Model
     {
         $hashPassword = password_hash($plainPassword,PASSWORD_BCRYPT);
         $this->password = $hashPassword;
-        return $this;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function setDaysLeft($days_left)
-    {
-        $this->days_left = $days_left;
-        return $this;
-    }
-
-    public function setCreditsLeft($credits_left)
-    {
-        $this->credits_left = $credits_left;
-        return $this;
-    }
-
-    public function setManager()
-    {
-        $this->is_manager = 1;
-        return $this;
-    }
-
-    public function removeManager()
-    {
-        $this->is_manager = 0;
-        return $this;
-    }
-
-    public function setTeam($team)
-    {
-        $this->team = $team;
-        return $this;
-    }
-
-    public function setActivity()
-    {
-        $this->is_active = 1;
-        return $this;
-    }
-
-    public function removeActivity()
-    {
-        $this->is_active = 0;
         return $this;
     }
 
@@ -169,20 +115,18 @@ class EmployeeRepository extends Model
                 from employee
                 where username = ? and password = ?";
         $req = $this->executeRequest($sql, array($login, $password));
-        $result = $req->fetch();
+        $result = $req->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function login($id)
     {
-        $this->setActivity();
-        $sql = "UPDATE employee SET is_active=1, last_login=NOW() WHERE id=?";
+        $sql = "UPDATE employee SET is_active = 1, last_login = NOW() WHERE id = ?";
         $this->executeRequest($sql, array($id));
     }
 
     public function logout($id)
     {
-        $this->removeActivity();
         $sql = "UPDATE employee SET is_active=0 WHERE id=?";
         $this->executeRequest($sql, array($id));
     }
@@ -303,7 +247,7 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-    public function addFormation($idEmployee, $idFormation)
+    public function subscribeToFormation($idEmployee, $idFormation)
     {
         $sql = "insert into employee_formation (id_formation, id_employee, id_formation_status)
                 values (?, ?, 2)";
@@ -311,7 +255,7 @@ class EmployeeRepository extends Model
         $this->getFormationsByEmployee($idEmployee);
     }
 
-    public function removeFormation($idEmployee, $idFormation)
+    public function unsubscribeToFormation($idEmployee, $idFormation)
     {
         $sql = "delete from employee_formation
                 where id_employee = ?
@@ -327,11 +271,11 @@ class EmployeeRepository extends Model
         where id_employee = ?
         and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
-        $this->updateCreditsForEmployee($idEmployee, $creditsFormation);
-        $this->updateDaysForEmployee($idEmployee, $daysFormation);
+        $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
+        $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
     }
 
-    public function updateCreditsForEmployee($idEmployee, $creditsFormation)
+    public function updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation)
     {
         $sql = "update employee
         set credits_left = credits_left - $creditsFormation
@@ -339,10 +283,26 @@ class EmployeeRepository extends Model
         $this->executeRequest($sql, array($idEmployee));
     }
 
-    public function updateDaysForEmployee($idEmployee, $daysFormation)
+    public function updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation)
     {
         $sql = "update employee
         set days_left = days_left - $daysFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateCreditsForManagerAfterUnsubscribe($idEmployee, $creditsFormation)
+    {
+        $sql = "update employee
+        set credits_left = credits_left + $creditsFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateDaysForManageAfterUnsubscribe($idEmployee, $daysFormation)
+    {
+        $sql = "update employee
+        set days_left = days_left + $daysFormation
         where id = ?";
         $this->executeRequest($sql, array($idEmployee));
     }
@@ -424,5 +384,14 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-
+    public function isPendingFormation($idFormation, $idEmployee)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_formation = ?
+        and employee_formation.id_employee = ?
+        and employee_formation.id_formation_status = 2";
+        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
+        return $req->fetchColumn();
+    }
 } 

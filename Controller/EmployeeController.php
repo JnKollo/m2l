@@ -18,11 +18,11 @@ class EmployeeController extends Controller
         $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
 
-        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
         $formation = $formationRepository->getOneFormationById($idFormation);
 
         if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
-            $employee->addFormation($_SESSION['employee']['id'], $idFormation);
+            $employee->subscribeToFormation($_SESSION['employee'], $idFormation);
             if ($employee->isMAnager()){
                 $employee->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
             }
@@ -37,11 +37,13 @@ class EmployeeController extends Controller
         $employeeRepository = new EmployeeRepository();
         $formationRepository = new FormationRepository();
 
-        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+        $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
         $formation = $formationRepository->getOneFormationById($idFormation);
 
-        if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
-            $employee->removeFormation($_SESSION['employee']['id'], $idFormation);
+        $employee->unsubscribeToFormation($_SESSION['employee'], $idFormation);
+        if ($employee->isMAnager()){
+            $employee->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
+            $employee->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
         }
         $this->redirect('formation', 'show', $idFormation);
     }

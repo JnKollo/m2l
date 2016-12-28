@@ -29,7 +29,7 @@ class FormationController extends Controller
             $endYear = date("Y", strtotime(date("Y", strtotime($startYear)) . " + 1 year"));
             $limit = 10;
             $offset = 0;
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
             $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
@@ -52,15 +52,17 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $formation = $formationRepository->getOneFormationById($idFormation);
-            $hasFormation = $employeeRepository->hasFormation($_SESSION['employee']['id'], $idFormation);
+            $hasFormation = $employeeRepository->hasFormation($employee->getId(), $idFormation);
+            $isPendingFormation = $employeeRepository->isPendingFormation($idFormation, $employee->getId());
 
             $view = new View('Formation', "editFormation");
             $view->generate(array(
                 'employee' => $employee,
                 'formation' => $formation,
-                'hasFormation' => $hasFormation
+                'hasFormation' => $hasFormation,
+                'isPendingFormation' => $isPendingFormation
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -74,7 +76,7 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $formations = [];
             $totalCount = 0;
             $limit = 10;
@@ -114,7 +116,7 @@ class FormationController extends Controller
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']['id']);
+            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
             $view = new View('Formation', "searchFormation");

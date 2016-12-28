@@ -31,8 +31,9 @@ class SecurityController extends Controller
 
                 if ($hasAccount) {
                     $employeeRepository = new EmployeeRepository();
-                    $idEmployee = $employeeRepository->getIdByLoginAndPassword($login, $hash);
-                    $_SESSION['employee'] = $idEmployee;
+                    $employee = $employeeRepository->getIdByLoginAndPassword($login, $hash);
+                    $employeeRepository->login($employee['id']);
+                    $_SESSION['employee'] = $employee['id'];
                     $this->redirect('home', 'home');
                 } else {
                     $this->redirect('login', 'index');
@@ -45,7 +46,7 @@ class SecurityController extends Controller
     {
         if (isset($_SESSION['employee'])) {
             $employeeRepository = new EmployeeRepository();
-            $employeeRepository->logout($_SESSION['employee']['id']);
+            $employeeRepository->logout($_SESSION['employee']);
             session_unset();
             session_destroy();
         }

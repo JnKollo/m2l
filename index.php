@@ -9,6 +9,7 @@ $inactive = 600;
 if (isset($_SESSION["timeout"])) {
     $sessionTTL = time() - $_SESSION["timeout"];
     if ($sessionTTL > $inactive) {
+        session_unset();
         session_destroy();
         header("Location: index.php?controller=security&action=logout");
     }
