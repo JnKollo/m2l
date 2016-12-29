@@ -99,6 +99,8 @@ class FormationController extends Controller
 
             $idEmployee = $_SESSION['employee'];
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
+            $employeeFormations = $employeeRepository->getAjaxFormationsByEmployee($employee->getId());
+
             $formations = [];
             $totalCount = 0;
             $limit = 10;
@@ -127,7 +129,8 @@ class FormationController extends Controller
             echo json_encode(array(
                 'maxRow' => $limit,
                 'totalCount' => $totalCount,
-                'formations' => $formations
+                'formations' => $formations,
+                'employeeFormations' => $employeeFormations
             ));
         }else {
             $this->redirect('Security', 'logout');

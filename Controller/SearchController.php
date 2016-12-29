@@ -20,12 +20,13 @@ class SearchController extends Controller
             $formationRepository = new FormationRepository();
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
-            $employeeFormations = $employee->getFormations();
-            $searchFormation = $formationRepository->getSearchFormation($parameters);
+            $employeeFormations = $employee->getAjaxFormationsByEmployee($employee->getId());
+            $searchFormation = $formationRepository->getSearchFormations($parameters);
 
             header('Content-Type: application/json');
             echo json_encode(array(
-                'formations' => $searchFormation
+                'formations' => $searchFormation,
+                'employeeFormations' => $employeeFormations
             ));
         }else {
             $this->redirect('Security', 'logout');

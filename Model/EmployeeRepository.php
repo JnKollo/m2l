@@ -166,6 +166,21 @@ class EmployeeRepository extends Model
         }
     }
 
+    public function getAjaxFormationsByEmployee($idEmployee)
+    {
+        $sql = "select formation.*, formation_status.state_of_validation
+                from formation
+                inner join employee_formation
+                    on formation.id = employee_formation.id_formation
+                    inner join formation_status
+                    on formation_status.id = employee_formation.id_formation_status
+                where employee_formation.id_employee = ?
+                order by date desc";
+        $req = $this->executeRequest($sql, array($idEmployee));
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
     {
         $sql = "select formation.*
