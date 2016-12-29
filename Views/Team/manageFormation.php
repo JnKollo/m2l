@@ -23,7 +23,7 @@
                         <div class="box-body">
                             <ul class="products-list product-list-in-box">
                                 <li class="item">
-                                    <img class="profile-user-img img-responsive img-circle" src="dist/img/user4-128x128.jpg" alt="User profile picture">
+                                    <img class="profile-user-img img-responsive img-circle" src="<?= $member->getImage() ?>" alt="User profile picture">
                                     <div class="product-info">
                                         <p class="product-title">Nom</p>
                                         <span class="product-description"><?= $member->getUsername() ?></span>

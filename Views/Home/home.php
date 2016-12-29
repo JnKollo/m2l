@@ -186,7 +186,7 @@
                         <ul class="users-list clearfix">
                             <?php foreach($team as $member): ?>
                                 <li>
-                                    <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                                    <img src="<?= $member->getImage()?>" alt="User Image">
                                     <a class="users-list-name" href=<?php ROOTDIR ?>"index.php?controller=team&action=manage&id=<?= $member->getId(); ?>"><?= $member->getUsername(); ?></a>
                                 </li>
                             <?php endforeach ?>

@@ -8,6 +8,7 @@ class EmployeeRepository extends Model
     private $username;
     private $password;
     private $email;
+    private $image;
     private $days_left;
     private $credits_left;
     private $is_manager;
@@ -35,6 +36,11 @@ class EmployeeRepository extends Model
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
     public function getDaysLeft()
@@ -336,7 +342,7 @@ class EmployeeRepository extends Model
 
     public function getEmployeeByTeam($id_team, $id_employee)
     {
-        $sql = "select id, username, credits_left, days_left
+        $sql = "select id, username, credits_left, days_left, image
                 from employee
                 where id_team = ?
                 and id <> ?";
@@ -347,7 +353,7 @@ class EmployeeRepository extends Model
 
     public function getOneEmployeeByTeam($id_employee)
     {
-        $sql = "select id, username, credits_left, days_left
+        $sql = "select id, username, credits_left, days_left, image
                 from employee
                 where id = ?";
         $req = $this->executeRequest($sql, array($id_employee));

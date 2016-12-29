@@ -23,8 +23,8 @@
 		<header class="main-header">
 			<!-- Logo -->
 			<a class="logo" href=<?php ROOTDIR ?>"index.php?controller=home&action=home"><!-- mini logo for sidebar mini 50x50 pixels -->
-				<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>Admin</b>LTE</span></a> <!-- Header Navbar -->
+				<span class="logo-mini"><b>M2l</b></span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>M2l</b></span></a> <!-- Header Navbar -->
 			<nav class="navbar navbar-static-top" role="navigation">
 				<!-- Sidebar toggle button-->
 				<a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button"><span class="sr-only">Toggle navigation</span></a> <!-- Navbar Right Menu -->
@@ -40,7 +40,7 @@
 			<section class="sidebar">
 				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel">
-					<div class="pull-left image"><img alt="User Image" class="img-circle" src=<?php ROOTDIR ?>"dist/img/user2-160x160.jpg"></div>
+					<div class="pull-left image"><img alt="User Image" class="img-circle" src=<?= $this->employee->getImage(); ?>></div>
 					<div class="pull-left info">
 						<p> <?= $this->employee->getUsername(); ?></p><!-- Status -->
 						<p><span class="badge bg-maroon"><?= $this->employee->getCreditsLeft(); ?> CF</span> <span class="badge bg-purple"><?= $this->employee->getDaysLeft(); ?> jours</span></p>
