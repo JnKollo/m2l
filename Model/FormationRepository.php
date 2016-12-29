@@ -160,7 +160,30 @@ class FormationRepository extends Model
 
     public function getSearchFormations($parameters)
     {
-        $sql = "select * from formations if ";
+        $label = '';
+        $dayRange = '';
+        $creditRange = '';
+        $dateRange = '';
+        if($parameters['label']) {
+            $label = " and name like '%".$parameters['label']."%'";
+        }
+        if($parameters['dayMin'] && $parameters['dayMax']) {
+            $dayRange = " and days between ".$parameters['dayMin']." and ".$parameters['dayMax'];
+        }
+        if($parameters['creditMin'] && $parameters['creditMax']) {
+            $creditRange = " and credits between ".$parameters['creditMin']." and ".$parameters['creditMax'];
+        }
+        if($parameters['dateMin'] && $parameters['dateMax']) {
+            $dateRange = " and date between ".$parameters['creditMin']." and ".$parameters['creditMax'];
+        }
+        $orderByDate = ' order by date desc';
+        $sql = "select *
+                from formations
+                where 1 = 1";
+        $sql = $sql.$label.$dayRange.$creditRange.$dateRange.$orderByDate;
+        $req = $this->executeRequest($sql);
+        $result = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function setStatus($idFormation, $idEmployee)

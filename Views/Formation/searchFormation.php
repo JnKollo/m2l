@@ -29,11 +29,12 @@
                                 <input type="text" value="" class="slider form-control" data-slider-min="-200"
                                        data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]"
                                        data-slider-orientation="horizontal" data-slider-selection="before"
-                                       data-slider-tooltip="show" data-slider-id="purple">
+                                       data-slider-tooltip="show" data-slider-id="purple" name="days">
                                 <input type="text" value="" class="slider form-control" data-slider-min="-200"
                                        data-slider-max="200" data-slider-step="5" data-slider-value="[-100,100]"
                                        data-slider-orientation="horizontal" data-slider-selection="before"
-                                       data-slider-tooltip="show" data-slider-id="maroon">
+                                       data-slider-tooltip="show" data-slider-id="maroon" name="credits">
+                                <input type="text" class="form-control" placeholder="libellé de la formation" name="login">
                                 <script>
                                     setInterval(function(){
                                         var dataMaroonMax = document.querySelector("#maroon > div.slider-track > div.max-slider-handle");

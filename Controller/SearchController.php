@@ -13,21 +13,6 @@ class SearchController extends Controller
     {
     }
 
-    public function search()
-    {
-        if (isset($_SESSION["employee"])) {
-            $employeeRepository = new EmployeeRepository();
-            $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
-
-            $view = new View('Search', 'searchFormation');
-            $view->generate(array(
-                'employee' => $employee
-            ));
-        }else {
-            $this->redirect('Security', 'logout');
-        }
-    }
-
     public function result($parameters)
     {
         if (isset($_SESSION["employee"])) {

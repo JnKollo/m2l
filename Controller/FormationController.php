@@ -97,6 +97,7 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
 
+            $idEmployee = $_SESSION['employee'];
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $formations = [];
             $totalCount = 0;
@@ -114,11 +115,11 @@ class FormationController extends Controller
                     $formations = $formationRepository->getAjaxFormationsOrderByDateAndPaginate($limit, $offset);
                     $totalCount = $formationRepository->CountFormations();
                 } elseif($block == 'myFormation') {
-                    $formations = $employeeRepository->getAjaxFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
-                    $totalCount = $employeeRepository->countFormationsByEmployee($employee->getId(), $startYear, $endYear);
+                    $formations = $employeeRepository->getAjaxFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear);
+                    $totalCount = $employeeRepository->countFormationsByEmployee($idEmployee, $startYear, $endYear);
                 } elseif($block == 'performedFormation') {
-                    $formations = $employeeRepository->getAjaxPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
-                    $totalCount = $employeeRepository->countPerformedFormationsByEmployee($employee->getId());
+                    $formations = $employeeRepository->getAjaxPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset);
+                    $totalCount = $employeeRepository->countPerformedFormationsByEmployee($idEmployee);
                 }
             }
 

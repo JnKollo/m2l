@@ -25,7 +25,15 @@ class Router
             if ($request->parametersExist('formation')) {
                 $parameters['formation'] = $request->getParameters('formation');
             }
-
+            if ($request->parametersExist('days')) {
+                $parameters['days'] = $request->getParameters('days');
+            }
+            if ($request->parametersExist('credits')) {
+                $parameters['credits'] = $request->getParameters('credits');
+            }
+            if ($request->parametersExist('label')) {
+                $parameters['label'] = $request->getParameters('label');
+            }
             $controller->executeAction($action, $parameters);
         }
         catch (Exception $e) {
