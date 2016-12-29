@@ -1,5 +1,6 @@
 <?php
 
+require_once 'BreadcrumbController.php';
 require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
 require_once 'Framework/Request.php';
@@ -34,12 +35,15 @@ class FormationController extends Controller
             $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
+            $breadcrumb = BreadcrumbController::formationBreadcrumb();
+
             $view = new View('Formation',"formations");
             $view->generate(array(
                 'employee' => $employee,
                 'employeeFormations' => $employeeFormations,
                 'performedFormations' => $performedFormations,
-                'formations' => $formations
+                'formations' => $formations,
+                'breadcrumb' => $breadcrumb
             ));
         }else {
             $this->redirect('Security', 'logout');

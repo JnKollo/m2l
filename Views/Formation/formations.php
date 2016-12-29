@@ -4,10 +4,7 @@
 <?php $this->employeeFormations = $employeeFormations; ?>
 <?php $this->performedFormations = $performedFormations; ?>
 <?php $this->formations = $formations; ?>
-<?php $breadCrumbArray = [
-0 => ['controller' => 'home','action' => 'home','name' => 'Accueil'],
-1 => ['controller' => 'formation','action' => 'index','name' => 'Gestion des formations']
-] ?>
+<?php $this->breadcrumb = $breadcrumb; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -217,7 +214,7 @@
     //FUNCTIONS
     function displayBreadCrumb(){
         <?php
-            $breadCrumbArrayJs = json_encode($breadCrumbArray);
+            $breadCrumbArrayJs = json_encode($breadcrumb);
             echo "var breadCrumbArray = ". $breadCrumbArrayJs . ";";
         ?>
         var contentHeader = document.querySelector("section.content-header");
