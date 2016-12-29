@@ -65,11 +65,13 @@ class FormationController extends Controller
                 $isSubscribable = 0;
                 $status = 'indisponible';
             }
-            foreach ($employee->getFormations() as $myFormation) {
-                if($myFormation->getId() == $formation->getId()){
-                    if($isPendingFormation != 1) {
-                        $isSubscribable = 0;
-                        break;
+            if($employee->getFormations()) {
+                foreach ($employee->getFormations() as $myFormation) {
+                    if($myFormation->getId() == $formation->getId()){
+                        if($isPendingFormation != 1) {
+                            $isSubscribable = 0;
+                            break;
+                        }
                     }
                 }
             }
@@ -89,8 +91,6 @@ class FormationController extends Controller
             $this->redirect('Security', 'logout');
         }
     }
-
-    //Methode a modifier
 
     public function paginate($parameters) {
         if (isset($_SESSION["employee"])) {
