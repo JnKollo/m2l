@@ -1,12 +1,16 @@
 # GESTION DE FORMATION DE LA MAISON DES LIGUES
 
 
-## Getting Started
+## Getting Started ##
 
-Modifier la configuration de connexion à la base de données.
+### Exporter la base de données m2l
+- Dans PHPMyAdmin, créer une nouvelle base de donnée
+- Exporter les données du fichier m2l.sql situé dans le dossier DB
 
-- Créer un dossier CONFIG
-- Créer un fichier dev.ini
+### Modifier la configuration de connexion à la base de données.
+
+- Créer un dossier Config à la racine du projet
+- Créer un fichier dev.ini dans ce dossier
 - Copier / Coller ces lignes :
 ```
 #!php
@@ -20,6 +24,7 @@ mdp = ''
 avec login => identifiant phpmyadmin 
 
 et mdp => mot de passe phpmyadmin
+
 
 
 ## Mise en recette
@@ -37,14 +42,18 @@ git add -u
 git commit -m 'message de commit'
 git push origin branche à pusher
 ```
+Puis
 
+```
+#!shell
+git checkout recette
+```
 
 ### Sur la branche recette ###
 
 
 ```
 #!shell
-git checkout recette
 git fetch
 git reset --hard origin/master
 git merge origin/(branche à merger)
