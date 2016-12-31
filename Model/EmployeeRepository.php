@@ -103,6 +103,18 @@ class EmployeeRepository extends Model
         return $this;
     }
 
+    public function login($id)
+    {
+        $sql = "UPDATE employee SET is_active = 1, last_login = NOW() WHERE id = ?";
+        $this->executeRequest($sql, array($id));
+    }
+
+    public function logout($id)
+    {
+        $sql = "UPDATE employee SET is_active=0 WHERE id=?";
+        $this->executeRequest($sql, array($id));
+    }
+
     public function getEmployeeById($id)
     {
         $sql = "select *
@@ -123,36 +135,6 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($login, $password));
         $result = $req->fetch(PDO::FETCH_ASSOC);
         return $result;
-    }
-
-    public function login($id)
-    {
-        $sql = "UPDATE employee SET is_active = 1, last_login = NOW() WHERE id = ?";
-        $this->executeRequest($sql, array($id));
-    }
-
-    public function logout($id)
-    {
-        $sql = "UPDATE employee SET is_active=0 WHERE id=?";
-        $this->executeRequest($sql, array($id));
-    }
-
-    public function getPendingFormationsByEmployee($id)
-    {
-        $sql = "select formation.*
-                from formation
-                inner join employee_formation
-                    on formation.id = employee_formation.id_formation
-                where employee_formation.id_employee = ?
-                and employee_formation.id_formation_status = 2
-                order by date desc";
-        $req = $this->executeRequest($sql, array($id));
-        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
-        $result = $req->fetchAll();
-        foreach ($result as $formation) {
-            $this->setFormations($formation);
-            $formation->setStatus($formation->getId(), $id);
-        }
     }
 
     public function getFormationsByEmployee($id)
@@ -223,6 +205,24 @@ class EmployeeRepository extends Model
         $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
         $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function getPendingFormationsByEmployee($id)
+    {
+        $sql = "select formation.*
+                from formation
+                inner join employee_formation
+                    on formation.id = employee_formation.id_formation
+                where employee_formation.id_employee = ?
+                and employee_formation.id_formation_status = 2
+                order by date desc";
+        $req = $this->executeRequest($sql, array($id));
+        $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
+        $result = $req->fetchAll();
+        foreach ($result as $formation) {
+            $this->setFormations($formation);
+            $formation->setStatus($formation->getId(), $id);
+        }
     }
 
     public function getPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
@@ -379,18 +379,6 @@ class EmployeeRepository extends Model
     public function countPerformedFormationsByEmployee($idEmployee)
     {
         $sql = "select count(*)
-                from employee_formation
-                  inner join formation
-                    on formation.id = employee_formation.id_formation
-                where employee_formation.id_employee = ?
-                  and employee_formation.id_formation_status = 5";
-        $req = $this->executeRequest($sql, array($idEmployee));
-        return $req->fetchColumn();
-    }
-
-    public function countPerfomedFormationByEmployee($idEmployee)
-    {
-        $sql = "select count(*)
         from employee_formation
         where employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 5";
@@ -398,7 +386,7 @@ class EmployeeRepository extends Model
         return $req->fetchColumn();
     }
 
-    public function countPendingFormationByEmployee($idEmployee)
+    public function countPendingFormationsByEmployee($idEmployee)
     {
         $sql = "select count(*)
         from employee_formation

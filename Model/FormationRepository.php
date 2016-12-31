@@ -158,7 +158,7 @@ class FormationRepository extends Model
         return $result;
     }
 
-    public function getSearchFormations($parameters)
+    public function getFormationsBySearchQuery($parameters)
     {
         $label = '';
         $dayRange = '';
@@ -174,7 +174,7 @@ class FormationRepository extends Model
             $creditRange = " and credits between ".$parameters['creditMin']." and ".$parameters['creditMax'];
         }
         if($parameters['dateMin'] && $parameters['dateMax']) {
-            $dateRange = " and date between ".$parameters['creditMin']." and ".$parameters['creditMax'];
+            $dateRange = " and date between ".$parameters['dateMin']." and ".$parameters['dateMax'];
         }
         $orderByDate = ' order by date desc';
         $sql = "select *

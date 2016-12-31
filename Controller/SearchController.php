@@ -21,7 +21,7 @@ class SearchController extends Controller
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $employeeFormations = $employee->getAjaxFormationsByEmployee($employee->getId());
-            $searchFormation = $formationRepository->getSearchFormations($parameters);
+            $searchFormation = $formationRepository->getFormationsBySearchQuery($parameters);
 
             header('Content-Type: application/json');
             echo json_encode(array(
