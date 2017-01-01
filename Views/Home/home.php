@@ -94,7 +94,7 @@
                                  <?php foreach($formations as $formation): ?>
                                     <tr>
                                     <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
-                                    <td><?= date('d/m/Y', strtotime($formation->getDate())); ?></td>
+                                    <td><?= $formation->getDate(); ?></td>
                                     <td><span class="badge bg-green"><?= $formation->getStatus() ?></span>
                                     </td>
                                     <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
@@ -135,7 +135,7 @@
                                     <?php foreach($employeeFormations as $formation): ?>
                                         <tr>
                                             <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
-                                            <td><?= date('d/m/Y', strtotime($formation->getDate())); ?></td>
+                                            <td><?= $formation->getDate(); ?></td>
                                             <td><span class="badge bg-green"><?= $formation->getStatus()['state_of_validation'] ?></span>
                                             </td>
                                             <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>

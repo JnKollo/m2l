@@ -46,6 +46,9 @@ class TeamController extends Controller
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $member = $employeeRepository->getOneEmployeeByTeam($idTeamMember);
 
+            foreach($member->getFormations() as $formation){
+                $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
+            }
             $view = new View('Team', "manageFormation");
             $view->generate(array(
                 'employee' => $employee,

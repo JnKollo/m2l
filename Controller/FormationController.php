@@ -34,6 +34,7 @@ class FormationController extends Controller
             $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
             $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
+
             foreach($formations as $formation) {
                 $formation->setStatus('disponible');
                 if(strtotime($formation->getDate()) < time()) {
@@ -46,6 +47,13 @@ class FormationController extends Controller
                             $formation->setStatus($myFormation->getStatus()['state_of_validation']);
                         }
                     }
+                }
+                $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
+            }
+
+            if($employee->getFormations()){
+                foreach($employee->getFormations() as $formation) {
+                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
                 }
             }
 
@@ -93,6 +101,7 @@ class FormationController extends Controller
                     }
                 }
             }
+            $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
 
             $view = new View('Formation', "editFormation");
             $view->generate(array(
@@ -156,6 +165,13 @@ class FormationController extends Controller
                         }
                     }
                 }
+                $formation['date'] = date('d/m/Y', strtotime($formation['date']));
+            }
+
+            if($employeeFormations){
+                foreach($employeeFormations as $formation) {
+                    $formation['date'] = date('d/m/Y', strtotime($formation['date']));
+                }
             }
 
             header('Content-Type: application/json');
@@ -188,6 +204,13 @@ class FormationController extends Controller
                             $formation->setStatus($myFormation->getStatus()['state_of_validation']);
                         }
                     }
+                }
+                $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
+            }
+
+            if($employee->getFormations()){
+                foreach($employee->getFormations() as $formation) {
+                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
                 }
             }
 

@@ -25,6 +25,8 @@ class HomeController extends Controller
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
+
+
             foreach($formations as $formation) {
                 $formation->setStatus('disponible');
                 if(strtotime($formation->getDate()) < time()) {
@@ -37,6 +39,13 @@ class HomeController extends Controller
                             $formation->setStatus($myFormation->getStatus()['state_of_validation']);
                         }
                     }
+                }
+                $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
+            }
+
+            if($employee->getFormations()){
+                foreach($employeeFormations as $formation) {
+                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
                 }
             }
 

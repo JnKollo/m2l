@@ -42,7 +42,7 @@
                                 <?php foreach($formations as $formation): ?>
                                     <tr>
                                         <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
-                                        <td><?= date('d/m/Y', strtotime($formation->getDate())) ?></td>
+                                        <td><?= $formation->getDate() ?></td>
                                         <td><?= $formation->getDuration() ?></td>
                                         <td><?= $formation->getDays() ?></td>
                                         <td><?= $formation->getCredits() ?></td>
@@ -98,7 +98,7 @@
                                     <?php foreach($employeeFormations as $formation): ?>
                                         <tr>
                                             <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
-                                            <td><?= date('d/m/Y', strtotime($formation->getDate())) ?></td>
+                                            <td><?= $formation->getDate() ?></td>
                                             <td><?= $formation->getDuration() ?></td>
                                             <td><?= $formation->getDays() ?></td>
                                             <td><?= $formation->getCredits() ?></td>
@@ -151,7 +151,7 @@
                                     <?php foreach($performedFormations as $formation) :?>
                                         <tr>
                                             <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
-                                            <td><?= date('d/m/Y', strtotime($formation->getDate())) ?></td>
+                                            <td><?= $formation->getDate() ?></td>
                                             <td><?= $formation->getDuration() ?></td>
                                             <td><?= $formation->getDays() ?></td>
                                             <td><?= $formation->getCredits() ?></td>

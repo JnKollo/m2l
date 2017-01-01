@@ -107,6 +107,12 @@ class FormationRepository extends Model
         return $this;
     }
 
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
     public function getAllFormationsOrderByDate()
     {
         $sql = "select *
