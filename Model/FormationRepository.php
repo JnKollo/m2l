@@ -176,16 +176,16 @@ class FormationRepository extends Model
         $dayRange = '';
         $creditRange = '';
         $dateRange = '';
-        if($parameters['label']) {
+        if(isset($parameters['label'])) {
             $label = " and name like '%".$parameters['label']."%'";
         }
-        if($parameters['dayMin'] && $parameters['dayMax']) {
+        if(isset($parameters['dayMin']) && isset($parameters['dayMax'])) {
             $dayRange = " and days between ".$parameters['dayMin']." and ".$parameters['dayMax'];
         }
-        if($parameters['creditMin'] && $parameters['creditMax']) {
+        if(isset($parameters['creditMin']) && isset($parameters['creditMax'])) {
             $creditRange = " and credits between ".$parameters['creditMin']." and ".$parameters['creditMax'];
         }
-        if($parameters['dateMin'] && $parameters['dateMax']) {
+        if(isset($parameters['dateMin']) && isset($parameters['dateMax'])) {
             $dateRange = " and date between ".$parameters['dateMin']." and ".$parameters['dateMax'];
         }
         $orderByDate = ' order by date desc';

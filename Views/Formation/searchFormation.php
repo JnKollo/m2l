@@ -40,8 +40,8 @@
                                         var dataMaroonMax = document.querySelector("#maroon > div.slider-track > div.max-slider-handle");
                                         var dataMaroonMin = document.querySelector("#maroon > div.slider-track > div.min-slider-handle");
 
-                                        console.log(dataMaroonMin.getAttribute("aria-valuenow"));
-                                        console.log(dataMaroonMax.getAttribute("aria-valuenow"));
+//                                        console.log(dataMaroonMin.getAttribute("aria-valuenow"));
+//                                        console.log(dataMaroonMax.getAttribute("aria-valuenow"));
                                     },2000);
                                 </script>
                             </div>
@@ -104,6 +104,19 @@
 <!-- /.content-wrapper -->
 
 <script>
+    function getFormations(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', "<?php ROOTDIR ?>index.php?controller=search&action=result", true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status==200) {
+                console.log("------------------------------");
+                console.log(this.response);
+            }
+        }
+    }
+    getFormations();
+
     function displayBreadCrum() {
         <?php
         $breadCrumbArrayJs = json_encode($breadCrumbArray);

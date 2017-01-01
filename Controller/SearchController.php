@@ -49,8 +49,6 @@ class SearchController extends Controller
             echo json_encode(array(
                 'formations' => $searchFormation
             ));
-        }else {
-            $this->redirect('Security', 'logout');
         }
     }
 
