@@ -106,7 +106,7 @@
 <script>
     function getFormations(){
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', "<?php ROOTDIR ?>index.php?controller=search&action=result", true);
+        xhr.open('GET', "index.php?controller=search&action=result&creditMin=5&creditMax=100", true);
         xhr.send();
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status==200) {

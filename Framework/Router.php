@@ -25,11 +25,17 @@ class Router
             if ($request->parametersExist('formation')) {
                 $parameters['formation'] = $request->getParameters('formation');
             }
-            if ($request->parametersExist('days')) {
-                $parameters['days'] = $request->getParameters('days');
+            if ($request->parametersExist('dayMin')) {
+                $parameters['dayMin'] = $request->getParameters('dayMin');
             }
-            if ($request->parametersExist('credits')) {
-                $parameters['credits'] = $request->getParameters('credits');
+            if ($request->parametersExist('dayMax')) {
+                $parameters['dayMax'] = $request->getParameters('dayMax');
+            }
+            if ($request->parametersExist('creditMin')) {
+                $parameters['creditMin'] = $request->getParameters('creditMin');
+            }
+            if ($request->parametersExist('creditMax')) {
+                $parameters['creditMax'] = $request->getParameters('creditMax');
             }
             if ($request->parametersExist('label')) {
                 $parameters['label'] = $request->getParameters('label');

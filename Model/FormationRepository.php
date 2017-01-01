@@ -190,8 +190,8 @@ class FormationRepository extends Model
         }
         $orderByDate = ' order by date desc';
         $sql = "select *
-                from formations
-                where 1 = 1";
+                from formation
+                where 1";
         $sql = $sql.$label.$dayRange.$creditRange.$dateRange.$orderByDate;
         $req = $this->executeRequest($sql);
         $result = $req->fetchAll(PDO::FETCH_ASSOC);
