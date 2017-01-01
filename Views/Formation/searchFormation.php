@@ -80,25 +80,13 @@
                             </tr>
                             <?php if($formations != null):?>
                                 <?php foreach($formations as $formation): ?>
-                                    <?php $status = 'disponible'; ?>
-                                    <?php if(strtotime($formation->getDate()) < time()): ?>
-                                        <?php $status = 'indisponible' ?>
-                                    <?php endif ?>
                                     <tr>
                                         <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName() ?></a></td>
                                         <td><?= date('d/m/Y', strtotime($formation->getDate())) ?></td>
                                         <td><?= $formation->getDuration() ?></td>
                                         <td><?= $formation->getDays() ?></td>
                                         <td><?= $formation->getCredits() ?></td>
-                                        <?php if($employee->getFormations()): ?>
-                                            <?php foreach($employee->getFormations() as $myFormation): ?>
-                                                <?php if($myFormation->getId() == $formation->getId()): ?>
-                                                    <?php $status = $myFormation->getStatus()['state_of_validation'] ?>
-                                                    <?php break; ?>
-                                                <?php endif ?>
-                                            <?php endforeach ?>
-                                        <?php endif?>
-                                        <td><span class="badge bg-green"><?= $status ?></span>
+                                        <td><span class="badge bg-green"><?= $formation->getStatus() ?></span>
                                         </td>
                                         <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                     </tr>

@@ -5,7 +5,6 @@ require_once 'Framework/Request.php';
 
 class BreadcrumbController
 {
-
     private static $breadcrumb;
 
     public static function homeBreadcrumb()

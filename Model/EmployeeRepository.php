@@ -149,7 +149,7 @@ class EmployeeRepository extends Model
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
         foreach ($result as $formation) {
-            $formation->setStatus($formation->getId(), $id);
+            $formation->setStatusForEmployeeFormation($formation->getId(), $id);
             $this->setFormations($formation);
         }
     }
@@ -185,7 +185,7 @@ class EmployeeRepository extends Model
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
         foreach ($result as $formation) {
-            $formation->setStatus($formation->getId(), $idEmployee);
+            $formation->setStatusForEmployeeFormation($formation->getId(), $idEmployee);
         }
         return $result;
     }
@@ -221,7 +221,7 @@ class EmployeeRepository extends Model
         $result = $req->fetchAll();
         foreach ($result as $formation) {
             $this->setFormations($formation);
-            $formation->setStatus($formation->getId(), $id);
+            $formation->setStatusForEmployeeFormation($formation->getId(), $id);
         }
     }
 
@@ -240,7 +240,7 @@ class EmployeeRepository extends Model
         $req->setFetchMode(PDO::FETCH_CLASS, 'FormationRepository');
         $result = $req->fetchAll();
         foreach ($result as $formation) {
-            $formation->setStatus($formation->getId(), $idEmployee);
+            $formation->setStatusForEmployeeFormation($formation->getId(), $idEmployee);
         }
         return $result;
     }

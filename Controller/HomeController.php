@@ -25,7 +25,20 @@ class HomeController extends Controller
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
-            $status = 'disponible';
+            foreach($formations as $formation) {
+                $formation->setStatus('disponible');
+                if(strtotime($formation->getDate()) < time()) {
+                    $formation->setStatus('indisponible');
+                }
+
+                if($employee->getFormations()){
+                    foreach($employee->getFormations() as $myFormation) {
+                        if($formation->getId() == $myFormation->getId()){
+                            $formation->setStatus($myFormation->getStatus()['state_of_validation']);
+                        }
+                    }
+                }
+            }
 
             $view = new View('Home', "home");
             $view->generate(array(
@@ -34,8 +47,7 @@ class HomeController extends Controller
                 'formations' => array_slice($formations, 0, 6, true),
                 'team' => $team,
                 'performedFormations' => $performedFormations,
-                'pendingFormations' => $pendingFormations,
-                'status' => $status
+                'pendingFormations' => $pendingFormations
             ));
         }else {
             $this->redirect('Security', 'logout');

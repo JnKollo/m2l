@@ -23,10 +23,23 @@ class SearchController extends Controller
             $employeeFormations = $employee->getAjaxFormationsByEmployee($employee->getId());
             $searchFormation = $formationRepository->getFormationsBySearchQuery($parameters);
 
+            foreach($searchFormation as $formation) {
+                $formation['status'] = 'disponible';
+                if(strtotime($formation['date']) < time()) {
+                    $formation['status'] = 'indisponible';
+                }
+
+                if($employeeFormations){
+                    foreach($employeeFormations as $myFormation) {
+                        if($formation['id']== $myFormation['id']){
+                            $formation['status'] = $myFormation['status']['state_of_validation'];
+                        }
+                    }
+                }
+            }
             header('Content-Type: application/json');
             echo json_encode(array(
-                'formations' => $searchFormation,
-                'employeeFormations' => $employeeFormations
+                'formations' => $searchFormation
             ));
         }else {
             $this->redirect('Security', 'logout');

@@ -34,6 +34,20 @@ class FormationController extends Controller
             $employeeFormations = $employeeRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear);
             $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
+            foreach($formations as $formation) {
+                $formation->setStatus('disponible');
+                if(strtotime($formation->getDate()) < time()) {
+                    $formation->setStatus('indisponible');
+                }
+
+                if($employee->getFormations()){
+                    foreach($employee->getFormations() as $myFormation) {
+                        if($formation->getId() == $myFormation->getId()){
+                            $formation->setStatus($myFormation->getStatus()['state_of_validation']);
+                        }
+                    }
+                }
+            }
 
             $breadcrumb = BreadcrumbController::formationBreadcrumb();
 
@@ -129,12 +143,26 @@ class FormationController extends Controller
                 }
             }
 
+            foreach($formations as $formation) {
+                $formation['status'] = 'disponible';
+                if(strtotime($formation['date']) < time()) {
+                    $formation['status'] = 'indisponible';
+                }
+
+                if($employeeFormations){
+                    foreach($employeeFormations as $myFormation) {
+                        if($formation['id']== $myFormation['id']){
+                            $formation['status'] = $myFormation['status']['state_of_validation'];
+                        }
+                    }
+                }
+            }
+
             header('Content-Type: application/json');
             echo json_encode(array(
                 'maxRow' => $limit,
                 'totalCount' => $totalCount,
-                'formations' => $formations,
-                'employeeFormations' => $employeeFormations
+                'formations' => $formations
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -147,6 +175,21 @@ class FormationController extends Controller
             $formationRepository = new FormationRepository();
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $formations = $formationRepository->getAllFormationsOrderByDate();
+
+            foreach($formations as $formation) {
+                $formation->setStatus('disponible');
+                if(strtotime($formation->getDate()) < time()) {
+                    $formation->setStatus('indisponible');
+                }
+
+                if($employee->getFormations()){
+                    foreach($employee->getFormations() as $myFormation) {
+                        if($formation->getId() == $myFormation->getId()){
+                            $formation->setStatus($myFormation->getStatus()['state_of_validation']);
+                        }
+                    }
+                }
+            }
 
             $view = new View('Formation', "searchFormation");
             $view->generate(array(

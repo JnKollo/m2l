@@ -101,6 +101,12 @@ class FormationRepository extends Model
         return $this->status;
     }
 
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
     public function getAllFormationsOrderByDate()
     {
         $sql = "select *
@@ -186,7 +192,7 @@ class FormationRepository extends Model
         return $result;
     }
 
-    public function setStatus($idFormation, $idEmployee)
+    public function setStatusForEmployeeFormation($idFormation, $idEmployee)
     {
         $sql = "select state_of_validation
         from formation_status
