@@ -225,7 +225,7 @@
         var tr = " <th>Nom</th><th>Date</th><th>Durée (en heure)</th> <th>Jours / requis</th><th>Points / requis</th><th style='width: 185px'>Statut</th><th style='width: 80px'></th>";
 
         for(var i=0; i<myFormations.length;i++){
-            tr += "<tr><td>"+myFormations[i].name+"</td><td>"+myFormations[i].date+"</td><td>"+myFormations[i].duration+"</td><td>"+myFormations[i].days+"</td><td>"+myFormations[i].credits+"</td><td><span class='badge bg-green'>Effectuée</span></td><td><a><i class='fa fa-fw fa-pencil-square-o'></i></a></td></tr>";
+            tr += "<tr><td>"+myFormations[i].name+"</td><td>"+myFormations[i].date+"</td><td>"+myFormations[i].duration+"</td><td>"+myFormations[i].days+"</td><td>"+myFormations[i].credits+"</td><td><span class='badge bg-green'>"+myFormations[i].status+"</span></td><td><a><i class='fa fa-fw fa-pencil-square-o'></i></a></td></tr>";
         }
 
         tableauCSS.innerHTML = tr;
