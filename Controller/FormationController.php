@@ -163,7 +163,7 @@ class FormationController extends Controller
                 if($employeeFormations){
                     foreach($employeeFormations as &$myFormation) {
                         if($formation['id']== $myFormation['id']){
-                            $formation['status'] = $myFormation['status']['state_of_validation'];
+                            $formation['status'] = $myFormation['state_of_validation'];
                         }
                     }
                 }
@@ -171,7 +171,6 @@ class FormationController extends Controller
             }
             unset($formation);
             unset($myFormation);
-
 
             if($employeeFormations){
                 foreach($employeeFormations as $formation) {
