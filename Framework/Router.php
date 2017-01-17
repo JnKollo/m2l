@@ -31,6 +31,12 @@ class Router
             if ($request->parametersExist('dayMax')) {
                 $parameters['dayMax'] = $request->getParameters('dayMax');
             }
+            if ($request->parametersExist('dateMin')) {
+                $parameters['dateMin'] = $request->getParameters('dateMin');
+            }
+            if ($request->parametersExist('dateMax')) {
+                $parameters['dateMax'] = $request->getParameters('dateMax');
+            }
             if ($request->parametersExist('creditMin')) {
                 $parameters['creditMin'] = $request->getParameters('creditMin');
             }
