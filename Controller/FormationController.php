@@ -152,14 +152,16 @@ class FormationController extends Controller
                 }
             }
 
-            foreach($formations as $formation) {
+
+
+            foreach($formations as &$formation) {
                 $formation['status'] = 'disponible';
                 if(strtotime($formation['date']) < time()) {
                     $formation['status'] = 'indisponible';
                 }
 
                 if($employeeFormations){
-                    foreach($employeeFormations as $myFormation) {
+                    foreach($employeeFormations as &$myFormation) {
                         if($formation['id']== $myFormation['id']){
                             $formation['status'] = $myFormation['status']['state_of_validation'];
                         }
@@ -167,6 +169,9 @@ class FormationController extends Controller
                 }
                 $formation['date'] = date('d/m/Y', strtotime($formation['date']));
             }
+            unset($formation);
+            unset($myFormation);
+
 
             if($employeeFormations){
                 foreach($employeeFormations as $formation) {
