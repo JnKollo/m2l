@@ -186,7 +186,7 @@ class FormationRepository extends Model
             $creditRange = " and credits between ".$parameters['creditMin']." and ".$parameters['creditMax'];
         }
         if(isset($parameters['dateMin']) && isset($parameters['dateMax'])) {
-            $dateRange = " and date between ".$parameters['dateMin']." and ".$parameters['dateMax'];
+            $dateRange = " and date between '".$parameters['dateMin']."' and '".$parameters['dateMax']."'";
         }
         $orderByDate = ' order by date desc';
         $sql = "select *
