@@ -194,7 +194,6 @@ class FormationRepository extends Model
                 where 1";
         $sql = $sql.$label.$dayRange.$creditRange.$dateRange.$orderByDate;
 
-        var_dump($sql);
         $req = $this->executeRequest($sql);
         $result = $req->fetchAll(PDO::FETCH_ASSOC);
         return $result;

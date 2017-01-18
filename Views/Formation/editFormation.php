@@ -1,5 +1,6 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Ma formation"?>
+<?php $this->script = "Formation/editFormation.js"?>
 <?php $this->employee = $employee; ?>
 <?php $this->formation = $formation; ?>
 <?php $this->hasFormation = $hasFormation ?>
@@ -9,7 +10,7 @@
 <?php $this->status = $status ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+    <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>Gestion des formations |<small> Gérer ma formation</small></h1>

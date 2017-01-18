@@ -1,26 +1,32 @@
-window.addEventListener("load", init);
 
 
-
-
-
-function init(){
-
-
-	// VAR
-	var div = document.querySelectorAll(".text-align-right");
-	var modalPassword = document.querySelector("#modal-password");
-	var modalConnexion = document.querySelector("#modal-connexion");
-
-	// EVENT
-	for(var i=0;div.length>i;i++){
-		div[i].addEventListener("click", toggleActive);
-	}
-	console.log(div);
-	// FCT
-	function toggleActive(){
-	console.log("test");
-	modalPassword.classList.toggle("active");
-	modalConnexion.classList.toggle("active");
+function initJsCommun(){
+    function activeSideBarMenu(){
+        var sideBarMenu = document.querySelectorAll(".sidebar-menu > li");
+        // console.log(sideBarMenu);
+        var pageName = document.querySelector(".content-header > h1").innerText;
+        // console.log(pageName);
+        if(pageName.indexOf("Gestion d'équipe") !== -1 ){
+            sideBarMenu[3].classList.add("active");
+        } else if(pageName.indexOf("Gestion des formations") !== -1){
+            sideBarMenu[2].classList.add("active");
+        } else if(pageName.indexOf("Page d'accueil") !== -1){
+            sideBarMenu[1].classList.add("active");
+        }
+    }
+    // activeSideBarMenu();
+    $(document).ready(function(){
+        $('#employeAffix').affix({offset: {top: 0} });
+    });
 }
-}
+
+window.addEventListener("DOMContentLoaded",initJsCommun);
+
+$(function () {
+	/* BOOTSTRAP SLIDER */
+    $('.slider').slider();
+});
+
+
+
+

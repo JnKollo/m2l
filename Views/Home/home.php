@@ -1,5 +1,6 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Accueil"?>
+<?php $this->script = "Home/home.js" ?>
 <?php $this->employee = $employee; ?>
 <?php $this->employeeFormations = $employeeFormations; ?>
 <?php $this->formations = $formations; ?>
