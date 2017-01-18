@@ -4,6 +4,7 @@ class View
 {
     private $file;
     private $title;
+    private $script;
     private $classBody;
     private $employee;
     private $formations;
@@ -18,6 +19,7 @@ class View
         $vue = $this->generateFile('Views/layout.php',
             array(
                 'title' => $this->title,
+                'script' => $this->script,
                 'classBody' => $this->classBody,
                 'content' => $content,
                 'employee' => $this->employee,
@@ -32,6 +34,7 @@ class View
         $vue = $this->generateFile('Views/layout_login.php',
             array(
                 'title' => $this->title,
+                'script' => $this->script,
                 'classBody' => $this->classBody,
                 'content' => $content
             )

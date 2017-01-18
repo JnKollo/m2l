@@ -1,5 +1,6 @@
 <?php $this->classBody = "class= 'hold-transition login-page'" ?>
 <?php $this->title = "Connexion" ?>
+<?php $this->script = "Login/login.js" ?>
 
 <div class="login-box">
     <div class="login-logo">

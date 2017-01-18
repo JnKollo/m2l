@@ -1,5 +1,6 @@
 <?php $this->classBody = "class='hold-transition skin-blue sidebar-mini'"?>
 <?php $this->title = "Gestion d'équipe"?>
+<?php $this->script = "Team/manage.js" ?>
 <?php $this->employee = $employee; ?>
 <?php $this->team = $team ?>
 
