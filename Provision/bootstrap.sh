@@ -58,5 +58,7 @@ echo "Create project folder"
     sudo ln -s /vagrant/* /var/www/html/
 
 echo "Run postBootstrap script"
+    sudo apt-get install dos2unix
     sudo chmod +x /vagrant/Provision/postBootstrap.sh
+    dos2unix /vagrant/Provision/postBootstrap.sh
     sh /vagrant/Provision/postBootstrap.sh
