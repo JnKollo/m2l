@@ -21,8 +21,8 @@ git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
 ```
 
 ### 2. Configuration de la Base ###
-- Créer un dossier Config
-- Créer un fichier dev.ini
+- Créer un dossier Config à la racine du projet
+- Créer un fichier dev.ini dans ce dossier
 - Copier-coller ces lignes :
 
 
@@ -46,7 +46,7 @@ mdp = ''
 
 vagrant up
 ```
-- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/m2l](http://127.0.0.1:4579/m2l)
+- Attendre la fin du script puis se rendre sur [http://localhost:4579/](http://localhost:4579/) ( ou [http://127.0.0.1:4579/m2l](http://127.0.0.1:4579/m2l) )
 
 
 # ***Mise en recette*** #
