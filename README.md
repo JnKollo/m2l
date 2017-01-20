@@ -46,7 +46,7 @@ mdp = ''
 
 vagrant up
 ```
-- Attendre la fin du script puis se rendre sur http://127.0.0.1:4579/
+- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/)
 
 
 
@@ -120,7 +120,7 @@ vagrant ssh
 
 sudo tail -f /var/log/apache2/error.m2l.log
 ```
-- Rafraîchir la page
+- Rafraîchir [la page](http://127.0.0.1:4579/)
 
 
 # Tester sur le site avec le compte manager et le compte employé #
