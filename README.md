@@ -1,11 +1,16 @@
 # Getting Started #
 
-## Installations ##
+### 1. Installations ###
 
 - Installer [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 - Installer [Vagrant](https://www.vagrantup.com/downloads.html)
+
+******
+#### Windows ####
+- Installer [PuTTY et PuTTYGen](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 - Installer [GitBash](https://git-for-windows.github.io/) (pour Windows) ou un autre outil de versionning.
 - Ouvrir GitBash (pour Windows)
+*****
 - Se rendre dans le dossier de son choix (où le projet sera installé)
 - Cloner le projet dans le dossier choisi :
 
@@ -15,7 +20,7 @@
 git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
 ```
 
-### Configuration de la Base ###
+### 2. Configuration de la Base ###
 - Créer un dossier Config
 - Créer un fichier dev.ini
 - Copier-coller ces lignes :
@@ -31,7 +36,7 @@ mdp = ''
 ```
 
 
-### Connexion à la machine virtuelle
+### 3. Connexion à la machine virtuelle
 - Lancer la console (invité de commande sur Windows)
 - Se rendre dans le dossier du projet
 - Lancer vagrant
@@ -45,7 +50,7 @@ vagrant up
 
 
 
-## Mise en recette
+# Mise en recette #
 
 ### Sur la branche courante ###
 
@@ -79,8 +84,46 @@ git push origin recette
 
 ```
 
+# Accéder aux logs d'erreurs du serveur #
+- Ouvrir l'invité de commande
+- Lancer cette commande :
 
-## Tester sur le site avec le compte manager et le compte employé ##
+```
+#!bash
+
+vagrant ssh-config
+```
+- Récupérer les valeurs de Host et Port
+
+******
+### Windows ###
+- Ouvrir PuTTY
+- Rajouter le Host et le Port
+![9RY19pi - Imgur.jpg](https://bitbucket.org/repo/LAgbr5/images/2249794606-9RY19pi%20-%20Imgur.jpg)
+
+- Appuyer sur open
+
+*******
+### Unix ###
+
+```
+#!bash
+
+vagrant ssh
+```
+
+*******
+- Lancer la commande : 
+
+```
+#!bash
+
+sudo tail -f /var/log/apache2/error.m2l.log
+```
+- Rafraîchir la page
+
+
+# Tester sur le site avec le compte manager et le compte employé #
 
 ### chef d'équipe
 *  id : papa
