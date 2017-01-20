@@ -46,7 +46,7 @@ mdp = ''
 
 vagrant up
 ```
-- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/)
+- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/) ou [192.168.33.10](192.168.33.10)
 
 
 # ***Mise en recette*** #
@@ -112,6 +112,17 @@ vagrant ssh
 ```
 
 *******
+
+- Sur la machine virtuelle :
+
+```
+#!bash
+
+login as : vagrant
+vagrant@127.0.0.1's password: vagrant
+
+```
+
 - Lancer la commande : 
 
 ```
