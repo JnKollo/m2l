@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# Determine if this machine has already been provisioned
-# Basically, run everything after this command once, and only once
-if [ -f "/var/vagrant_provision" ]; then
-    exit 0
-fi
-
 # Use single quotes instead of double quotes to make it work with special-character passwords
 PASSWORD=''
 db='m2l'
@@ -64,8 +58,5 @@ echo "Create project folder"
     sudo ln -s /vagrant/* /var/www/html/
 
 echo "Run postBootstrap script"
-    sudo chmod +x /vagrant/postBootstrap.sh
-    sh /vagrant/postBootstrap.sh
-
-# Let this script know not to run again
-touch /var/vagrant_provision
+    sudo chmod +x /vagrant/Provision/postBootstrap.sh
+    sh /vagrant/Provision/postBootstrap.sh
