@@ -1,29 +1,47 @@
-# GESTION DE FORMATION DE LA MAISON DES LIGUES
+# Getting Started #
 
+## Installations ##
 
-## Getting Started ##
+- Installer [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- Installer [Vagrant](https://www.vagrantup.com/downloads.html)
+- Installer [GitBash](https://git-for-windows.github.io/) (pour Windows) ou un autre outil de versionning.
+- Ouvrir GitBash (pour Windows)
+- Se rendre dans le dossier de son choix (où le projet sera installé)
+- Cloner le projet dans le dossier choisi :
 
-### Exporter la base de données m2l
-- Dans PHPMyAdmin, créer une nouvelle base de donnée
-- Exporter les données du fichier m2l.sql situé dans le dossier DB
-
-### Modifier la configuration de connexion à la base de données.
-
-- Créer un dossier Config à la racine du projet
-- Créer un fichier dev.ini dans ce dossier
-- Copier / Coller ces lignes :
 ```
-#!php
+#!bash
+
+git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
+```
+
+### Configuration de la Base ###
+- Créer un dossier Config
+- Créer un fichier dev.ini
+- Copier-coller ces lignes :
+
+
+```
+#!bash
 
 [BD]
-dsn = 'mysql:host=localhost;dbname=m2l;charset=utf8'
-login = ''
+dsn = 'mysql:host=127.0.0.1;dbname=m2l;charset=utf8'
+login = 'root'
 mdp = ''
 ```
 
-avec login => identifiant phpmyadmin 
 
-et mdp => mot de passe phpmyadmin
+### Connexion à la machine virtuelle
+- Lancer la console (invité de commande sur Windows)
+- Se rendre dans le dossier du projet
+- Lancer vagrant
+
+```
+#!bash
+
+vagrant up
+```
+- Attendre la fin du script puis se rendre sur http://127.0.0.1:4579/
 
 
 
