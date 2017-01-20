@@ -85,6 +85,7 @@ git push origin recette
 
 # ***Accéder aux logs d'erreurs du serveur*** #
 - Ouvrir l'invité de commande
+- Aller dans le dossier du projet
 - Lancer cette commande :
 
 ```
