@@ -46,7 +46,7 @@ mdp = ''
 
 vagrant up
 ```
-- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/) ou [192.168.33.10](192.168.33.10)
+- Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/)
 
 
 # ***Mise en recette*** #
