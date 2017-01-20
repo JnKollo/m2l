@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ -f '/var/vagrant_provision_postbootstrap' ]; then
+    exit 0
+fi
+
 # Use single quotes instead of double quotes to make it work with special-character passwords
 PASSWORD=''
 db='m2l'
@@ -25,4 +29,6 @@ echo "Install phpmyadmin"
     echo "phpmyadmin phpmyadmin/mysql/app-pass password $PASSWORD" | sudo debconf-set-selections
     echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
     sudo apt-get -y install phpmyadmin
+
+touch /var/vagrant_provision_postbootstrap
 

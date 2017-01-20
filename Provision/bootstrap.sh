@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+echo "Verify if the provision has already been made"
+if [ -f '/var/vagrant_provision' ]; then
+    echo "Provision already done once"
+    echo "Recreate project folder"
+    sudo rm /var/www/html/*
+    sudo ln -s /vagrant/* /var/www/html/
+    exit 0
+fi
+
 # Use single quotes instead of double quotes to make it work with special-character passwords
 PASSWORD=''
 db='m2l'
@@ -62,3 +71,5 @@ echo "Run postBootstrap script"
     sudo chmod +x /vagrant/Provision/postBootstrap.sh
     dos2unix /vagrant/Provision/postBootstrap.sh
     sh /vagrant/Provision/postBootstrap.sh
+
+touch /var/vagrant_provision_bootstrap
