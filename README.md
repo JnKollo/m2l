@@ -1,4 +1,4 @@
-# Getting Started #
+# ***Getting Started*** #
 
 ### 1. Installations ###
 
@@ -49,8 +49,7 @@ vagrant up
 - Attendre la fin du script puis se rendre sur [http://127.0.0.1:4579/](http://127.0.0.1:4579/)
 
 
-
-# Mise en recette #
+# ***Mise en recette*** #
 
 ### Sur la branche courante ###
 
@@ -84,7 +83,7 @@ git push origin recette
 
 ```
 
-# Accéder aux logs d'erreurs du serveur #
+# ***Accéder aux logs d'erreurs du serveur*** #
 - Ouvrir l'invité de commande
 - Lancer cette commande :
 
@@ -123,7 +122,7 @@ sudo tail -f /var/log/apache2/error.m2l.log
 - Rafraîchir [la page](http://127.0.0.1:4579/)
 
 
-# Tester sur le site avec le compte manager et le compte employé #
+# ***Tester sur le site avec le compte manager et le compte employé*** #
 
 ### chef d'équipe
 *  id : papa
