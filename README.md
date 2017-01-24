@@ -37,11 +37,16 @@ mdp = ''
 ### 3. Connexion à la machine virtuelle
 - Lancer la console (invité de commande sur Windows)
 - Se rendre dans le dossier du projet
-- Lancer vagrant
+- Lancer la machine virtuelle (passer cette étape si cela a déjà été fait)
 
 ```
 
 vagrant up
+```
+ou
+```
+
+vagrant reload --provision
 ```
 - Attendre la fin du script puis se rendre sur [http://localhost:4579/](http://localhost:4579/) ( ou [http://127.0.0.1:4579/m2l](http://127.0.0.1:4579/m2l) )
 
