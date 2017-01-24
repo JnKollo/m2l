@@ -15,7 +15,6 @@
 - Cloner le projet dans le dossier choisi :
 
 ```
-#!bash
 
 git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
 ```
@@ -27,7 +26,6 @@ git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
 
 
 ```
-#!bash
 
 [BD]
 dsn = 'mysql:host=127.0.0.1;dbname=m2l;charset=utf8'
@@ -42,7 +40,6 @@ mdp = ''
 - Lancer vagrant
 
 ```
-#!bash
 
 vagrant up
 ```
@@ -56,7 +53,6 @@ vagrant up
 
 
 ```
-#!shell
 git fetch
 git rebase origin/master
 git status
@@ -67,7 +63,6 @@ git push origin branche à pusher
 Puis
 
 ```
-#!shell
 git checkout recette
 ```
 
@@ -75,7 +70,6 @@ git checkout recette
 
 
 ```
-#!shell
 git fetch
 git reset --hard origin/master
 git merge origin/(branche à merger)
@@ -89,7 +83,6 @@ git push origin recette
 - Lancer cette commande :
 
 ```
-#!bash
 
 vagrant ssh-config
 ```
@@ -107,7 +100,6 @@ vagrant ssh-config
 ### Unix ###
 
 ```
-#!bash
 
 vagrant ssh
 ```
@@ -117,7 +109,6 @@ vagrant ssh
 - Sur la machine virtuelle :
 
 ```
-#!bash
 
 login as : vagrant
 vagrant@127.0.0.1's password: vagrant
@@ -127,7 +118,6 @@ vagrant@127.0.0.1's password: vagrant
 - Lancer la commande : 
 
 ```
-#!bash
 
 sudo tail -f /var/log/apache2/error.m2l.log
 ```
