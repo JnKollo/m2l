@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Configuration.php';
-
 abstract class Model
 {
     private static $bdd;

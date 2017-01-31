@@ -1,8 +1,5 @@
 <?php
 
-require_once 'Request.php';
-require_once 'View.php';
-
 abstract class Controller
 {
     private $action;

@@ -3,7 +3,9 @@ session_start();
 
 define("ROOTDIR", $_SERVER['DOCUMENT_ROOT']);
 
-require 'Framework/Router.php';
+require 'Framework/Autoloader.php';
+
+Autoloader::register();
 
 $inactive = 6000;
 if (isset($_SESSION["timeout"])) {

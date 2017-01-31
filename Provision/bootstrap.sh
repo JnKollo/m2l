@@ -57,12 +57,14 @@ echo "Install phpmyadmin"
     sudo apt-get -y install phpmyadmin
 
 echo "Configuring Apache"
-    sudo cp /var/www/html/m2l/Provision/apache_vhost /etc/apache2/sites-available/m2l.conf > /dev/null
+    sudo cp /var/www/html/m2l/Provision/apache_vhost /etc/apache2/sites-available/m2l.conf
     sudo a2ensite m2l.conf
     sudo /etc/init.d/apache2 reload
 
 echo "Remove index of Apache"
+if [ -f '/var/www/html/index.html' ]; then
     sudo rm /var/www/html/index.html
+fi
 
 echo "Run postBootstrap script"
     sudo apt-get install dos2unix
