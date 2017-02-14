@@ -4,7 +4,6 @@
 
 - Installer [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 - Installer [Vagrant](https://www.vagrantup.com/downloads.html)
-- Installer [Composer](https://getcomposer.org/download/)
 
 ******
 #### Windows ####
