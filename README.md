@@ -34,7 +34,7 @@ mdp = ''
 
 
 ### 3. Monter la machine virtuelle
-- Lancer la console (invité de commande sur Windows)
+- Lancer la console (invité de commande sur Windows ou gitbash)
 - Se rendre dans le dossier du projet
 - Lancer la machine virtuelle (passer cette étape si cela a déjà été fait)
 
