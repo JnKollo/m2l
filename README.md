@@ -8,7 +8,6 @@
 
 ******
 #### Windows ####
-- Installer [PuTTY et PuTTYGen](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 - Installer [GitBash](https://git-for-windows.github.io/) (pour Windows) ou un autre outil de versionning.
 - Ouvrir GitBash (pour Windows)
 *****
@@ -84,33 +83,10 @@ git push origin recette
 ```
 
 # ***Accéder aux logs d'erreurs du serveur*** #
-- Ouvrir l'invité de commande
-- Aller dans le dossier du projet
-- Lancer cette commande :
-
+- Se connecter a la VM
 ```
-
-vagrant ssh-config
-```
-- Récupérer les valeurs de Host et Port
-
-******
-### Windows ###
-- Ouvrir PuTTY
-- Rajouter le Host et le Port
-![9RY19pi - Imgur.jpg](https://bitbucket.org/repo/LAgbr5/images/2249794606-9RY19pi%20-%20Imgur.jpg)
-
-- Appuyer sur open
-
-*******
-### Unix ###
-
-```
-
 vagrant ssh
 ```
-
-*******
 
 - Sur la machine virtuelle :
 
