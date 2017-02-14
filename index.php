@@ -4,6 +4,7 @@ session_start();
 define("ROOTDIR", $_SERVER['DOCUMENT_ROOT']);
 
 require 'Framework/Autoloader.php';
+require 'vendor/autoload.php';
 
 Autoloader::register();
 

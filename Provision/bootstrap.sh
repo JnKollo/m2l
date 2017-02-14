@@ -66,6 +66,11 @@ if [ -f '/var/www/html/index.html' ]; then
     sudo rm /var/www/html/index.html
 fi
 
+echo "Enable swap"
+    sudo chmod +x /var/www/html/m2l/Provision/increase_swap.sh
+    dos2unix /var/www/html/m2l/Provision/increase_swap.sh
+    sudo sh /var/www/html/m2l/Provision/increase_swap.sh
+
 echo "Run postBootstrap script"
     sudo apt-get install dos2unix
     sudo chmod +x /var/www/html/m2l/Provision/postBootstrap.sh

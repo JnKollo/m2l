@@ -25,7 +25,6 @@ class SecurityController extends Controller
 
             if (isset($submit, $login, $password)) {
                 $hash = crypt($password, 'rl');
-
                 $securityRepository = new SecurityRepository();
                 $hasAccount = $securityRepository->loginChecker($login, $hash);
 

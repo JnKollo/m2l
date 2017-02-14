@@ -8,10 +8,16 @@ fi
 PASSWORD=''
 db='m2l'
 
+echo "Updating repositories"
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get update
+
+echo "Installing PHP7"
+    apt-get install php7.0 libapache2-mod-php7.0 php7.0-mysql php7.0-mcrypt php7.0-curl php7.0-xml php7.0-mbstring -y
+
 echo "Installing MySQL"
     echo "mysql-server mysql-server/root_password password $PASSWORD" | sudo debconf-set-selections
     echo "mysql-server mysql-server/root_password_again password $PASSWORD" | sudo debconf-set-selections
-    sudo apt-get update
     sudo apt-get -y install mysql-client-core-5.5 mysql-server
     sudo apt-get -f install
 
@@ -36,9 +42,16 @@ echo "Installing Composer"
     php -r "unlink('composer-setup.php');"
     sudo mv composer.phar /usr/local/bin/composer
 
-echo "Installing Behat"
+echo "Adding dependencies to composer_template"
     cd /var/www/html/m2l
-    composer require --dev behat/behat
+    composer require --dev --no-update "phpunit/phpunit:*"
+    composer require --dev --no-update "behat/behat:*"
+    composer require --dev --no-update "behat/mink:*"
+    composer require --dev --no-update "behat/mink-extension:*"
+    composer require --dev --no-update "behat/mink-selenium2-driver:*"
+    composer require --dev --no-update "behat/mink-goutte-driver:*"
+
+echo "Installing dependencies"
     composer install
 
 touch /var/vagrant_provision_postbootstrap
