@@ -25,8 +25,6 @@ class HomeController extends Controller
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
-
-
             foreach($formations as $formation) {
                 $formation->setStatus('disponible');
                 if(strtotime($formation->getDate()) < time()) {

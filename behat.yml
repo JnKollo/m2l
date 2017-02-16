@@ -4,6 +4,6 @@ default:
             base_url: http://localhost:4582
             browser_name: chrome
             selenium2:
-                wd_host: '192.168.1.13:4444/wd/hub'
+                wd_host: '192.168.7.72:4444/wd/hub'
             javascript_session: selenium2
             show_cmd: 'chrome %s'
