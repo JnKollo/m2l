@@ -373,7 +373,7 @@ class EmployeeRepository extends Model
                   and (employee_formation.id_formation_status = 1 or employee_formation.id_formation_status = 2)
                   and formation.date >= ? and formation.date < ?";
         $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
     }
 
     public function countPerformedFormationsByEmployee($idEmployee)
@@ -383,7 +383,7 @@ class EmployeeRepository extends Model
         where employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 5";
         $req = $this->executeRequest($sql, array($idEmployee));
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
     }
 
     public function countPendingFormationsByEmployee($idEmployee)

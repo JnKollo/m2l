@@ -5,6 +5,7 @@ class View
     private $file;
     private $title;
     private $script;
+    private $breadcrumb;
     private $classBody;
     private $employee;
     private $formations;
@@ -20,10 +21,11 @@ class View
             array(
                 'title' => $this->title,
                 'script' => $this->script,
+                'breadcrumb' => $this->breadcrumb,
                 'classBody' => $this->classBody,
                 'content' => $content,
                 'employee' => $this->employee,
-                'formations' => $this->formations,
+                'formations' => $this->formations
             )
         );
         echo $vue;

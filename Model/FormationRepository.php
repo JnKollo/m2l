@@ -101,11 +101,14 @@ class FormationRepository extends Model
         return $this->status;
     }
 
+
+
     public function setStatus($status)
     {
         $this->status = $status;
         return $this;
     }
+
 
     public function setDate($date)
     {
@@ -152,10 +155,10 @@ class FormationRepository extends Model
 
     public function CountFormations()
     {
-        $sql = "select count(*)
+        $sql = "select id
                 from formation";
         $req = $this->executeRequest($sql);
-        $result = $req->fetch(PDO::FETCH_ASSOC);
+        $result = $req->rowCount(PDO::FETCH_ASSOC);
         return $result;
     }
 

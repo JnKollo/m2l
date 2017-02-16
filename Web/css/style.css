@@ -46,3 +46,12 @@
 #maroon .slider-selection {
 	background: #d81b60;
 }
+
+.disponnible{
+    background-color: #00a65a !important;
+}
+
+.sidebar{
+	position: fixed;
+    width: 230px;
+}
