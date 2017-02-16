@@ -20,4 +20,14 @@ class FeatureContext extends MinkContext implements Context
     public function __construct()
     {
     }
+
+    /**
+     * @When I press :button button
+     */
+    public function iPressButton($button)
+    {
+      $button = $this->fixStepArgument($button);
+      $this->getSession()->getPage()->pressButton($button);
+    }
+
 }
