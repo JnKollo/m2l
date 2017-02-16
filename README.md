@@ -102,7 +102,7 @@ vagrant@127.0.0.1's password: vagrant
 
 sudo tail -f /var/log/apache2/error.m2l.log
 ```
-- Rafraîchir [la page](http://127.0.0.1:4579/)
+- Rafraîchir [la page](http://127.0.0.1:4582/)
 
 
 # ***Tester sur le site avec le compte manager et le compte employé*** #
