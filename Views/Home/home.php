@@ -10,7 +10,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Page d'accueil</h1>
+        <h5><a href="index.php?controller=Home&amp;action=home">Accueil</a></h5>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -96,7 +96,7 @@
                                     <tr>
                                     <td><a href=<?php ROOTDIR ?>"index.php?controller=formation&action=show&id=<?= $formation->getId() ?>"><?= $formation->getName(); ?></a></td>
                                     <td><?= $formation->getDate(); ?></td>
-                                    <td><span class="badge bg-green"><?= $formation->getStatus() ?></span>
+                                    <td><span class="badge bg-green" data-status=<?= $formation->getStatus() ?>><?= $formation->getStatus() ?></span>
                                     </td>
                                     <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>

@@ -103,6 +103,7 @@ class FormationController extends Controller
             }
             $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
 
+            $breadcrumb = BreadcrumbController::editFormationBreadcrumb();
             $view = new View('Formation', "editFormation");
             $view->generate(array(
                 'employee' => $employee,
@@ -112,7 +113,8 @@ class FormationController extends Controller
                 'isPerformedFormation' => $isAvailableFormation,
                 'isSubscribable' => $isSubscribable,
                 'isValidateFormation' => $isValidateFormation,
-                'status' => $status
+                'status' => $status,
+                'breadcrumb' => $breadcrumb
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -151,8 +153,6 @@ class FormationController extends Controller
                     $totalCount = $employeeRepository->countPerformedFormationsByEmployee($idEmployee);
                 }
             }
-
-
 
             foreach($formations as &$formation) {
                 $formation['status'] = 'disponible';
@@ -217,11 +217,13 @@ class FormationController extends Controller
                     $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
                 }
             }
+            $breadcrumb = BreadcrumbController::searchFormationBreadcrumb();
 
             $view = new View('Formation', "searchFormation");
             $view->generate(array(
                 'employee' => $employee,
-                'formations' => $formations
+                'formations' => $formations,
+                'breadcrumb' => $breadcrumb
             ));
         }else {
             $this->redirect('Security', 'logout');

@@ -13,19 +13,19 @@
 	<link href=<?php ROOTDIR ?>"dist/css/skins/skin-blue.min.css" rel="stylesheet">
 	<link href=<?php ROOTDIR ?>"Web/css/style.css" rel="stylesheet">
 	<link href=<?php ROOTDIR ?>"plugins/bootstrap-slider/slider.css" rel="stylesheet">
+
 </head>
 
 <body <?= $classBody;?> >
 
 	<div class="wrapper">
-
 		<!-- Main Header -->
 		<header class="main-header">
 			<!-- Logo -->
 			<a class="logo" href=<?php ROOTDIR ?>"index.php?controller=home&action=home"><!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><b>M2l</b></span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg"><b>M2l</b></span></a> <!-- Header Navbar -->
-			<nav class="navbar navbar-static-top" role="navigation">
+			<nav class="navbar navbar-fixed-top" role="navigation">
 				<!-- Sidebar toggle button-->
 				<a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button"><span class="sr-only">Toggle navigation</span></a> <!-- Navbar Right Menu -->
 				<div id="disconnect">
@@ -80,13 +80,17 @@
 
 	    <?= $content ?>
 
+        <script>
+            <?php
+                echo "var breadCrumbArray = ". json_encode($breadcrumb).";";
+            ?>
+        </script>
         <script src=<?php ROOTDIR ?>"plugins/jQuery/jquery-2.2.3.min.js"></script> <!-- Bootstrap 3.3.6 -->
-		<script src=<?php ROOTDIR ?>"plugins/jQuery/jquery-2.2.3.min.js"></script> <!-- Bootstrap 3.3.6 -->
 		<script src=<?php ROOTDIR ?>"bootstrap/js/bootstrap.min.js"></script> <!-- AdminLTE App -->
 		<script src=<?php ROOTDIR ?>"dist/js/app.min.js"></script>
 		<script src=<?php ROOTDIR ?>"plugins/ionslider/ion.rangeSlider.min.js"></script>
 		<script src=<?php ROOTDIR ?>"plugins/bootstrap-slider/bootstrap-slider.js"></script>
-		<script src=<?php ROOTDIR ?>"Web/script/app.js"></script>
+		<script src=<?php ROOTDIR ?>"Web/script/app-custom.js"></script>
         <script src=<?php ROOTDIR ?>"Web/script/<?php if ($script) {echo $script;};?>"></script>
 		<!-- Main Footer -->
 		<footer class="main-footer">

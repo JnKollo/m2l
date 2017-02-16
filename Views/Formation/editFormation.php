@@ -8,12 +8,12 @@
 <?php $this->isSubscribable = $isSubscribable ?>
 <?php $this->isValidateFormation = $isValidateFormation ?>
 <?php $this->status = $status ?>
+<?php $this->breadcrumb = $breadcrumb; ?>
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Gestion des formations |<small> Gérer ma formation</small></h1>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -91,18 +91,14 @@
                             </li>
                             <!-- /.item -->
                         </ul>
-
                     </div>
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-
             </div>
             <!-- ./col -->
-
         </div>
         <!-- /.row -->
-
 
         <div class="row">
             <div class="col-md-6 col-md-offset-3">

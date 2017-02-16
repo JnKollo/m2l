@@ -3,6 +3,7 @@
 <?php $this->script = "Team/manageFormation.js" ?>
 <?php $this->employee = $employee; ?>
 <?php $this->member = $member ?>
+<?php $this->breadcrumb = $breadcrumb; ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

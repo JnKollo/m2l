@@ -14,6 +14,7 @@ class HomeController extends Controller
 
     public function home()
     {
+
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();

@@ -1,5 +1,6 @@
 <?php
 
+require_once 'BreadcrumbController.php';
 require_once 'Framework/Controller.php';
 require_once 'Framework/Model.php';
 require_once 'Framework/Request.php';
@@ -26,11 +27,13 @@ class TeamController extends Controller
                 }
                 $member->setPendingFormations($member->countPendingFormationsByEmployee($member->getId()));
             }
+            $breadcrumb = BreadcrumbController::teamBreadcrumb();
 
             $view = new View('Team', "manage");
             $view->generate(array(
                 'employee' => $employee,
-                'team' => $team
+                'team' => $team,
+                 'breadcrumb' => $breadcrumb
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -49,10 +52,14 @@ class TeamController extends Controller
             foreach($member->getFormations() as $formation){
                 $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
             }
+
+            $breadcrumb = BreadcrumbController::manageTeamBreadcrumb();
+
             $view = new View('Team', "manageFormation");
             $view->generate(array(
                 'employee' => $employee,
-                'member' => $member
+                'member' => $member,
+                'breadcrumb' => $breadcrumb
             ));
         }else {
             $this->redirect('Security', 'logout');
