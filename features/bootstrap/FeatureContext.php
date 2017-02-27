@@ -4,6 +4,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\Behat\Tester\Exception\PendingException;
 
 /**
  * Defines application features from the specific context.
@@ -29,5 +30,4 @@ class FeatureContext extends MinkContext implements Context
       $button = $this->fixStepArgument($button);
       $this->getSession()->getPage()->pressButton($button);
     }
-
 }

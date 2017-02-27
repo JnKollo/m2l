@@ -42,12 +42,6 @@ class HomeController extends Controller
                 $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
             }
 
-            if($employee->getFormations()){
-                foreach($employeeFormations as $formation) {
-                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
-                }
-            }
-
             $view = new View('Home', "home");
             $view->generate(array(
                 'employee' => $employee,

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class View
+ */
 class View
 {
     private $file;

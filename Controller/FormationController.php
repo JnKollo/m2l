@@ -8,6 +8,9 @@ require_once 'Model/EmployeeRepository.php';
 require_once 'Model/FormationRepository.php';
 require_once 'Model/SecurityRepository.php';
 
+/**
+ * Class FormationController
+ */
 class FormationController extends Controller
 {
     public function index() {
@@ -21,6 +24,9 @@ class FormationController extends Controller
         }
     }
 
+    /**
+     * Action renvoyant les données de la page d'acceuil des formations
+     */
     public function home() {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
@@ -35,6 +41,7 @@ class FormationController extends Controller
             $performedFormations = $employeeRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
+            //On rajoute le statut de chaque formation en fonction de l'utilisateur connecté
             foreach($formations as $formation) {
                 $formation->setStatus('disponible');
                 if(strtotime($formation->getDate()) < time()) {
@@ -48,13 +55,8 @@ class FormationController extends Controller
                         }
                     }
                 }
+                //Formate la date
                 $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
-            }
-
-            if($employee->getFormations()){
-                foreach($employee->getFormations() as $formation) {
-                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
-                }
             }
 
             $breadcrumb = BreadcrumbController::formationBreadcrumb();
@@ -72,6 +74,9 @@ class FormationController extends Controller
         }
     }
 
+    /**
+     * @param $parameters
+     */
     public function show($parameters) {
         if (isset($_SESSION["employee"])) {
             $idFormation = $parameters['id'];
@@ -121,6 +126,9 @@ class FormationController extends Controller
         }
     }
 
+    /**
+     * @param $parameters
+     */
     public function paginate($parameters) {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
@@ -172,12 +180,6 @@ class FormationController extends Controller
             unset($formation);
             unset($myFormation);
 
-            if($employeeFormations){
-                foreach($employeeFormations as $formation) {
-                    $formation['date'] = date('d/m/Y', strtotime($formation['date']));
-                }
-            }
-
             header('Content-Type: application/json');
             echo json_encode(array(
                 'maxRow' => $limit,
@@ -189,6 +191,9 @@ class FormationController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function search() {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
@@ -212,11 +217,6 @@ class FormationController extends Controller
                 $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
             }
 
-            if($employee->getFormations()){
-                foreach($employee->getFormations() as $formation) {
-                    $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
-                }
-            }
             $breadcrumb = BreadcrumbController::searchFormationBreadcrumb();
 
             $view = new View('Formation', "searchFormation");

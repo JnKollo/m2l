@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class Controller
+ */
 abstract class Controller
 {
     private $action;
@@ -10,6 +13,13 @@ abstract class Controller
         $this->request = $request;
     }
 
+    /**
+     * Execute la méthode action correspondante aux paramètres reçus
+     *
+     * @param $action
+     * @param null $parameters
+     * @throws Exception
+     */
     public function executeAction($action, $parameters = null) {
         if (method_exists($this, $action)) {
             $this->action = $action;
@@ -23,6 +33,11 @@ abstract class Controller
 
     public abstract function index();
 
+    /**
+     * Génère la vue avec les paramères reçus
+     *
+     * @param array $dataView
+     */
     protected function generateVue($dataView = array()) {
         $classController = get_class($this);
         $controller = str_replace("Controller", "", $classController);
@@ -30,6 +45,12 @@ abstract class Controller
         $vue->generate($dataView);
     }
 
+    /**
+     *
+     * @param $controller
+     * @param string $action
+     * @param null $parameters
+     */
     public function redirect($controller, $action = "index", $parameters = null)
     {
         $location = "index.php?controller=" . $controller . "&action=" . $action;

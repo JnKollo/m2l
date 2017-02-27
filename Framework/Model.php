@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * Class Model
+ */
 abstract class Model
 {
     private static $bdd;
 
+    /**
+     * Execute la requete correspondante aux paramètres reçus
+     *
+     * @param $sql
+     * @param null $parameters
+     * @return PDOStatement
+     */
     protected function executeRequest($sql, $parameters = null) {
         if ($parameters === null) {
             $result = self::getBdd()->query($sql);
@@ -15,6 +25,12 @@ abstract class Model
         return $result;
     }
 
+    /**
+     * Recupère les identifiants de connexion à la base
+     * et initialise un objet PDO
+     *
+     * @return PDO
+     */
     private static function getBdd() {
         if (self::$bdd === null) {
             $dsn = Configuration::get("dsn");

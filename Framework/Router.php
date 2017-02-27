@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * Class Router
+ */
 class Router
 {
+    /**
+     * Méthode permettant de récupérer les variables de la requête HTTP
+     * et d'initialiser le controller correspondant aux paramètres
+     */
     public function routeRequest() {
         try {
             $request = new Request(array_merge($_GET, $_POST));
@@ -49,6 +56,15 @@ class Router
         }
     }
 
+    /**
+     * Initialise un controller en fonction des paramètres
+     *
+     * Par défault, le controller login est initialisé
+     *
+     * @param Request $request
+     * @return string
+     * @throws Exception
+     */
     private function createController(Request $request) {
         $controller = "Login";
         if ($request->parametersExist('controller')) {
@@ -67,6 +83,15 @@ class Router
             throw new Exception("Fichier '$fileController' introuvable");
     }
 
+    /**
+     * Fait correspondre une action de controller à un paramêtre
+     * de requête HTTP
+     *
+     * Par défaut, l'action index est associé.
+     *
+     * @param Request $request
+     * @return string
+     */
     private function createAction(Request $request) {
         $action = "index";
         if ($request->parametersExist('action')) {
@@ -75,6 +100,11 @@ class Router
         return $action;
     }
 
+    /**
+     * Génère une page erreur avec le message envoyé en paramètre
+     *
+     * @param Exception $exception
+     */
     private function generateError(Exception $exception) {
         $vue = new View('Error', 'error');
         $vue->generateLogin(array('msgErreur' => $exception->getMessage()));

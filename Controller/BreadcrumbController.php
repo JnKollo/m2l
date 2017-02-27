@@ -3,6 +3,9 @@
 require_once 'Framework/Model.php';
 require_once 'Framework/Request.php';
 
+/**
+ * Class BreadcrumbController
+ */
 class BreadcrumbController
 {
     private static $breadcrumb;

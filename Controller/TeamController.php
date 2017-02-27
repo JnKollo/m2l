@@ -21,11 +21,11 @@ class TeamController extends Controller
 
             $employee = $employeeRepository->getEmployeeById($_SESSION['employee']);
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam(), $employee->getId());
+
             foreach ($team as $member) {
-                if($member->getId() == $employee->getId()) {
-                    unset($member);
+                if($member->getId() != $employee->getId()) {
+                    $member->setPendingFormations($member->countPendingFormationsByEmployee($member->getId()));
                 }
-                $member->setPendingFormations($member->countPendingFormationsByEmployee($member->getId()));
             }
             $breadcrumb = BreadcrumbController::teamBreadcrumb();
 

@@ -42,12 +42,6 @@ class SearchController extends Controller
             unset($formation);
             unset($myFormation);
 
-            if($employeeFormations){
-                foreach($employeeFormations as $formation) {
-                    $formation['date'] = date('d/m/Y', strtotime($formation['date']));
-                }
-            }
-
             header('Content-Type: application/json');
             echo json_encode(array(
                 'formations' => $searchFormation
