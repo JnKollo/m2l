@@ -42,8 +42,7 @@ class HomeController extends Controller
                 $formation->setDate(date('d/m/Y', strtotime($formation->getDate())));
             }
 
-            $view = new View('Home', "home");
-            $view->generate(array(
+            $this->generate('Home/home', array(
                 'employee' => $employee,
                 'employeeFormations' => $employeeFormations,
                 'formations' => array_slice($formations, 0, 6, true),

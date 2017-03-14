@@ -2,5 +2,4 @@ Config/
 .idea/
 .vagrant
 vendor/
-var/
 composer.*

@@ -106,7 +106,6 @@ class Router
      * @param Exception $exception
      */
     private function generateError(Exception $exception) {
-        $vue = new View('Error', 'error');
-        $vue->generateLogin(array('msgErreur' => $exception->getMessage()));
+        echo $exception;
     }
 }

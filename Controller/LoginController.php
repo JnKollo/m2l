@@ -11,10 +11,7 @@ class LoginController extends Controller
         if (isset($_SESSION['employee'])) {
             $this->redirect('Home', 'home');
         } else {
-            $view = new View('Login',"login");
-            $data = ['ok'];
-
-            $view->generateLogin($data);
+            $this->generate('Login/login', array('ok'));
         }
     }
 }

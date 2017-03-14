@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define("ROOTDIR", $_SERVER['DOCUMENT_ROOT']);
+define("ROOTDIR", $_SERVER['DOCUMENT_ROOT'].'/');
 
 require 'Framework/Autoloader.php';
 require 'vendor/autoload.php';
@@ -12,7 +12,7 @@ Autoloader::register();
  * Initialise une session de 10 minutes
  * Si la session est expiré alors on redirige vers la page login
  */
-$inactive = 6000;
+$inactive = 600;
 if (isset($_SESSION["timeout"])) {
     $sessionTTL = time() - $_SESSION["timeout"];
     if ($sessionTTL > $inactive) {
