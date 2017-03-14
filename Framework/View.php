@@ -35,6 +35,13 @@ class View
     }
 
     public function generateLogin($data) {
+        $loader = new Twig_Loader_Filesystem('/var/www/html/m2l/Views/template');
+        $twig = new Twig_Environment($loader, array(
+            'cache' => '/var/www/html/m2l/var/cache',
+        ));
+        $template = $twig->load('layout.html.twig');
+        echo $template->render(array('data' => $data));
+        /*
         $content = $this->generateFile($this->file, $data);
         $vue = $this->generateFile('Views/layout_login.php',
             array(
@@ -45,6 +52,7 @@ class View
             )
         );
         echo $vue;
+        */
     }
 
     private function generateFile($file, $data) {

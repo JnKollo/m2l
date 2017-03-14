@@ -34,18 +34,6 @@ abstract class Controller
     public abstract function index();
 
     /**
-     * Génère la vue avec les paramères reçus
-     *
-     * @param array $dataView
-     */
-    protected function generateVue($dataView = array()) {
-        $classController = get_class($this);
-        $controller = str_replace("Controller", "", $classController);
-        $vue = new View($this->action, $controller);
-        $vue->generate($dataView);
-    }
-
-    /**
      *
      * @param $controller
      * @param string $action
