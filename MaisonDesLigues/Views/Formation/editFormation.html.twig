@@ -1,0 +1,127 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Ma formation{% endblock %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" style="margin-top:50px">
+                <!-- PRODUCT LIST -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Formation : {{ formation.name }}</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <ul class="products-list product-list-in-box">
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Nom</p>
+                                    <span class="product-description">{{ formation.name }}</span>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Contenu</p>
+                                    <span class="product-description">{{ formation.description }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Date</p>
+                                    <span class="product-description">{{ formation.date }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Jours requis</p>
+                                    <span class="product-description">{{ formation.days }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Points requis</p>
+                                    <span class="product-description">{{ formation.credits }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Localisation</p>
+                                    <span class="product-description">{{ formation.place }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Prérequis</p>
+                                    <span class="product-description">{{ formation.requirement }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Statut</p>
+                                    {% if employeeFormations is defined %}
+                                        {% for employeeFormation in employeeFormations %}
+                                            {% if employeeFormation.id ==  formation.id %}
+                                                {% set status = employeeFormation.status.state_of_validation %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <span class="badge bg-green">{{ status }}</span>
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-6">
+                    <a href="index.php?controller=formation&action=index">
+                        <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
+                    </a>
+                </div>
+                {% if isSubscribable == 1 or (isValidateFormation == 1 and employee.manager_status == 1) %}
+                    <div class="col-md-6">
+                        {% if hasFormation == 0 %}
+                            <a href="index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
+                                <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
+                            </a>
+                        {% elseif hasFormation == 1 %}
+                            <a href="index.php?controller=employee&action=removeFormation&id=<?= $this->formation->getId() ?>">
+                                <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <!-- ./col -->
+                {% endif %}
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Your Page Content Here -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}
+
+{% block script %}<script src="Web/script/Formation/editFormation.js"></script>{% endblock %}

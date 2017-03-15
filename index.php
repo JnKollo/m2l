@@ -3,10 +3,9 @@ session_start();
 
 define("ROOTDIR", $_SERVER['DOCUMENT_ROOT'].'/');
 
-require 'Framework/Autoloader.php';
-require 'vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
-Autoloader::register();
+use M2l\Kernel\Router;
 
 /*
  * Initialise une session de 10 minutes
