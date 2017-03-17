@@ -30,4 +30,16 @@ class FeatureContext extends MinkContext implements Context
       $button = $this->fixStepArgument($button);
       $this->getSession()->getPage()->pressButton($button);
     }
+
+    /**
+     * @Given I am logged in as :arg1
+     */
+    public function iAmLoggedInAs($arg1)
+    {
+        $this->visitPath('/');
+        $this->getSession()->getPage()->fillField('login', $arg1);
+        $this->getSession()->getPage()->fillField('password', $arg1);
+        $this->getSession()->getPage()->pressButton('Connexion');
+    }
+
 }

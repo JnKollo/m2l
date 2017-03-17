@@ -3,7 +3,7 @@
 namespace M2l\Controller;
 
 use M2l\Kernel\Controller;
-use M2l\Model\FormationRepository;
+use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
@@ -47,11 +47,12 @@ class TeamController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
+            $employeeFormationRepository = new EmployeeFormationsRepository();
 
             $idTeamMember = $parameters['id'];
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $member = $employeeRepository->getOneEmployeeByTeam($idTeamMember);
-            $pendingFormationsForEmployee = $employeeRepository->getPendingFormationsByEmployee($idTeamMember);
+            $pendingFormationsForEmployee = $employeeFormationRepository->getPendingFormationsByEmployee($idTeamMember);
 
             foreach($pendingFormationsForEmployee as $formation){
                 $formation['date'] = date('d/m/Y', strtotime($formation['date']));

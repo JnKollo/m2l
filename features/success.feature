@@ -1,18 +1,17 @@
 @success
 Feature: Success page
-  In order to access website
+  In order to manage my formation
   As an employee
   I need to be able to login with my credentials
 
-  Scenario Outline: Success
-    Given I am on "/"
-    When I fill in "login" with "<login>"
-    And I fill in "password" with "<password>"
-    When I press "Connexion" button
-    Then the response status code should be <code>
-    And I should see "Page d'accueil"
+  Background:
+    And I am logged in as "papa"
+    And I am on "/"
+
+  Scenario Outline: Success page
+    When I go to "url"
+    Then I should see "Page d'accueil"
 
     Examples:
-      | login  | password | code |
-      | papa   | papa     | 200  |
-      | fiston | fiston   | 200  |
+      | url                                             | element     |
+      | index.php?controller=formation&action=index     | papa        |

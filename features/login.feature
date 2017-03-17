@@ -16,3 +16,4 @@ Feature: Login
       | login  | password | code |
       | papa   | papa     | 200  |
       | fiston | fiston   | 200  |
+      | bad    | bad      | 200  |

@@ -5,7 +5,7 @@ namespace M2l\Controller;
 use M2l\Kernel\Controller;
 use M2l\Model\Repository\EmployeeRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
-use M2l\Model\FormationRepository;
+use M2l\Model\Repository\FormationRepository;
 use M2l\Service\Status\StatusFormationManager;
 
 class HomeController extends Controller

@@ -138,7 +138,6 @@ class EmployeeRepository extends BaseRepository
         $sql = "insert into employee_formation (id_formation, id_employee, id_formation_status)
                 values (?, ?, 2)";
         $this->executeRequest($sql, array($idFormation, $idEmployee));
-        $this->getFormationsByEmployee($idEmployee);
     }
 
     public function unsubscribeToFormation($idEmployee, $idFormation)
@@ -147,7 +146,6 @@ class EmployeeRepository extends BaseRepository
                 where id_employee = ?
                 and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
-        $this->getFormationsByEmployee($idEmployee);
     }
 
     public function acceptFormation($idEmployee, $idFormation, $creditsFormation, $daysFormation)

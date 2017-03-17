@@ -102,11 +102,11 @@
                 {% if isSubscribable == 1 or (isValidateFormation == 1 and employee.manager_status == 1) %}
                     <div class="col-md-6">
                         {% if hasFormation == 0 %}
-                            <a href="index.php?controller=employee&action=addFormation&id=<?= $this->formation->getId() ?>">
+                            <a href="index.php?controller=employee&action=addFormation&id={{ formation.id }}">
                                 <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
                             </a>
-                        {% elseif hasFormation == 1 %}
-                            <a href="index.php?controller=employee&action=removeFormation&id=<?= $this->formation->getId() ?>">
+                        {% elseif hasFormation != 0 %}
+                            <a href="index.php?controller=employee&action=removeFormation&id={{ formation.id }}">
                                 <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                             </a>
                         {% endif %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace M2l\Model;
+namespace M2l\Model\Repository;
 
 use M2l\Kernel\Model;
 

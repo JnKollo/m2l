@@ -15,7 +15,23 @@ class EmployeeFormationsRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         $this->addStatusToFormationList($result, $idEmployee);
+        return $result;
+    }
 
+    public function getOneFormationByEmployee($idEmployee, $idFormation)
+    {
+        $sql = "select formation.*
+                from formation
+                inner join employee_formation
+                    on formation.id = employee_formation.id_formation
+                where employee_formation.id_employee = ?
+                and formation.id = ?
+                order by date desc";
+        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        if($result) {
+            $result['status'] = $this->setStatusForEmployeeFormation($result['id'], $idEmployee);
+        }
         return $result;
     }
 
@@ -69,7 +85,7 @@ class EmployeeFormationsRepository extends BaseRepository
         return $result;
     }
 
-    public function getPendingFormationsByEmployee($id)
+    public function getPendingFormationsByEmployee($idEmployee)
     {
         $sql = "select formation.*
                 from formation
@@ -78,13 +94,9 @@ class EmployeeFormationsRepository extends BaseRepository
                 where employee_formation.id_employee = ?
                 and employee_formation.id_formation_status = 2
                 order by date desc";
-        $req = $this->executeRequest($sql, array($id));
-        $req->setFetchMode(\PDO::FETCH_CLASS, 'FormationRepository');
-        $result = $req->fetchAll();
-        foreach ($result as $formation) {
-            $this->setFormations($formation);
-            $formation->setStatusForEmployeeFormation($formation->getId(), $id);
-        }
+        $req = $this->executeRequest($sql, array($idEmployee));
+        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function getPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
@@ -161,7 +173,7 @@ class EmployeeFormationsRepository extends BaseRepository
         and employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 2";
         $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
     }
 
     public function isAvailableFormation($idFormation, $idEmployee)
@@ -172,7 +184,7 @@ class EmployeeFormationsRepository extends BaseRepository
         and employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 4";
         $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
     }
 
     public function isValidateFormation($idFormation, $idEmployee)
@@ -183,7 +195,7 @@ class EmployeeFormationsRepository extends BaseRepository
         and employee_formation.id_employee = ?
         and employee_formation.id_formation_status = 1";
         $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return $req->fetchColumn();
+        return (int)$req->fetchColumn();
     }
 
     public function setStatusForEmployeeFormation($idFormation, $idEmployee)
@@ -204,5 +216,82 @@ class EmployeeFormationsRepository extends BaseRepository
             $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
         }
         unset($formation);
+    }
+
+    public function hasFormation($idEmployee, $idFormation)
+    {
+        $sql = "select count(*)
+        from employee_formation
+        where employee_formation.id_employee = ?
+        and employee_formation.id_formation = ?";
+        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
+        return $req->fetchColumn();
+    }
+
+    public function subscribeToFormation($idEmployee, $idFormation)
+    {
+        $sql = "insert into employee_formation (id_formation, id_employee, id_formation_status)
+                values (?, ?, 2)";
+        $this->executeRequest($sql, array($idFormation, $idEmployee));
+    }
+
+    public function unsubscribeToFormation($idEmployee, $idFormation)
+    {
+        $sql = "delete from employee_formation
+                where id_employee = ?
+                and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+    }
+
+    public function acceptFormation($idEmployee, $idFormation, $creditsFormation, $daysFormation)
+    {
+        $sql = "update employee_formation
+        set id_formation_status = 1
+        where id_employee = ?
+        and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
+        $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
+    }
+
+    public function updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation)
+    {
+        $sql = "update employee
+        set credits_left = credits_left - $creditsFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation)
+    {
+        $sql = "update employee
+        set days_left = days_left - $daysFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateCreditsForManagerAfterUnsubscribe($idEmployee, $creditsFormation)
+    {
+        $sql = "update employee
+        set credits_left = credits_left + $creditsFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function updateDaysForManageAfterUnsubscribe($idEmployee, $daysFormation)
+    {
+        $sql = "update employee
+        set days_left = days_left + $daysFormation
+        where id = ?";
+        $this->executeRequest($sql, array($idEmployee));
+    }
+
+    public function refuseFormation($idEmployee, $idFormation)
+    {
+        $sql = "update employee_formation
+        set id_formation_status = 3
+        where id_employee = ?
+        and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
     }
 }

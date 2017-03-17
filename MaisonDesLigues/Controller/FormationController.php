@@ -3,7 +3,7 @@
 namespace M2l\Controller;
 
 use M2l\Kernel\Controller;
-use M2l\Model\FormationRepository;
+use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
@@ -73,27 +73,29 @@ class FormationController extends Controller
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $formation = $formationRepository->getOneById($idFormation);
 
-            $employeeFormations = $employeeFormationsRepository->getFormationsByEmployee($employee['id']);
+            $employeeFormation = $employeeFormationsRepository->getOneFormationByEmployee($employee['id'], $formation['id']);
             $hasFormation = $employeeRepository->hasFormation($employee['id'], $idFormation);
-            $isPendingFormation = $employeeFormationsRepository->isPendingFormation($idFormation, $employee['id']);
-            $isAvailableFormation = $employeeFormationsRepository->isAvailableformation($idFormation, $employee['id']);
-            $isValidateFormation = $employeeFormationsRepository->isValidateFormation($idFormation, $employee['id']);
+            if($employeeFormation) {
+
+            }
+            $isPendingFormation = $employeeFormationsRepository->isPendingFormation($idFormation, $employee['id']); //2
+            $isAvailableFormation = $employeeFormationsRepository->isAvailableformation($idFormation, $employee['id']); //4
+            $isValidateFormation = $employeeFormationsRepository->isValidateFormation($idFormation, $employee['id']); //1
 
             $isSubscribable = 1;
             $status = 'disponible';
-              if (strtotime($formation['date']) <= time()) {
-                  $isSubscribable = 0;
-                  $status = 'indisponible';
-              }
+            if (strtotime($formation['date']) <= time()) {
+              $isSubscribable = 0;
+              $status = 'indisponible';
+            }
 
-              foreach ($employeeFormations as $myFormation) {
-                  if($myFormation['id'] == $formation['id']){
-                      if($isPendingFormation != 1) {
-                          $isSubscribable = 0;
-                          break;
-                      }
-                  }
-              }
+            if($employeeFormation['id'] == $formation['id']){
+                if($isPendingFormation != 1) {
+                  $isSubscribable = 0;
+                }
+
+            }
+
             $formation['date'] = (date('d/m/Y', strtotime($formation['date'])));
 
             $breadcrumb = BreadcrumbManager::editFormationBreadcrumb();
@@ -101,7 +103,7 @@ class FormationController extends Controller
             $this->generate('Formation/editFormation', array(
                 'employee' => $employee,
                 'formation' => $formation,
-                'employeeFormation' => $employeeFormations,
+                'employeeFormation' => $employeeFormation,
                 'hasFormation' => $hasFormation,
                 'isPendingFormation' => $isPendingFormation,
                 'isPerformedFormation' => $isAvailableFormation,

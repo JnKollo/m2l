@@ -3,8 +3,7 @@
 namespace M2l\Controller;
 
 use M2l\Kernel\Controller;
-use M2l\Kernel\Request;
-use M2l\Model\SecurityRepository;
+use M2l\Model\Repository\SecurityRepository;
 
 class SecurityController extends Controller
 {
