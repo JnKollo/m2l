@@ -20,13 +20,14 @@ class TeamController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
+            $employeeFormationsRepository = new EmployeeFormationsRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $team = $employeeRepository->getEmployeeByTeam($employee['team_id'], $employee['id']);
 
             foreach ($team as &$member) {
                 if($member['id'] != $employee['id']) {
-                    $pendingFormations = $employeeRepository->countPendingFormationsByEmployee($member['id']);
+                    $pendingFormations = $employeeFormationsRepository->countPendingFormationsByEmployee($member['id']);
                     $member['pendingFormations'] = $pendingFormations;
                 }
             }
@@ -75,13 +76,14 @@ class TeamController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
+            $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
 
             $idTeamMember = $parameters['id'];
             $idFormation = $parameters['formation'];
             $formation = $formationRepository->getOneById($idFormation);
 
-            $employeeRepository->acceptFormation($idTeamMember, $idFormation, $formation['credits'], $formation['days']);
+            $employeeFormationsRepository->acceptFormation($idTeamMember, $idFormation, $formation['credits'], $formation['days']);
 
             $this->redirect('Team', 'manage', $idTeamMember);
         }else {
@@ -93,10 +95,11 @@ class TeamController extends Controller
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
+            $employeeFormationsRepository = new EmployeeFormationsRepository();
 
             $idTeamMember = $parameters['id'];
             $idFormation = $parameters['formation'];
-            $employeeRepository->refuseFormation($idTeamMember, $idFormation);
+            $employeeFormationsRepository->refuseFormation($idTeamMember, $idFormation);
 
             $this->redirect('Team', 'manage', $idTeamMember);
         }else {

@@ -2,8 +2,6 @@
 
 namespace M2l\Model\Repository;
 
-use M2l\Model\Repository\BaseRepository;
-
 class FormationRepository extends BaseRepository
 {
     public function getAllFormationsOrderByDate()
@@ -47,16 +45,6 @@ class FormationRepository extends BaseRepository
                 from formation";
         $req = $this->executeRequest($sql);
         $result = $req->rowCount(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    public function getOneFormationById($id)
-    {
-        $sql = "select *
-                from formation
-                where formation.id = ?";
-        $req = $this->executeRequest($sql, array($id));
-        $result = $req->fetch();
         return $result;
     }
 

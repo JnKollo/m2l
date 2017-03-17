@@ -18,6 +18,11 @@ class Employee extends BaseEntity
     private $formations;
     private $pendingFormations;
 
+    public function hydrate(array $data = null)
+    {
+        parent::hydrate($data);
+    }
+
     public function getId()
     {
         return $this->id;
@@ -141,7 +146,10 @@ class Employee extends BaseEntity
 
     public function setOnline($online)
     {
-        $this->team_id = $online;
+        if(!is_int($online)) {
+            $online = (int)$online;
+        }
+        $this->online = $online;
         return $this;
     }
 

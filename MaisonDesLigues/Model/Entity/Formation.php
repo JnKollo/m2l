@@ -16,6 +16,11 @@ class Formation extends BaseEntity
     private $provider;
     private $status;
 
+    public function hydrate(array $data = null)
+    {
+        parent::hydrate($data);
+    }
+
     /**
      * @return mixed
      */
