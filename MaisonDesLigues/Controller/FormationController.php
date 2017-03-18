@@ -40,20 +40,19 @@ class FormationController extends Controller
             $offset = 0;
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
-
-            $employeeFormations = $employeeFormationsRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee['id'], $limit, $offset, $startYear, $endYear);
-            $performedFormations = $employeeFormationsRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee['id'], $limit, $offset);
             $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
-            StatusFormationManager::setStatusForEachFormation($formations, $employeeFormations);
-            $breadcrumb = BreadcrumbManager::formationBreadcrumb();
+            $employee->hydrate(array(
+                'Formations' => $employeeFormationsRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear),
+                'PerformedFormations' => $employeeFormationsRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset)
+            ));
+
+            StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
 
             $this->generate('Formation/formations', array(
                 'employee' => $employee,
-                'employeeFormations' => $employeeFormations,
-                'performedFormations' => $performedFormations,
                 'formations' => $formations,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => BreadcrumbManager::formationBreadcrumb()
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -66,6 +65,7 @@ class FormationController extends Controller
     public function show() {
         if (isset($_SESSION["employee"])) {
             $idFormation = $this->request->getParameters('id');
+
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
@@ -73,43 +73,18 @@ class FormationController extends Controller
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $formation = $formationRepository->getOneById($idFormation);
 
-            $employeeFormation = $employeeFormationsRepository->getOneFormationByEmployee($employee['id'], $formation['id']);
-            $hasFormation = $employeeRepository->hasFormation($employee['id'], $idFormation);
-            if($employeeFormation) {
+            $employee->hydrate(array(
+                'Formations' => $employeeFormationsRepository->getOneFormationByEmployee($employee->getId(), $formation->getId())
+            ));
 
-            }
-            $isPendingFormation = $employeeFormationsRepository->isPendingFormation($idFormation, $employee['id']); //2
-            $isAvailableFormation = $employeeFormationsRepository->isAvailableformation($idFormation, $employee['id']); //4
-            $isValidateFormation = $employeeFormationsRepository->isValidateFormation($idFormation, $employee['id']); //1
-
-            $isSubscribable = 1;
-            $status = 'disponible';
-            if (strtotime($formation['date']) <= time()) {
-              $isSubscribable = 0;
-              $status = 'indisponible';
-            }
-
-            if($employeeFormation['id'] == $formation['id']){
-                if($isPendingFormation != 1) {
-                  $isSubscribable = 0;
-                }
-
-            }
-
-            $formation['date'] = (date('d/m/Y', strtotime($formation['date'])));
+            StatusFormationManager::setStatusForOneFormation($formation, $employee->getFormations(), $isSubscribable = 1);
 
             $breadcrumb = BreadcrumbManager::editFormationBreadcrumb();
 
             $this->generate('Formation/editFormation', array(
                 'employee' => $employee,
                 'formation' => $formation,
-                'employeeFormation' => $employeeFormation,
-                'hasFormation' => $hasFormation,
-                'isPendingFormation' => $isPendingFormation,
-                'isPerformedFormation' => $isAvailableFormation,
                 'isSubscribable' => $isSubscribable,
-                'isValidateFormation' => $isValidateFormation,
-                'status' => $status,
                 'breadcrumb' => $breadcrumb
             ));
         }else {
@@ -178,10 +153,13 @@ class FormationController extends Controller
             $employeeFormationsRepository = new EmployeeFormationsRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
-            $employeeFormations = $employeeFormationsRepository->getFormationsByEmployee($employee['id']);
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
-            StatusFormationManager::setStatusForEachFormation($formations, $employeeFormations);
+            $employee->hydrate(array(
+                'Formations' => $employeeFormationsRepository->getFormationsByEmployee($employee->getId())
+            ));
+
+            StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
             $breadcrumb = BreadcrumbManager::searchFormationBreadcrumb();
 
             $this->generate('Formation/searchFormation', array(

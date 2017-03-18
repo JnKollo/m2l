@@ -23,15 +23,14 @@ class TeamController extends Controller
             $employeeFormationsRepository = new EmployeeFormationsRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
-            $team = $employeeRepository->getEmployeeByTeam($employee['team_id'], $employee['id']);
+            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam_id(), $employee->getId());
 
-            foreach ($team as &$member) {
-                if($member['id'] != $employee['id']) {
-                    $pendingFormations = $employeeFormationsRepository->countPendingFormationsByEmployee($member['id']);
-                    $member['pendingFormations'] = $pendingFormations;
+            foreach ($team as $member) {
+                if($member->getId() != $employee->getId()) {
+                    $member->setPendingFormations($employeeFormationsRepository->countPendingFormationsByEmployee($member->getId()));
                 }
             }
-            unset($member);
+
             $breadcrumb = BreadcrumbManager::teamBreadcrumb();
 
             $this->generate('Team/manage', array(
@@ -44,27 +43,25 @@ class TeamController extends Controller
         }
     }
 
-    public function manage($parameters)
+    public function manage()
     {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $employeeFormationRepository = new EmployeeFormationsRepository();
 
-            $idTeamMember = $parameters['id'];
+            $idTeamMember = $this->request->getParameters('id');
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $member = $employeeRepository->getOneEmployeeByTeam($idTeamMember);
-            $pendingFormationsForEmployee = $employeeFormationRepository->getPendingFormationsByEmployee($idTeamMember);
 
-            foreach($pendingFormationsForEmployee as $formation){
-                $formation['date'] = date('d/m/Y', strtotime($formation['date']));
-            }
+            $member->hydrate(array(
+               'PendingFormations' =>  $employeeFormationRepository->getPendingFormationsByEmployee($idTeamMember)
+            ));
 
             $breadcrumb = BreadcrumbManager::manageTeamBreadcrumb();
 
             $this->generate('Team/manageFormation', array(
                 'employee' => $employee,
                 'member' => $member,
-                'pendingFormations' => $pendingFormationsForEmployee,
                 'breadcrumb' => $breadcrumb
             ));
         }else {
@@ -72,18 +69,17 @@ class TeamController extends Controller
         }
     }
 
-    public function accept($parameters)
+    public function accept()
     {
         if (isset($_SESSION["employee"])) {
-            $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
 
-            $idTeamMember = $parameters['id'];
-            $idFormation = $parameters['formation'];
+            $idTeamMember = $this->request->getParameters('id');
+            $idFormation = $this->request->getParameters('formation');
             $formation = $formationRepository->getOneById($idFormation);
 
-            $employeeFormationsRepository->acceptFormation($idTeamMember, $idFormation, $formation['credits'], $formation['days']);
+            $employeeFormationsRepository->acceptFormation($idTeamMember, $idFormation, $formation->getCredits(), $formation->getDays());
 
             $this->redirect('Team', 'manage', $idTeamMember);
         }else {
@@ -91,14 +87,14 @@ class TeamController extends Controller
         }
     }
 
-    public function refuse($parameters)
+    public function refuse()
     {
         if (isset($_SESSION["employee"])) {
-            $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
 
-            $idTeamMember = $parameters['id'];
-            $idFormation = $parameters['formation'];
+            $idTeamMember = $this->request->getParameters('id');
+            $idFormation = $this->request->getParameters('formation');
+
             $employeeFormationsRepository->refuseFormation($idTeamMember, $idFormation);
 
             $this->redirect('Team', 'manage', $idTeamMember);

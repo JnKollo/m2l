@@ -2,24 +2,45 @@
 
 namespace M2l\Service\Status;
 
+use M2l\Model\Entity\Formation;
+
 class StatusFormationManager
 {
-    public static function setStatusForEachFormation(array &$formations, array &$employeeFormations) {
-        foreach($formations as &$formation) {
-            $formation['status'] = 'disponible';
-            if(strtotime($formation['date']) < time()) {
-                $formation['status'] = 'indisponible';
-            }
+    public static function setStatusForOneFormation(Formation $formation, array $employeeFormations = null, &$isSubscribable) {
+        $formation->setStatus('disponible');
+        if(strtotime($formation->getDate()) < time()) {
+            $isSubscribable = 0;
+            $formation->setStatus('indisponible');
+        }
 
-            $formation['date'] = (date('d/m/Y', strtotime($formation['date'])));
-            foreach($employeeFormations as &$myFormation) {
-                if($formation['id'] == $myFormation['id']){
-                    $formation['status'] = $myFormation['status']['state_of_validation'];
+        if ('' != $employeeFormations[0]) {
+            foreach($employeeFormations as $employeeFormation) {
+                if($formation->getId() == $employeeFormation->getId()){
+                    if ($employeeFormation->getStatus()['state_of_validation'] != 'en cours de validation') {
+                        $isSubscribable = 0;
+                    }
+                    $formation->setStatus($employeeFormation->getStatus()['state_of_validation']);
                 }
-                $myFormation['date'] = $formation['date'];
             }
         }
-        unset($formation);
-        unset($myFormation);
+    }
+
+    public static function setStatusForEachFormation(array $formations, array $employeeFormations = null) {
+        foreach($formations as $formation) {
+            $formation->setStatus('disponible');
+            if(strtotime($formation->getDate()) < time()) {
+                $formation->setStatus('indisponible');
+            }
+
+            if ($employeeFormations) {
+                foreach($employeeFormations as $employeeFormation) {
+                    if($formation->getId() == $employeeFormation->getId()){
+                        $formation->setStatus($employeeFormation->getStatus()['state_of_validation']);
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -4,7 +4,7 @@ namespace M2l\Model\Entity;
 
 class Employee extends BaseEntity
 {
-    protected $id;
+    private $id;
     private $username;
     private $password;
     private $email;
@@ -17,11 +17,7 @@ class Employee extends BaseEntity
     private $last_login;
     private $formations;
     private $pendingFormations;
-
-    public function hydrate(array $data = null)
-    {
-        parent::hydrate($data);
-    }
+    private $performedFormations;
 
     public function getId()
     {
@@ -83,14 +79,28 @@ class Employee extends BaseEntity
         return $this->pendingFormations;
     }
 
+    public function getPerformedFormations()
+    {
+        return $this->performedFormations;
+    }
+
     public function setPendingFormations($pendingFormations)
     {
         $this->pendingFormations = $pendingFormations;
         return $this;
     }
 
+    public function setPerformedFormations($performedFormations)
+    {
+        $this->performedFormations = $performedFormations;
+        return $this;
+    }
+
     public function setId($id)
     {
+        if(!is_int($id)) {
+            $id = (int)$id;
+        }
         $this->id = $id;
         return $this;
     }
@@ -122,24 +132,36 @@ class Employee extends BaseEntity
 
     public function setDays_left($days_left)
     {
+        if(!is_int($days_left)) {
+            $days_left = (int)$days_left;
+        }
         $this->days_left = $days_left;
         return $this;
     }
 
     public function setCredits_left($credits_left)
     {
+        if(!is_int($credits_left)) {
+            $credits_left = (int)$credits_left;
+        }
         $this->credits_left = $credits_left;
         return $this;
     }
 
     public function setManager_status($manager_status)
     {
+        if(!is_int($manager_status)) {
+            $manager_status = (int)$manager_status;
+        }
         $this->manager_status = $manager_status;
         return $this;
     }
 
     public function setTeam_id($team_id)
     {
+        if(!is_int($team_id)) {
+            $team_id = (int)$team_id;
+        }
         $this->team_id = $team_id;
         return $this;
     }
@@ -166,7 +188,11 @@ class Employee extends BaseEntity
 
     public function setFormations($formations)
     {
-        $this->formations[] = $formations;
+        if (is_array($formations)) {
+            foreach ($formations as $formation) {
+                $this->formations[] = $formation;
+            }
+        } else $this->formations[] = $formations;
         return $this;
     }
 

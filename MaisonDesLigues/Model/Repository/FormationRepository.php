@@ -4,6 +4,18 @@ namespace M2l\Model\Repository;
 
 class FormationRepository extends BaseRepository
 {
+    private $entity;
+
+    public function __construct()
+    {
+        $this->entity = 'Formation';
+    }
+
+    public function getObjectByEntity($entity = null)
+    {
+        return parent::getObjectByEntity($entity);
+    }
+
     public function getAllFormationsOrderByDate()
     {
         $sql = "select *
@@ -11,7 +23,7 @@ class FormationRepository extends BaseRepository
                 order by date desc";
         $req = $this->executeRequest($sql);
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $this->hydrateEntityForEachResult($result, $this->entity);
     }
 
     public function getAllFormationsOrderByDateAndPaginate($limit, $offset)
@@ -23,20 +35,8 @@ class FormationRepository extends BaseRepository
                 offset $offset";
         $req = $this->executeRequest($sql);
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
-    }
+        return $this->hydrateEntityForEachResult($result, $this->entity);
 
-    public function getAjaxFormationsOrderByDateAndPaginate($limit, $offset)
-    {
-
-        $sql = "select *
-                from formation
-                order by date desc
-                limit $limit
-                offset $offset";
-        $req = $this->executeRequest($sql);
-        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
     }
 
     public function CountFormations()

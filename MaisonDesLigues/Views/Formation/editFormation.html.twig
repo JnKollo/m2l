@@ -71,14 +71,7 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Statut</p>
-                                    {% if employeeFormations is defined %}
-                                        {% for employeeFormation in employeeFormations %}
-                                            {% if employeeFormation.id ==  formation.id %}
-                                                {% set status = employeeFormation.status.state_of_validation %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                    <span class="badge bg-green">{{ status }}</span>
+                                    <span class="badge bg-green">{{ formation.status }}</span>
                                 </div>
                             </li>
                             <!-- /.item -->
@@ -99,13 +92,13 @@
                         <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
                     </a>
                 </div>
-                {% if isSubscribable == 1 or (isValidateFormation == 1 and employee.manager_status == 1) %}
+                {% if isSubscribable == 1 or (employee.formations[0].status.state_of_validation == "validée" and employee.manager_status == 1) %}
                     <div class="col-md-6">
-                        {% if hasFormation == 0 %}
+                        {% if employee.formations[0].id != formation.id %}
                             <a href="index.php?controller=employee&action=addFormation&id={{ formation.id }}">
                                 <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
                             </a>
-                        {% elseif hasFormation != 0 %}
+                        {% else %}
                             <a href="index.php?controller=employee&action=removeFormation&id={{ formation.id }}">
                                 <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
                             </a>
