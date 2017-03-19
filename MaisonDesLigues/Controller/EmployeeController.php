@@ -23,19 +23,20 @@ class EmployeeController extends Controller
     {
         $idFormation = $this->request->getParameters('id');
         $employeeRepository = new EmployeeRepository();
-        $employeeFormationRepository = new EmployeeFormationsRepository();
+        $employeeFormationsRepository = new EmployeeFormationsRepository();
         $formationRepository = new FormationRepository();
 
         $employee = $employeeRepository->getOneById($_SESSION['employee']);
         $formation = $formationRepository->getOneById($idFormation);
 
         //Si les crédits et les jours de l'employé suffisent alors la souscription a la formation est validé
-        if ($employee['credits_left'] > $formation['credits_left'] && $employee['days_left'] > $formation['days_left']) {
-            $employeeFormationRepository->subscribeToFormation($employee['id'], $idFormation);
+        if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
+            $employeeFormationsRepository->subscribeToFormation($employee->getId(), $idFormation);
 
             //Si l'employé est un manager alors la demande d'ajout est acceptée
-            if ($employee['manager_status']){
-                $employeeFormationRepository->acceptFormation($employee['id'], $idFormation, $formation['credits'], $formation['days']);
+            if ($employee->getManager_status()){
+                $employeeFormationsRepository->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
+
             }
         }
 
@@ -56,12 +57,12 @@ class EmployeeController extends Controller
         $employee = $employeeRepository->getOneById($_SESSION['employee']);
         $formation = $formationRepository->getOneById($idFormation);
 
-        $employeeFormationRepository->unsubscribeToFormation($employee['id'], $idFormation);
+        $employeeFormationRepository->unsubscribeToFormation($employee->getId(), $idFormation);
 
         //Si l'employé est un manager alors la demande de retrait est acceptée
-        if ($employee['manager_status']){
-            $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee['id'], $formation['credits']);
-            $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee['id'], $formation['days']);
+        if ($employee->getManager_status()){
+            $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
+            $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
         }
         $this->redirect('formation', 'show', $idFormation);
     }

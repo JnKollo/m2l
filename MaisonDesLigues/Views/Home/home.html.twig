@@ -20,9 +20,6 @@
                             <h3>{{ employee.credits_left }}</h3>
                             <p>Crédits formation</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -33,9 +30,6 @@
                             <h3>{{ employee.days_left }}</h3>
                             <p>Jours restants</p>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -43,11 +37,8 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{ performedFormations }}</h3>
+                            <h3>{{ employee.performedFormations }}</h3>
                             <p>Formations effectuées</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
                         </div>
                     </div>
                 </div>
@@ -56,11 +47,8 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>{{ pendingFormations }}</h3>
+                            <h3>{{ employee.pendingFormations }}</h3>
                             <p>Formations en cours de validation</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
                         </div>
                     </div>
                 </div>
@@ -128,8 +116,8 @@
                                         <th style="width: 185px">Statut</th>
                                         <th style="width: 80px"></th>
                                     </tr>
-                                    {% if employeeFormations is defined %}
-                                        {% for formation in employeeFormations %}
+                                    {% if employee.formations is defined %}
+                                        {% for formation in employee.formations %}
                                             <tr>
                                                 <td><a href="index.php?controller=formation&action=show&id={{ formation.id }}">{{ formation.name }}</a></td>
                                                 <td>{{ formation.date }}</td>

@@ -23,21 +23,21 @@ class HomeController extends Controller
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
 
-            $employeeFormations = $employeeFormationsRepository->getFormationsByEmployee($employee['id']);
-            $performedFormations = $employeeFormationsRepository->countPerformedFormationsByEmployee($employee['id']);
-            $pendingFormations = $employeeFormationsRepository->countPendingFormationsByEmployee($employee['id']);
-            $team = $employeeRepository->getEmployeeByTeam($employee['team_id'], $employee['id']);
+            $team = $employeeRepository->getEmployeeByTeam($employee->getTeam_id(), $employee->getId());
             $formations = $formationRepository->getAllFormationsOrderByDate();
 
-            StatusFormationManager::setStatusForEachFormation($formations, $employeeFormations);
+            $employee->hydrate(array(
+                'Formations' => $employeeFormationsRepository->getFormationsByEmployee($employee->getId()),
+                'PendingFormations' => $employeeFormationsRepository->countPerformedFormationsByEmployee($employee->getId()),
+                'PerformedFormations' => $employeeFormationsRepository->countPerformedFormationsByEmployee($employee->getId())
+            ));
+
+            StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
 
             $this->generate('Home/home', array(
                 'employee' => $employee,
-                'employeeFormations' => $employeeFormations,
                 'formations' => array_slice($formations, 0, 6, true),
-                'team' => $team,
-                'performedFormations' => $performedFormations,
-                'pendingFormations' => $pendingFormations
+                'team' => $team
             ));
         }else {
             $this->redirect('Security', 'logout');
