@@ -4,13 +4,7 @@ namespace M2l\Model\Entity;
 
 abstract class BaseEntity
 {
-    protected $id;
-
-    public function __construct()
-    {
-    }
-
-    protected function hydrate(array $data = null)
+    public function hydrate(array $data = null)
     {
         if (null != $data) {
             foreach ($data as $key => $value) {
@@ -21,4 +15,6 @@ abstract class BaseEntity
             }
         }
     }
+
+
 }

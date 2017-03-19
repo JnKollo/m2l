@@ -15,39 +15,7 @@ class EmployeeFormationsRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         $this->addStatusToFormationList($result, $idEmployee);
-        return $result;
-    }
-
-    public function getOneFormationByEmployee($idEmployee, $idFormation)
-    {
-        $sql = "select formation.*
-                from formation
-                inner join employee_formation
-                    on formation.id = employee_formation.id_formation
-                where employee_formation.id_employee = ?
-                and formation.id = ?
-                order by date desc";
-        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
-        $result = $req->fetch(\PDO::FETCH_ASSOC);
-        if($result) {
-            $result['status'] = $this->setStatusForEmployeeFormation($result['id'], $idEmployee);
-        }
-        return $result;
-    }
-
-    public function getAjaxFormationsByEmployee($idEmployee)
-    {
-        $sql = "select formation.*, formation_status.state_of_validation
-                from formation
-                inner join employee_formation
-                    on formation.id = employee_formation.id_formation
-                    inner join formation_status
-                    on formation_status.id = employee_formation.id_formation_status
-                where employee_formation.id_employee = ?
-                order by date desc";
-        $req = $this->executeRequest($sql, array($idEmployee));
-        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        return $this->hydrateEntityForEachResult($result, 'Formation');
     }
 
     public function getFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
@@ -65,38 +33,22 @@ class EmployeeFormationsRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         $this->addStatusToFormationList($result, $idEmployee);
-        return $result;
+        return $this->hydrateEntityForEachResult($result, 'Formation');
     }
 
-    public function getAjaxFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
+    public function getOneFormationByEmployee($idEmployee, $idFormation)
     {
         $sql = "select formation.*
                 from formation
                 inner join employee_formation
                     on formation.id = employee_formation.id_formation
                 where employee_formation.id_employee = ?
-                and formation.date >= ?
-                and formation.date < ?
-                order by date desc
-                limit $limit
-                offset $offset";
-        $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
-        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
-    }
-
-    public function getPendingFormationsByEmployee($idEmployee)
-    {
-        $sql = "select formation.*
-                from formation
-                inner join employee_formation
-                    on formation.id = employee_formation.id_formation
-                where employee_formation.id_employee = ?
-                and employee_formation.id_formation_status = 2
+                and formation.id = ?
                 order by date desc";
-        $req = $this->executeRequest($sql, array($idEmployee));
-        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        return $result;
+        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
+        $this->addStatusToFormation($result, $idEmployee);
+        return $this->hydrateOneEntity($result, 'Formation');
     }
 
     public function getPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
@@ -112,21 +64,18 @@ class EmployeeFormationsRepository extends BaseRepository
                 offset $offset";
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        $this->addStatusToFormationList($result, $idEmployee);
-        return $result;
+        return $this->hydrateEntityForEachResult($result, 'Formation');
     }
 
-    public function getAjaxPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
+    public function getPendingFormationsByEmployee($idEmployee)
     {
         $sql = "select formation.*
                 from formation
                 inner join employee_formation
                     on formation.id = employee_formation.id_formation
                 where employee_formation.id_employee = ?
-                and employee_formation.id_formation_status = 5
-                order by date desc
-                limit $limit
-                offset $offset";
+                and employee_formation.id_formation_status = 2
+                order by date desc";
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
@@ -165,69 +114,6 @@ class EmployeeFormationsRepository extends BaseRepository
         return (int)$req->fetchColumn();
     }
 
-    public function isPendingFormation($idFormation, $idEmployee)
-    {
-        $sql = "select count(*)
-        from employee_formation
-        where employee_formation.id_formation = ?
-        and employee_formation.id_employee = ?
-        and employee_formation.id_formation_status = 2";
-        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return (int)$req->fetchColumn();
-    }
-
-    public function isAvailableFormation($idFormation, $idEmployee)
-    {
-        $sql = "select count(*)
-        from employee_formation
-        where employee_formation.id_formation = ?
-        and employee_formation.id_employee = ?
-        and employee_formation.id_formation_status = 4";
-        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return (int)$req->fetchColumn();
-    }
-
-    public function isValidateFormation($idFormation, $idEmployee)
-    {
-        $sql = "select count(*)
-        from employee_formation
-        where employee_formation.id_formation = ?
-        and employee_formation.id_employee = ?
-        and employee_formation.id_formation_status = 1";
-        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return (int)$req->fetchColumn();
-    }
-
-    public function setStatusForEmployeeFormation($idFormation, $idEmployee)
-    {
-        $sql = "select state_of_validation
-        from formation_status
-        inner join employee_formation
-        on formation_status.id = employee_formation.id_formation_status
-        where employee_formation.id_formation = ?
-        and employee_formation.id_employee = ?";
-        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
-        return $req->fetch(\PDO::FETCH_ASSOC);
-    }
-
-    public function addStatusToFormationList(array &$formations, $idEmployee)
-    {
-        foreach ($formations as &$formation) {
-            $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
-        }
-        unset($formation);
-    }
-
-    public function hasFormation($idEmployee, $idFormation)
-    {
-        $sql = "select count(*)
-        from employee_formation
-        where employee_formation.id_employee = ?
-        and employee_formation.id_formation = ?";
-        $req = $this->executeRequest($sql, array($idEmployee, $idFormation));
-        return $req->fetchColumn();
-    }
-
     public function subscribeToFormation($idEmployee, $idFormation)
     {
         $sql = "insert into employee_formation (id_formation, id_employee, id_formation_status)
@@ -241,17 +127,6 @@ class EmployeeFormationsRepository extends BaseRepository
                 where id_employee = ?
                 and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
-    }
-
-    public function acceptFormation($idEmployee, $idFormation, $creditsFormation, $daysFormation)
-    {
-        $sql = "update employee_formation
-        set id_formation_status = 1
-        where id_employee = ?
-        and id_formation = ?";
-        $this->executeRequest($sql, array($idEmployee, $idFormation));
-        $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
-        $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
     }
 
     public function updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation)
@@ -286,6 +161,17 @@ class EmployeeFormationsRepository extends BaseRepository
         $this->executeRequest($sql, array($idEmployee));
     }
 
+    public function acceptFormation($idEmployee, $idFormation, $creditsFormation, $daysFormation)
+    {
+        $sql = "update employee_formation
+        set id_formation_status = 1
+        where id_employee = ?
+        and id_formation = ?";
+        $this->executeRequest($sql, array($idEmployee, $idFormation));
+        $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
+        $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
+    }
+
     public function refuseFormation($idEmployee, $idFormation)
     {
         $sql = "update employee_formation
@@ -293,5 +179,31 @@ class EmployeeFormationsRepository extends BaseRepository
         where id_employee = ?
         and id_formation = ?";
         $this->executeRequest($sql, array($idEmployee, $idFormation));
+    }
+
+    public function setStatusForEmployeeFormation($idFormation, $idEmployee)
+    {
+        $sql = "select state_of_validation
+        from formation_status
+        inner join employee_formation
+        on formation_status.id = employee_formation.id_formation_status
+        where employee_formation.id_formation = ?
+        and employee_formation.id_employee = ?";
+        $req = $this->executeRequest($sql, array($idFormation, $idEmployee));
+        return $req->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function addStatusToFormationList(array &$formations, $idEmployee)
+    {
+        foreach ($formations as &$formation) {
+            $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
+        }
+        unset($formation);
+    }
+
+    public function addStatusToFormation(&$formation, $idEmployee)
+    {
+        $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
+        unset($formation);
     }
 }
