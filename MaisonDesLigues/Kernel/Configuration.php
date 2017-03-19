@@ -27,13 +27,13 @@ class Configuration
 
     /**
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
     private static function getParameters() {
         if (self::$parameters == null) {
-            $FilePath = "MaisonDesLigues/Config/dev.ini";
+            $FilePath = "Config/dev.ini";
             if (!file_exists($FilePath)) {
-                throw new Exception("Aucun fichier de configuration trouvé");
+                throw new \Exception("Aucun fichier de configuration trouvé");
             }
             else {
                 self::$parameters = parse_ini_file($FilePath);

@@ -1,4 +1,4 @@
-MaisonDesLigues/Config/
+Config/dev.ini
 .idea/
 .vagrant
 vendor/

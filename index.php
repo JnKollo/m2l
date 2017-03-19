@@ -9,9 +9,10 @@ use M2l\Kernel\Router;
 
 /*
  * Initialise une session de 10 minutes
- * Si la session est expiré alors on redirige vers la page login
+ * Si la session est expirée alors on redirige vers la page login
  */
 $inactive = 600;
+
 if (isset($_SESSION["timeout"])) {
     $sessionTTL = time() - $_SESSION["timeout"];
     if ($sessionTTL > $inactive) {
@@ -19,9 +20,7 @@ if (isset($_SESSION["timeout"])) {
         session_destroy();
         header("Location: index.php?controller=security&action=logout");
     }
-}
-
-$_SESSION["timeout"] = time();
+} else $_SESSION["timeout"] = time();
 
 /*
  * Initialise un objet Router
