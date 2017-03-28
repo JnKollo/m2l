@@ -4,7 +4,13 @@ default:
             base_url: http://localhost:80
             browser_name: chrome
             goutte: ~
+
+selenium:
+    extensions:
+        Behat\MinkExtension:
+            base_url: http://localhost:4582
+            browser_name: chrome
             selenium2:
-                wd_host: '192.168.7.90:4444/wd/hub'
+                wd_host: '192.168.33.1:4444/wd/hub'
             javascript_session: selenium2
             show_cmd: 'chrome %s'

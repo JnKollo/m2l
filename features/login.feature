@@ -9,11 +9,10 @@ Feature: Login
     When I fill in "login" with "<login>"
     And I fill in "password" with "<password>"
     When I press "Connexion" button
-    Then the response status code should be <code>
-    And I should see "Page d'accueil"
+    Then the response status code should be 200
 
     Examples:
-      | login  | password | code |
-      | papa   | papa     | 200  |
-      | fiston | fiston   | 200  |
-      | bad    | bad      | 200  |
+      | login  | password |
+      | papa   | papa     |
+      | fiston | fiston   |
+      | bad    | bad      |

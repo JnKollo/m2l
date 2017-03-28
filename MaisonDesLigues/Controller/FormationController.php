@@ -79,13 +79,11 @@ class FormationController extends Controller
 
             StatusFormationManager::setStatusForOneFormation($formation, $employee->getFormations(), $isSubscribable = 1);
 
-            $breadcrumb = BreadcrumbManager::editFormationBreadcrumb();
-
             $this->generate('Formation/editFormation', array(
                 'employee' => $employee,
                 'formation' => $formation,
                 'isSubscribable' => $isSubscribable,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => BreadcrumbManager::editFormationBreadcrumb()
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -160,12 +158,11 @@ class FormationController extends Controller
             ));
 
             StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
-            $breadcrumb = BreadcrumbManager::searchFormationBreadcrumb();
 
             $this->generate('Formation/searchFormation', array(
                 'employee' => $employee,
                 'formations' => $formations,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => BreadcrumbManager::searchFormationBreadcrumb()
             ));
         }else {
             $this->redirect('Security', 'logout');
