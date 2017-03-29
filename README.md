@@ -47,7 +47,7 @@ ou
 
 vagrant reload --provision
 ```
-- Attendre la fin du script puis se rendre sur [http://localhost:4582/](http://localhost:1022/) ( ou [http://127.0.0.1:1022/m2l](http://127.0.0.1:1022/m2l) )
+- Attendre la fin du script puis se rendre sur [http://localhost:4582/](http://localhost:4582/) ( ou [http://127.0.0.1:4582/m2l](http://127.0.0.1:4582/m2l) )
 
 
 # ***Mise en recette*** #
@@ -102,7 +102,7 @@ vagrant@127.0.0.1's password: vagrant
 
 sudo tail -f /var/log/apache2/error.m2l.log
 ```
-- Rafraîchir [la page](http://127.0.0.1:1022/)
+- Rafraîchir [la page](http://127.0.0.1:4582/)
 
 
 # ***Tester sur le site avec le compte manager et le compte employé*** #
