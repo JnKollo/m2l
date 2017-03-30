@@ -11,8 +11,7 @@ class SecurityController extends Controller
     {
     }
 
-    public function loginCheck()
-    {
+    public function loginCheck() {
         if (isset($_SESSION['employee'])) {
             $this->redirect('home', 'home');
         }else {
@@ -29,10 +28,8 @@ class SecurityController extends Controller
                     $employee = $securityRepository->getIdByLoginAndPassword($login, $hash);
                     $securityRepository->login($employee['id']);
                     $_SESSION['employee'] = $employee['id'];
-                    $this->redirect('home', 'home');
-                } else {
-                    $this->redirect('login', 'index');
                 }
+                return $hasAccount;
             }
         }
     }

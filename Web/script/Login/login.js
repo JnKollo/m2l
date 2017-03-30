@@ -1,3 +1,9 @@
-/**
- * Created by pierr on 18/01/2017.
- */
+var loginForm = document.getElementById('loginForm');
+
+loginForm.addEventListener('submit', checkLogin);
+
+function checkLogin() {
+    alert('login = ' + document.getElementsByName('login'));
+
+
+}

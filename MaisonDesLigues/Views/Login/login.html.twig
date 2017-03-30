@@ -11,20 +11,19 @@
         <div class="login-box-body">
             <p class="login-box-msg">Veuillez rentrer vos indentifiants</p>
 
-            <form action="index.php?controller=security&action=loginCheck" method="post">
+            <form id="loginForm" action="index.php?controller=security&action=loginCheck" method="post">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="Identifiant" name="login">
+                    <input type="text" class="form-control" placeholder="Identifiant" name="login" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Mot de passe" name="password">
+                    <input type="password" class="form-control" placeholder="Mot de passe" name="password" required>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
-
                     <!-- /.col -->
                     <div class="col-xs-4 col-xs-offset-4">
-                        <input type="submit" class="btn btn-primary btn-block btn-flat" name="submit" value="Connexion">
+                        <input  type="submit" class="btn btn-primary btn-block btn-flat" name="submit" value="Connexion">
                     </div>
                     <!-- /.col -->
                 </div>
