@@ -29,7 +29,10 @@ class SecurityController extends Controller
                     $securityRepository->login($employee['id']);
                     $_SESSION['employee'] = $employee['id'];
                 }
-                return $hasAccount;
+                header('Content-Type: application/json');
+                echo json_encode(array(
+                    'hasAccount' => $hasAccount
+                ));
             }
         }
     }
