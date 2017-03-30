@@ -61,6 +61,15 @@ abstract class Controller
         $template = $twig->load($this->filenameToTwig($filename));
         echo $template->render($content);
     }
+
+    /**
+     * @param array $parameters
+     */
+    public function jsonRender(array $parameters) {
+        header('Content-Type: application/json');
+        echo json_encode($parameters);
+    }
+
     /**
      *
      * @param $controller

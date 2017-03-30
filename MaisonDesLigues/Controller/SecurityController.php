@@ -28,11 +28,15 @@ class SecurityController extends Controller
                     $employee = $securityRepository->getIdByLoginAndPassword($login, $hash);
                     $securityRepository->login($employee['id']);
                     $_SESSION['employee'] = $employee['id'];
+
+                    $this->jsonRender(array(
+                        'redirect' => 'index.php?controller=security&action=loginCheck'
+                    ));
+                } else {
+                    $this->jsonRender(array(
+                        'message' => 'bad credential'
+                    ));
                 }
-                header('Content-Type: application/json');
-                echo json_encode(array(
-                    'hasAccount' => $hasAccount
-                ));
             }
         }
     }

@@ -1,0 +1,81 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Toutes les formations{% endblock %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12 tableau" id="allFormation" data-tabname="all">
+                    <div id="__allFormations"></div>
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Toutes les formations</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <table id="table-all" class="table table-striped">
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Date</th>
+                                    <th>Durée (en heure)</th>
+                                    <th>Jours requis</th>
+                                    <th>Points requis</th>
+                                    <th style=" width: 185px">Statut</th>
+                                    <th style="width: 80px">Détails</th>
+                                </tr>
+
+                                {% if formations is not null %}
+                                    {% for formation in formations %}
+                                        <tr>
+                                            <td><a href="index.php?controller=formation&action=show&id{{ formation.id }}">{{ formation.name }}</a></td>
+                                            <td>{{ formation.date }}</td>
+                                            <td>{{ formation.duration }}</td>
+                                            <td>{{ formation.days }}</td>
+                                            <td>{{ formation.credits }}</td>
+                                            <td><span class="badge bg-green">{{ formation.status }}</span></td>
+                                            <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                        <div id="all" class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li data-page="left"><a href="#">&laquo;</a></li>
+                                <li data-page="right"><a href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.box -->
+                        <!-- /.box-body -->
+                        <div id="all" class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                            </ul>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.box -->
+
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Your Page Content Here -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+{% endblock %}
+
+{% block script %}<script src="Web/script/Formation/formations.js"></script>{% endblock %}
