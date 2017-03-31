@@ -15,26 +15,32 @@ class SecurityController extends Controller
         if (isset($_SESSION['employee'])) {
             $this->redirect('home', 'home');
         }else {
-            $login = $this->request->getParameters("login");
+            $email = $this->request->getParameters("email");
             $password = $this->request->getParameters("password");
             $submit = $this->request->getParameters("submit");
 
-            if (isset($submit, $login, $password)) {
-                $hash = crypt($password, 'rl');
+            if (isset($submit, $email, $password)) {
                 $securityRepository = new SecurityRepository();
-                $hasAccount = $securityRepository->loginChecker($login, $hash);
 
-                if ($hasAccount) {
-                    $employee = $securityRepository->getIdByLoginAndPassword($login, $hash);
-                    $securityRepository->login($employee['id']);
-                    $_SESSION['employee'] = $employee['id'];
+                if($securityRepository->emailChecker($email)) {
+                    $hash = crypt($password, 'rl');
 
-                    $this->jsonRender(array(
-                        'redirect' => 'index.php?controller=security&action=loginCheck'
-                    ));
+                    if ($securityRepository->loginChecker($email, $hash)) {
+                        $employee = $securityRepository->getIdByEmailAndPassword($email, $hash);
+                        $securityRepository->login($employee['id']);
+                        $_SESSION['employee'] = $employee['id'];
+
+                        $this->jsonRender(array(
+                            'redirect' => 'index.php?controller=security&action=loginCheck'
+                        ));
+                    } else {
+                        $this->jsonRender(array(
+                            'wrong password' => 'Mot de passe incorrect'
+                        ));
+                    }
                 } else {
                     $this->jsonRender(array(
-                        'message' => 'bad credential'
+                        'wrong email' => 'Veuillez entrer un email valide'
                     ));
                 }
             }

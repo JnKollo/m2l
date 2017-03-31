@@ -2,7 +2,7 @@ $(document).ready(function() {
     $("#loginForm").submit(function( event ) {
         $.post("index.php?controller=security&action=loginCheck",
         {
-            login: $('input[name=login]').val(),
+            email: $('input[name=email]').val(),
             password: $('input[name=password]').val(),
             submit: $('input[name=submit]').val()
         },
@@ -14,13 +14,17 @@ $(document).ready(function() {
                         window.location.href = value;
                     } else {
                         // data.form contains the HTML for the replacement form
-                        var message = $('<div class="alert alert-danger"></div>').text("Login ou mot de passe incorrect.");
-                        $("#loginForm").prepend(message);
-                        $('#loginForm').trigger("reset");
+                        if ($('.alert').length === 0) {
+                            var alert = $('<div class="alert alert-danger"></div>').text(value);
+                            $("#loginForm").prepend(alert);
 
-                        $('.alert').on('click', function(e) {
-                            e.preventDefault();
-                            $(this).remove();
+                            $("#loginForm").on('submit', function(e) {
+                                e.preventDefault();
+                                $('.alert').remove();
+                            });
+                        }
+                        $('input[name=password]').val(function() {
+                            return this.defaultValue;
                         });
                     }
                 });
