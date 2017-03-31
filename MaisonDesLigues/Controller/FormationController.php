@@ -49,7 +49,7 @@ class FormationController extends Controller
 
             StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
 
-            $this->generate('Formation/formations', array(
+            $this->generate('Formation/list_formations', array(
                 'employee' => $employee,
                 'formations' => $formations,
                 'breadcrumb' => BreadcrumbManager::formationBreadcrumb()
@@ -77,7 +77,8 @@ class FormationController extends Controller
                 'Formations' => $employeeFormationsRepository->getOneFormationByEmployee($employee->getId(), $formation->getId())
             ));
 
-            StatusFormationManager::setStatusForOneFormation($formation, $employee->getFormations(), $isSubscribable = 1);
+            $isSubscribable = 1;
+            StatusFormationManager::setStatusForOneFormation($formation, $employee->getFormations(), $isSubscribable);
 
             $this->generate('Formation/editFormation', array(
                 'employee' => $employee,

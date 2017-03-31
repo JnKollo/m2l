@@ -88,9 +88,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="col-md-6">
-                    <a href="index.php?controller=formation&action=index">
-                        <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
-                    </a>
+                    <button type="button" class="btn btn-block btn-default btn-lg" id="back">Retour</button>
                 </div>
                 {% if isSubscribable == 1 or (employee.formations[0].status.state_of_validation == "validée" and employee.manager_status == 1) %}
                     <div class="col-md-6">

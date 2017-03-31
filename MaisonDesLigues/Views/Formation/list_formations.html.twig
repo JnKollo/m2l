@@ -7,6 +7,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <h5><a href="index.php?controller=Home&action=home">Accueil</a></h5>
         </section>
         <!-- Main content -->
         <section class="content">
@@ -37,7 +38,7 @@
                                 {% if formations is not null %}
                                     {% for formation in formations %}
                                         <tr>
-                                            <td><a href="index.php?controller=formation&action=show&id{{ formation.id }}">{{ formation.name }}</a></td>
+                                            <td><a href="index.php?controller=formation&action=show&id={{ formation.id }}">{{ formation.name }}</a></td>
                                             <td>{{ formation.date }}</td>
                                             <td>{{ formation.duration }}</td>
                                             <td>{{ formation.days }}</td>
@@ -51,7 +52,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div id="all" class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
+                            <ul class="pagination pagination-sm no-margin pull-right" id="pagination">
                                 <li data-page="left"><a href="#">&laquo;</a></li>
                                 <li data-page="right"><a href="#">&raquo;</a></li>
                             </ul>
