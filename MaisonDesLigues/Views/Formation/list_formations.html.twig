@@ -12,8 +12,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-md-12 tableau" id="allFormation" data-tabname="all">
-                    <div id="__allFormations"></div>
+                <div class="col-md-12 tableau" data-tabname="all">
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">Toutes les formations</h3>
@@ -34,7 +33,6 @@
                                     <th style=" width: 185px">Statut</th>
                                     <th style="width: 80px">Détails</th>
                                 </tr>
-
                                 {% if formations is not null %}
                                     {% for formation in formations %}
                                         <tr>
@@ -43,7 +41,12 @@
                                             <td>{{ formation.duration }}</td>
                                             <td>{{ formation.days }}</td>
                                             <td>{{ formation.credits }}</td>
-                                            <td><span class="badge bg-green">{{ formation.status }}</span></td>
+                                            {% if formation.status.state_of_validation is defined %}
+                                                {% set status = formation.status.state_of_validation %}
+                                            {% else %}
+                                                {% set status = formation.status %}
+                                            {% endif %}
+                                            <td><span class="badge bg-green">{{ status }}</span></td>
                                             <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                         </tr>
                                     {% endfor %}
@@ -51,16 +54,10 @@
                             </table>
                         </div>
                         <!-- /.box-body -->
-                        <div id="all" class="box-footer clearfix">
+                        <div class="box-footer clearfix">
                             <ul class="pagination pagination-sm no-margin pull-right" id="pagination">
                                 <li data-page="left"><a href="#">&laquo;</a></li>
                                 <li data-page="right"><a href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.box -->
-                        <!-- /.box-body -->
-                        <div id="all" class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
                             </ul>
                         </div>
                         <!-- /.box -->
@@ -71,7 +68,6 @@
                 <!-- ./col -->
             </div>
             <!-- /.row -->
-            <!-- Your Page Content Here -->
         </section>
         <!-- /.content -->
     </div>

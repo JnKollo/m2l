@@ -16,38 +16,36 @@ class FormationController extends Controller
 {
     public function index() {
         if (isset($_SESSION['employee'])) {
-            $this->redirect('Formation', 'home');
+            $this->redirect('Formation', 'lists');
         } else {
-            $view = new View('Login',"login");
-            $data = ['ok'];
-
-            $view->generateLogin($data);
+            $this->generate('Login/login');
         }
     }
 
     /**
      * Action renvoyant les données de la page d'acceuil des formations
      */
-    public function home() {
+    public function lists() {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
 
-            $startYear = date('Y');
-            $endYear = date("Y", strtotime(date("Y", strtotime($startYear)) . " + 1 year"));
-            $limit = 10;
-            $offset = 0;
+            $filter = $this->request->getParameters('filter');
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
-            $formations = $formationRepository->getAllFormationsOrderByDateAndPaginate($limit, $offset);
 
             $employee->hydrate(array(
-                'Formations' => $employeeFormationsRepository->getFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset, $startYear, $endYear),
-                'PerformedFormations' => $employeeFormationsRepository->getPerformedFormationsByEmployeeOrderByDateAndPaginate($employee->getId(), $limit, $offset)
+                'Formations' => $employeeFormationsRepository->getFormationsByEmployee($employee->getId())
             ));
 
-            StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
+            $formations = null;
+            if ($filter === 'all') {
+                $formations = $formationRepository->getAllFormationsOrderByDate();
+                StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
+            } else {
+                $formations = $employee->getFormations();
+            }
 
             $this->generate('Formation/list_formations', array(
                 'employee' => $employee,
@@ -85,57 +83,6 @@ class FormationController extends Controller
                 'formation' => $formation,
                 'isSubscribable' => $isSubscribable,
                 'breadcrumb' => BreadcrumbManager::editFormationBreadcrumb()
-            ));
-        }else {
-            $this->redirect('Security', 'logout');
-        }
-    }
-
-    /**
-     * @param $parameters
-     */
-    public function paginate() {
-        if (isset($_SESSION["employee"])) {
-            $employeeRepository = new EmployeeRepository();
-            $formationRepository = new FormationRepository();
-
-            $tableau = $this->request->getParameters('tableau');
-            $page = $this->request->getParameters('page');
-
-            $employee = $employeeRepository->getOneById($_SESSION['employee']);
-            $employeeFormations = $employeeRepository->getAjaxFormationsByEmployee($employee['id']);
-
-            $formations = [];
-            $totalCount = 0;
-            $limit = 10;
-            $offset = 0;
-
-            if (isset($tableau, $page)) {
-                $currentPage = $page;
-                $offset = ($currentPage - 1) * $limit;
-                $startYear = date('Y');
-                $endYear = date("Y", strtotime(date("Y", strtotime($startYear)) . " + 1 year"));
-
-                $block = $tableau;
-                if ($block == 'all') {
-                    $formations = $formationRepository->getAjaxFormationsOrderByDateAndPaginate($limit, $offset);
-                    $totalCount = $formationRepository->CountFormations();
-                } elseif($block == 'myFormation') {
-                    $formations = $employeeRepository->getAjaxFormationsByEmployeeOrderByDateAndPaginate($employee['id'], $limit, $offset, $startYear, $endYear);
-                    $totalCount = $employeeRepository->countFormationsByEmployee($employee['id'], $startYear, $endYear);
-                } elseif($block == 'performedFormation') {
-                    $formations = $employeeRepository->getAjaxPerformedFormationsByEmployeeOrderByDateAndPaginate($employee['id'], $limit, $offset);
-                    $totalCount = $employeeRepository->countPerformedFormationsByEmployee($employee['id']);
-                }
-            }
-
-            StatusFormationManager::setStatusForEachFormation($formations, $employeeFormations);
-
-            header('Content-Type: application/json');
-            echo json_encode(array(
-                'maxRow' => $limit,
-                'totalCount' => $totalCount,
-                'formations' => $formations
             ));
         }else {
             $this->redirect('Security', 'logout');

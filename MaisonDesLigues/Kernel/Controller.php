@@ -51,7 +51,7 @@ abstract class Controller
      * @param $filename
      * @param array $content
      */
-    public function generate($filename, array $content) {
+    public function generate($filename, array $content = []) {
         $loader = new \Twig_Loader_Filesystem(ROOTDIR.'MaisonDesLigues/Views');
         $twig = new \Twig_Environment($loader, array(
             'debug' => true
