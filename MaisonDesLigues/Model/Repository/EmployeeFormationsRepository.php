@@ -166,6 +166,7 @@ class EmployeeFormationsRepository extends BaseRepository
         $this->executeRequest($sql, array($idEmployee, $idFormation));
         $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
         $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
+        $this->addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $daysFormation);
     }
 
     public function refuseFormation($idEmployee, $idFormation)
@@ -201,5 +202,21 @@ class EmployeeFormationsRepository extends BaseRepository
     {
         $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
         unset($formation);
+    }
+
+    public function addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $formationDays)
+    {
+        $sql = "update employee
+        set counter_formation_days_by_year = counter_formation_days_by_year + ?
+        where id = ?";
+        $this->executeRequest($sql, array($formationDays, $idEmployee));
+    }
+
+    public function substractDaysToCounterFormationDaysByYearForEmployeeAfterRemove($idEmployee, $formationDays)
+    {
+        $sql = "update employee
+        set counter_formation_days_by_year = counter_formation_days_by_year - ?
+        where id = ?";
+        $this->executeRequest($sql, array($formationDays, $idEmployee));
     }
 }

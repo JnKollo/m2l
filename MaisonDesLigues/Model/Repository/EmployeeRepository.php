@@ -41,4 +41,16 @@ class EmployeeRepository extends BaseRepository
         $result = $req->fetch(\PDO::FETCH_ASSOC);
         return $this->hydrateOneEntity($result, 'Employee');
     }
+
+    public function hasEnoughDays($id_employee, $daysToSusbstract)
+    {
+        $sql = "select counter_formation_days_by_year
+                from employee 
+                where id = ?";
+        $counter_formation_days_by_year = $this->executeRequest($sql, array($id_employee));
+
+        if ($counter_formation_days_by_year + $daysToSusbstract < 15) {
+            return true;
+        } else return false;
+    }
 } 
