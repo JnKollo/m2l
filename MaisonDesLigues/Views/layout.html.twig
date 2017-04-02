@@ -13,6 +13,7 @@
     <link href="Web/dist/css/skins/skin-blue.min.css" rel="stylesheet">
     <link href="Web/css/style.css" rel="stylesheet">
     <link href="Web/plugins/bootstrap-slider/slider.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 
 <body class="class='hold-transition skin-blue sidebar-mini" >
@@ -21,9 +22,10 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a class="logo" href="index.php?controller=home&action=home"><!-- mini logo for sidebar mini 50x50 pixels -->
+        <a class="logo navbar-fixed-top" href="index.php?controller=home&action=home"><!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>M2l</b></span> <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>M2l</b></span></a> <!-- Header Navbar -->
+            <span class="logo-lg"><b>M2l</b></span>
+        </a> <!-- Header Navbar -->
         <nav class="navbar navbar-fixed-top" role="navigation">
             <!-- Sidebar toggle button-->
             <a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button"><span class="sr-only">Toggle navigation</span></a> <!-- Navbar Right Menu -->
@@ -60,8 +62,8 @@
 			            </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="index.php?controller=formation&action=index"><i class="fa fa-circle-o"></i> Formations disponibles</a></li>
-                        <li><a href="index.php?controller=formation&action=index#__askFormations"><i class="fa fa-circle-o"></i> Formations demandées</a></li>
+                        <li><a href="index.php?controller=formation&action=lists&filter=all"><i class="fa fa-circle-o"></i> Formations disponibles</a></li>
+                        <li><a href="index.php?controller=formation&action=lists&filter=registered"><i class="fa fa-circle-o"></i> Formations demandées</a></li>
                         <li><a href="index.php?controller=formation&action=search"><i class="fa fa-circle-o"></i> Rechercher une formation</a></li>
                     </ul>
                 </li>
@@ -77,15 +79,12 @@
     {% block content %}
     {% endblock %}
 
-    <script>
-        var breadCrumbArray = ". json_encode($breadcrumb)."
-    </script>
     <script src="Web/plugins/jQuery/jquery-2.2.3.min.js"></script> <!-- Bootstrap 3.3.6 -->
     <script src="Web/bootstrap/js/bootstrap.min.js"></script> <!-- AdminLTE App -->
     <script src="Web/dist/js/app.min.js"></script>
     <script src="Web/plugins/ionslider/ion.rangeSlider.min.js"></script>
     <script src="Web/plugins/bootstrap-slider/bootstrap-slider.js"></script>
-    <script src="Web/script/app-custom.js"></script>
+    <script src="Web/script/main.js"></script>
     {% block script %}{% endblock %}
     <!-- Main Footer -->
     <footer class="main-footer">

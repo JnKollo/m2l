@@ -11,7 +11,7 @@ use M2l\Kernel\Router;
  * Initialise une session de 10 minutes
  * Si la session est expirée alors on redirige vers la page login
  */
-$inactive = 600;
+$inactive = 60000;
 
 if (isset($_SESSION["timeout"])) {
     $sessionTTL = time() - $_SESSION["timeout"];

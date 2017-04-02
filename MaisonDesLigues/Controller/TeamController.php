@@ -31,12 +31,10 @@ class TeamController extends Controller
                 }
             }
 
-            $breadcrumb = BreadcrumbManager::teamBreadcrumb();
-
             $this->generate('Team/manage', array(
                 'employee' => $employee,
                 'team' => $team,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => BreadcrumbManager::teamBreadcrumb()
             ));
         }else {
             $this->redirect('Security', 'logout');
@@ -57,12 +55,10 @@ class TeamController extends Controller
                'PendingFormations' =>  $employeeFormationRepository->getPendingFormationsByEmployee($idTeamMember)
             ));
 
-            $breadcrumb = BreadcrumbManager::manageTeamBreadcrumb();
-
             $this->generate('Team/manageFormation', array(
                 'employee' => $employee,
                 'member' => $member,
-                'breadcrumb' => $breadcrumb
+                'breadcrumb' => BreadcrumbManager::manageTeamBreadcrumb()
             ));
         }else {
             $this->redirect('Security', 'logout');

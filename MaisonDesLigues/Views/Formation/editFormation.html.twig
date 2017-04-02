@@ -41,7 +41,7 @@
                             </li>
                             <!-- /.item -->
                             <li class="item">
-                                <div class="product-info">
+                                <div id="formation_days" class="product-info">
                                     <p class="product-title">Jours requis</p>
                                     <span class="product-description">{{ formation.days }}</span>
                                 </div>
@@ -88,19 +88,15 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="col-md-6">
-                    <a href="index.php?controller=formation&action=index">
-                        <button type="button" class="btn btn-block btn-default btn-lg">Retour</button>
-                    </a>
+                    <button type="button" class="btn btn-block btn-default btn-lg" id="back">Retour</button>
                 </div>
                 {% if isSubscribable == 1 or (employee.formations[0].status.state_of_validation == "validée" and employee.manager_status == 1) %}
                     <div class="col-md-6">
                         {% if employee.formations[0].id != formation.id %}
-                            <a href="index.php?controller=employee&action=addFormation&id={{ formation.id }}">
-                                <button type="button" class="btn btn-block btn-info btn-lg">S'inscrire</button>
-                            </a>
+                            <button type="button" class="btn btn-block btn-info btn-lg" id="subscribe">S'inscrire</button>
                         {% else %}
                             <a href="index.php?controller=employee&action=removeFormation&id={{ formation.id }}">
-                                <button type="button" class="btn btn-block btn-danger btn-lg">Se désinscrire</button>
+                                <button type="button" class="btn btn-block btn-danger btn-lg" id="unsubscribe">Se désinscrire</button>
                             </a>
                         {% endif %}
                     </div>

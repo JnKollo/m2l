@@ -13,7 +13,7 @@ class StatusFormationManager
             $formation->setStatus('indisponible');
         }
 
-        if ('' != $employeeFormations[0]) {
+        if ($employeeFormations[0]->getId()) {
             foreach($employeeFormations as $employeeFormation) {
                 if($formation->getId() == $employeeFormation->getId()){
                     if ($employeeFormation->getStatus()['state_of_validation'] != 'en cours de validation') {

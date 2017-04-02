@@ -18,24 +18,6 @@ class EmployeeFormationsRepository extends BaseRepository
         return $this->hydrateEntityForEachResult($result, 'Formation');
     }
 
-    public function getFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset, $startYear, $endYear)
-    {
-        $sql = "select formation.*
-                from formation
-                inner join employee_formation
-                    on formation.id = employee_formation.id_formation
-                where employee_formation.id_employee = ?
-                and formation.date >= ?
-                and formation.date < ?
-                order by date desc
-                limit $limit
-                offset $offset";
-        $req = $this->executeRequest($sql, array($idEmployee, $startYear, $endYear));
-        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
-        $this->addStatusToFormationList($result, $idEmployee);
-        return $this->hydrateEntityForEachResult($result, 'Formation');
-    }
-
     public function getOneFormationByEmployee($idEmployee, $idFormation)
     {
         $sql = "select formation.*
@@ -51,7 +33,23 @@ class EmployeeFormationsRepository extends BaseRepository
         return $this->hydrateOneEntity($result, 'Formation');
     }
 
-    public function getPerformedFormationsByEmployeeOrderByDateAndPaginate($idEmployee, $limit, $offset)
+    public function getEmployeeRegisteredFormations($idEmployee)
+    {
+        $sql = "select formation.*
+                from formation
+                inner join employee_formation
+                    on formation.id = employee_formation.id_formation
+                where employee_formation.id_employee = ?
+                and employee_formation.id_formation_status = 1
+                or employee_formation.id_formation_status = 2
+                or employee_formation.id_formation_status = 5
+                order by date desc";
+        $req = $this->executeRequest($sql, array($idEmployee));
+        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->hydrateEntityForEachResult($result, 'Formation');
+    }
+
+    public function getPerformedFormationsByEmployee($idEmployee)
     {
         $sql = "select formation.*
                 from formation
@@ -59,9 +57,7 @@ class EmployeeFormationsRepository extends BaseRepository
                     on formation.id = employee_formation.id_formation
                 where employee_formation.id_employee = ?
                 and employee_formation.id_formation_status = 5
-                order by date desc
-                limit $limit
-                offset $offset";
+                order by date desc";
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateEntityForEachResult($result, 'Formation');
@@ -170,6 +166,7 @@ class EmployeeFormationsRepository extends BaseRepository
         $this->executeRequest($sql, array($idEmployee, $idFormation));
         $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
         $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
+        $this->addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $daysFormation);
     }
 
     public function refuseFormation($idEmployee, $idFormation)
@@ -205,5 +202,21 @@ class EmployeeFormationsRepository extends BaseRepository
     {
         $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
         unset($formation);
+    }
+
+    public function addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $formationDays)
+    {
+        $sql = "update employee
+        set counter_formation_days_by_year = counter_formation_days_by_year + ?
+        where id = ?";
+        $this->executeRequest($sql, array($formationDays, $idEmployee));
+    }
+
+    public function substractDaysToCounterFormationDaysByYearForEmployeeAfterRemove($idEmployee, $formationDays)
+    {
+        $sql = "update employee
+        set counter_formation_days_by_year = counter_formation_days_by_year - ?
+        where id = ?";
+        $this->executeRequest($sql, array($formationDays, $idEmployee));
     }
 }

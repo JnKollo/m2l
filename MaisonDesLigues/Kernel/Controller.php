@@ -51,7 +51,7 @@ abstract class Controller
      * @param $filename
      * @param array $content
      */
-    public function generate($filename, array $content) {
+    public function generate($filename, array $content = []) {
         $loader = new \Twig_Loader_Filesystem(ROOTDIR.'MaisonDesLigues/Views');
         $twig = new \Twig_Environment($loader, array(
             'debug' => true
@@ -61,6 +61,15 @@ abstract class Controller
         $template = $twig->load($this->filenameToTwig($filename));
         echo $template->render($content);
     }
+
+    /**
+     * @param array $parameters
+     */
+    public function jsonRender(array $parameters) {
+        header('Content-Type: application/json');
+        echo json_encode($parameters);
+    }
+
     /**
      *
      * @param $controller

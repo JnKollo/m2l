@@ -6,23 +6,34 @@ use M2l\Kernel\Model;
 
 class SecurityRepository extends Model
 {
-    public function loginChecker($loginUsername, $loginPassword) {
+    public function emailChecker($email) {
         $sql = "select count(*)
                 from employee
-                where username = ? and password = ?";
-        $req = $this->executeRequest($sql, array($loginUsername, $loginPassword));
+                where email = ?";
+        $req = $this->executeRequest($sql, array($email));
+        $result = $req->fetch();
+        $hasEmail = ($result[0] > 0) ? true : false;
+        $req->closeCursor();
+        return $hasEmail;
+    }
+
+    public function loginChecker($email, $password) {
+        $sql = "select count(*)
+                from employee
+                where email = ? and password = ?";
+        $req = $this->executeRequest($sql, array($email, $password));
         $result = $req->fetch();
         $hasAccount = ($result[0] > 0) ? true : false;
         $req->closeCursor();
         return $hasAccount;
     }
 
-    public function getIdByLoginAndPassword($login, $password)
+    public function getIdByEmailAndPassword($email, $password)
     {
         $sql = "select id
                 from employee
-                where username = ? and password = ?";
-        $req = $this->executeRequest($sql, array($login, $password));
+                where email = ? and password = ?";
+        $req = $this->executeRequest($sql, array($email, $password));
         $result = $req->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
