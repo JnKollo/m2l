@@ -18,6 +18,10 @@ $(document).ready(function() {
                             var alert = $('<div class="alert alert-danger"></div>').text(value);
                             $("#loginForm").prepend(alert);
 
+                            $('.alert').on('click', function () {
+                                $('.alert').remove();
+                            });
+
                             $("#loginForm").on('submit', function(e) {
                                 e.preventDefault();
                                 $('.alert').remove();
