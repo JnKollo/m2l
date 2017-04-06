@@ -56,7 +56,7 @@
         </div>
         <!-- ./DIV AFFIX -->
 
-        {% if member.pendingFormations is defined %}
+        {% if member.pendingFormations is not null %}
             {% for formation in member.pendingFormations %}
                 <div class="row">
                     <div class="col-xs-10 col-md-10 col-xs-offset-1 col-md-offset-1" style="margin-top:30px">
