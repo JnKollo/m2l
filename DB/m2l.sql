@@ -81,13 +81,14 @@ CREATE TABLE `employee_formation` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_formation` int(11) unsigned NOT NULL,
   `id_employee` int(11) unsigned NOT NULL,
-  `id_formation_status` int(11) NOT NULL,
+  `id_formation_status` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_id` (`id_employee`),
   KEY `fk_formation_id` (`id_formation`),
   KEY `fk_formation_status_id` (`id_formation_status`),
   CONSTRAINT `fk_employee_id` FOREIGN KEY (`id_employee`) REFERENCES `employee` (`id`),
-  CONSTRAINT `fk_formation_id` FOREIGN KEY (`id_formation`) REFERENCES `formation` (`id`)
+  CONSTRAINT `fk_formation_id` FOREIGN KEY (`id_formation`) REFERENCES `formation` (`id`),
+  CONSTRAINT `fk_formation_status_id` FOREIGN KEY (`id_formation_status`) REFERENCES `formation_status` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
