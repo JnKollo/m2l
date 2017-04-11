@@ -68,7 +68,13 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Prérequis</p>
-                                    <span class="product-description">{{ formation.requirement }}</span>
+                                        {% if formation.requirement is not null %}
+                                            {% for requirement in formation.requirement %}
+                                                <span class="product-description">
+                                                    - {{ requirement.value }}
+                                                </span>
+                                            {% endfor %}
+                                        {% endif %}
                                 </div>
                             </li>
                             <!-- /.item -->

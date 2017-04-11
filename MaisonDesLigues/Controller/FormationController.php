@@ -6,6 +6,7 @@ use M2l\Kernel\Controller;
 use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
+use M2l\Model\Repository\FormationRequirementRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
 use M2l\Service\Status\StatusFormationManager;
 
@@ -67,12 +68,17 @@ class FormationController extends Controller
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
+            $formationRequirementRepository = new FormationRequirementRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $formation = $formationRepository->getOneById($idFormation);
 
             $employee->hydrate(array(
                 'Formations' => $employeeFormationsRepository->getOneFormationByEmployee($employee->getId(), $formation->getId())
+            ));
+
+            $formation->hydrate(array(
+                'requirement' => $formationRequirementRepository->getAllByFormationId($formation->getId())
             ));
 
             $isSubscribable = 1;

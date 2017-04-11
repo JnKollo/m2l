@@ -166,9 +166,13 @@ class Formation extends BaseEntity
         return $this;
     }
 
-    public function setRequirement($requirement)
+    public function setRequirement($requirements)
     {
-        $this->requirement = $requirement;
+        if (is_array($requirements)) {
+            foreach ($requirements as $requirement) {
+                $this->requirement[] = $requirement;
+            }
+        } else $this->requirement[] = $requirements;
         return $this;
     }
 

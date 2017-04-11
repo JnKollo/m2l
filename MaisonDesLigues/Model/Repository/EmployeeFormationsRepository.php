@@ -166,7 +166,7 @@ class EmployeeFormationsRepository extends BaseRepository
         $this->executeRequest($sql, array($idEmployee, $idFormation));
         $this->updateCreditsForEmployeeAfterAccept($idEmployee, $creditsFormation);
         $this->updateDaysForEmployeeAfterAccept($idEmployee, $daysFormation);
-        $this->addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $daysFormation);
+        $this->updateCounterFormationByYearForEmployeeAfterAccept($idEmployee, $daysFormation, $creditsFormation);
     }
 
     public function refuseFormation($idEmployee, $idFormation)
@@ -178,7 +178,7 @@ class EmployeeFormationsRepository extends BaseRepository
         $this->executeRequest($sql, array($idEmployee, $idFormation));
     }
 
-    public function setStatusForEmployeeFormation($idFormation, $idEmployee)
+    public function getStatusForEmployeeFormation($idFormation, $idEmployee)
     {
         $sql = "select state_of_validation
         from formation_status
@@ -193,30 +193,32 @@ class EmployeeFormationsRepository extends BaseRepository
     public function addStatusToFormationList(array &$formations, $idEmployee)
     {
         foreach ($formations as &$formation) {
-            $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
+            $formation['status'] = $this->getStatusForEmployeeFormation($formation['id'], $idEmployee);
         }
         unset($formation);
     }
 
     public function addStatusToFormation(&$formation, $idEmployee)
     {
-        $formation['status'] = $this->setStatusForEmployeeFormation($formation['id'], $idEmployee);
+        $formation['status'] = $this->getStatusForEmployeeFormation($formation['id'], $idEmployee);
         unset($formation);
     }
 
-    public function addDaysToCounterFormationDaysByYearForEmployeeAfterAccept($idEmployee, $formationDays)
+    public function updateCounterFormationByYearForEmployeeAfterAccept($idEmployee, $formationDays, $formationCredits)
     {
-        $sql = "update employee
-        set counter_formation_days_by_year = counter_formation_days_by_year + ?
-        where id = ?";
-        $this->executeRequest($sql, array($formationDays, $idEmployee));
+        $sql = "update formation_employee_counter
+        set days_accumulated = days_accumulated + ?,
+        credits_accumulated = credits_accumulated + ?
+        where id_employee = ?";
+        $this->executeRequest($sql, array($formationDays, $formationCredits, $idEmployee));
     }
 
-    public function substractDaysToCounterFormationDaysByYearForEmployeeAfterRemove($idEmployee, $formationDays)
+    public function updateCounterFormationByYearForEmployeeAfterRemove($idEmployee, $formationDays, $formationCredits)
     {
-        $sql = "update employee
-        set counter_formation_days_by_year = counter_formation_days_by_year - ?
-        where id = ?";
-        $this->executeRequest($sql, array($formationDays, $idEmployee));
+        $sql = "update formation_employee_counter
+        set days_accumulated = days_accumulated - ?,
+        credits_accumulated = credits_accumulated - ?
+        where id_employee = ?";
+        $this->executeRequest($sql, array($formationDays, $formationCredits, $idEmployee));
     }
 }

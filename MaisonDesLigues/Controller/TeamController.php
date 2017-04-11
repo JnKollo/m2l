@@ -6,6 +6,7 @@ use M2l\Kernel\Controller;
 use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
+use M2l\Model\Repository\FormationRequirementRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
 
 
@@ -46,6 +47,7 @@ class TeamController extends Controller
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $employeeFormationRepository = new EmployeeFormationsRepository();
+            $formationRequirementRepository = new FormationRequirementRepository();
 
             $idTeamMember = $this->request->getParameters('id');
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
@@ -54,6 +56,12 @@ class TeamController extends Controller
             $member->hydrate(array(
                'PendingFormations' =>  $employeeFormationRepository->getPendingFormationsByEmployee($idTeamMember)
             ));
+
+            foreach ($member->getPendingFormations() as &$formation) {
+                $formation['requirement'] = $formationRequirementRepository->getAllByFormationId($formation['id']);
+                $formation['status'] = $employeeFormationRepository->getStatusForEmployeeFormation($formation['id'], $member->getId());
+            }
+            unset($formation);
 
             $this->generate('Team/manageFormation', array(
                 'employee' => $employee,
@@ -81,9 +89,7 @@ class TeamController extends Controller
                 'Team',
                 'manage',
                 array(
-                    'id' => $idTeamMember,
-                    'state' => 'success'
-
+                    'id' => $idTeamMember
             ));
         }else {
             $this->redirect('Security', 'logout');

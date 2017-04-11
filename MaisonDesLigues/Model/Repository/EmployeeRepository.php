@@ -28,14 +28,13 @@ class EmployeeRepository extends BaseRepository
 
     public function hasEnoughDays($id_employee, $daysToSusbstract)
     {
-        $sql = "select counter_formation_days_by_year
-                from employee 
-                where id = ?";
+        $sql = "select days_accumulated
+                from formation_employee_counter 
+                where id_employee = ?";
         $req = $this->executeRequest($sql, array($id_employee));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
 
-        $counter_formation_days_by_year = $req->fetch(\PDO::FETCH_ASSOC);
-
-        if ((int)$counter_formation_days_by_year + $daysToSusbstract < 15) {
+        if ((int)$result['days_accumulated'] + $daysToSusbstract < 15) {
             return true;
         } else return false;
     }

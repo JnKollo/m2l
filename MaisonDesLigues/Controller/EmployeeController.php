@@ -67,7 +67,7 @@ class EmployeeController extends Controller
         if ($employee->getManager_status()){
             $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
             $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
-            $employeeFormationRepository->substractDaysToCounterFormationDaysByYearForEmployeeAfterRemove($employee->getId(), $formation->getDays());
+            $employeeFormationRepository->updateCounterFormationByYearForEmployeeAfterRemove($employee->getId(), $formation->getDays(), $formation->getCredits());
         }
 
         $this->redirect(
@@ -84,7 +84,9 @@ class EmployeeController extends Controller
 
         $days = $this->request->getParameters('days');
 
-        $hasEnoughDays = $employeeRepository->hasEnoughDays($_SESSION['employee'], $days);
+        $id_employee = $this->request->parametersExist('id') ? $this->request->getParameters('id') : $_SESSION['employee'];
+
+        $hasEnoughDays = $employeeRepository->hasEnoughDays($id_employee, $days);
 
         $this->jsonRender(array(
             'response' => $hasEnoughDays

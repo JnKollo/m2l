@@ -71,6 +71,12 @@
                                 <div class="box-body">
                                     <ul class="products-list product-list-in-box">
                                         <li class="item">
+                                            <div id="formation_id" class="product-info">
+                                                <p class="product-title">Référence n°</p>
+                                                <span class="product-description">{{ formation.id }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="item">
                                             <div class="product-info">
                                                 <p class="product-title">Nom</p>
                                                 <span class="product-description">{{ formation.name }}</span>
@@ -91,7 +97,7 @@
                                         </li>
                                         <!-- /.item -->
                                         <li class="item">
-                                            <div class="product-info">
+                                            <div id="formation_days" class="product-info">
                                                 <p class="product-title">Jours requis</p>
                                                 <span class="product-description">{{ formation.days }}</span>
                                             </div>
@@ -114,7 +120,13 @@
                                         <li class="item">
                                             <div class="product-info">
                                                 <p class="product-title">Prérequis</p>
-                                                <span class="product-description">{{ formation.requirement }}</span>
+                                                {% if formation.requirement is not null %}
+                                                    {% for requirement in formation.requirement %}
+                                                        <span class="product-description">
+                                                    - {{ requirement.value }}
+                                                </span>
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                         </li>
                                         <!-- /.item -->
@@ -128,13 +140,11 @@
                                         <li class="item">
                                             <div class="product-info">
                                                 <div class="col-xs-6">
-                                                    <a href="index.php?controller=team&action=accept&id={{ member.id }}&formation={{ formation.id }}">
-                                                        <button type="button" class="btn btn-block btn-info btn-normal">Valider</button>
-                                                    </a>
+                                                    <button type="button" class="btn btn-block btn-info btn-normal" id="accept">Valider</button>
                                                 </div>
                                                 <div class="col-xs-6">
                                                     <a href="index.php?controller=team&action=refuse&id={{ member.id }}&formation={{ formation.id }}">
-                                                        <button type="button" class="btn btn-block btn-danger btn-normal">Refuser</button>
+                                                        <button type="button" class="btn btn-block btn-danger btn-normal" id="refuse">Refuser</button>
                                                     </a>
                                                 </div>
                                             </div>
