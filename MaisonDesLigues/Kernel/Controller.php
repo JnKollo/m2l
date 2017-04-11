@@ -76,13 +76,16 @@ abstract class Controller
      * @param string $action
      * @param null $parameters
      */
-    public function redirect($controller, $action = "index", $parameters = null)
+    public function redirect($controller, $action = "index", array $parameters = [])
     {
         $location = "index.php?controller=" . $controller . "&action=" . $action;
 
         if ($parameters) {
-            $location = "index.php?controller=" . $controller . "&action=" . $action . "&id=". $parameters;
+            foreach ($parameters as $key => $value) {
+                $location .= "&$key=". $value;
+            }
         }
+
         header("Location: " . $location);
         exit;
     }

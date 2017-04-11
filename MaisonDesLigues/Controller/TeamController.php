@@ -77,7 +77,14 @@ class TeamController extends Controller
 
             $employeeFormationsRepository->acceptFormation($idTeamMember, $idFormation, $formation->getCredits(), $formation->getDays());
 
-            $this->redirect('Team', 'manage', $idTeamMember);
+            $this->redirect(
+                'Team',
+                'manage',
+                array(
+                    'id' => $idTeamMember,
+                    'state' => 'success'
+
+            ));
         }else {
             $this->redirect('Security', 'logout');
         }

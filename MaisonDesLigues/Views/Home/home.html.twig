@@ -119,7 +119,6 @@
                                         <th style="width: 80px"></th>
                                     </tr>
                                     {% if employee.formations is not null %}
-                                        ok
                                         {% for formation in employee.formations %}
                                             <tr>
                                                 <td><a href="index.php?controller=formation&action=show&id={{ formation.id }}">{{ formation.name }}</a></td>

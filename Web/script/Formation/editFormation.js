@@ -11,7 +11,7 @@ $(document).ready(function(){
                     if (value === true) {
                         window.location.href = 'index.php?controller=employee&action=addFormation&id=' + getUrlVars()['id'];
                     } else {
-                        alert("\nNombre de jours de formation insuffisant.");
+                        alert("\nVous avez plus de 15 jours de formations pour l'année en cours.");
                     }
                 });
             }

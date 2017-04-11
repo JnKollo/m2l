@@ -4,22 +4,6 @@ namespace M2l\Model\Repository;
 
 class EmployeeRepository extends BaseRepository
 {
-    public function updateCreditsForManagerAfterUnsubscribe($idEmployee, $creditsFormation)
-    {
-        $sql = "update employee
-        set credits_left = credits_left + $creditsFormation
-        where id = ?";
-        $this->executeRequest($sql, array($idEmployee));
-    }
-
-    public function updateDaysForManageAfterUnsubscribe($idEmployee, $daysFormation)
-    {
-        $sql = "update employee
-        set days_left = days_left + $daysFormation
-        where id = ?";
-        $this->executeRequest($sql, array($idEmployee));
-    }
-
     public function getEmployeeByTeam($team_id, $id_employee)
     {
         $sql = "select id, username, credits_left, days_left, image
@@ -47,9 +31,11 @@ class EmployeeRepository extends BaseRepository
         $sql = "select counter_formation_days_by_year
                 from employee 
                 where id = ?";
-        $counter_formation_days_by_year = $this->executeRequest($sql, array($id_employee));
+        $req = $this->executeRequest($sql, array($id_employee));
 
-        if ($counter_formation_days_by_year + $daysToSusbstract < 15) {
+        $counter_formation_days_by_year = $req->fetch(\PDO::FETCH_ASSOC);
+
+        if ((int)$counter_formation_days_by_year + $daysToSusbstract < 15) {
             return true;
         } else return false;
     }

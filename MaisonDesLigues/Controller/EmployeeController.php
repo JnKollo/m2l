@@ -38,7 +38,13 @@ class EmployeeController extends Controller
                 $employeeFormationsRepository->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
             }
         }
-        $this->redirect('formation', 'show', $idFormation);
+
+        $this->redirect(
+            'formation',
+            'show',
+            array(
+                'id' => $idFormation
+            ));
     }
 
     /**
@@ -61,8 +67,15 @@ class EmployeeController extends Controller
         if ($employee->getManager_status()){
             $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
             $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
+            $employeeFormationRepository->substractDaysToCounterFormationDaysByYearForEmployeeAfterRemove($employee->getId(), $formation->getDays());
         }
-        $this->redirect('formation', 'show', $idFormation);
+
+        $this->redirect(
+            'formation',
+            'show',
+            array(
+                'id' => $idFormation
+            ));
     }
 
     public function hasEnoughDays()
