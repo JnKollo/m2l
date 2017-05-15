@@ -10,10 +10,6 @@ use M2l\Service\Status\StatusFormationManager;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function home()
     {
         if (isset($_SESSION["employee"])) {
