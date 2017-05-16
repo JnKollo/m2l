@@ -12,10 +12,6 @@ use M2l\Model\Repository\EmployeeRepository;
  */
 class EmployeeController extends Controller
 {
-    public function index()
-    {
-    }
-
     /**
      * Ajoute une formation à la liste des formations demandées par l'employé
      */

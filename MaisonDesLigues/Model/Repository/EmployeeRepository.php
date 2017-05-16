@@ -33,7 +33,7 @@ class EmployeeRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($id_employee));
         $result = $req->fetch(\PDO::FETCH_ASSOC);
 
-        if ((int)$result['days_accumulated'] + $daysToSusbstract < 15) {
+        if (((int)$result['days_accumulated'] + $daysToSusbstract) < 15) {
             return true;
         } else {
             return false;

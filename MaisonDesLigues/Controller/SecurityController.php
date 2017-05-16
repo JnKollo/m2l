@@ -7,10 +7,6 @@ use M2l\Model\Repository\SecurityRepository;
 
 class SecurityController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function loginCheck()
     {
         if (isset($_SESSION['employee'])) {

@@ -10,10 +10,6 @@ use M2l\Service\Status\StatusFormationManager;
 
 class SearchController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function result()
     {
         if (isset($_SESSION["employee"])) {
