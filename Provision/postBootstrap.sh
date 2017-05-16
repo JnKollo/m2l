@@ -51,6 +51,7 @@ echo "Adding dependencies to composer_template"
     composer require --dev --no-update "behat/mink-selenium2-driver:*"
     composer require --dev --no-update "behat/mink-goutte-driver:*"
     composer require --dev --no-update "twig/twig:~1.0"
+    composer require --dev --no-update "squizlabs/php_codesniffer:*"
 
 echo "Installing dependencies"
     composer install

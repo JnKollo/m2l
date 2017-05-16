@@ -11,7 +11,8 @@ class Router
      * Méthode permettant de récupérer les variables de la requête HTTP
      * et d'initialiser le controller correspondant aux paramètres
      */
-    public function routeRequest() {
+    public function routeRequest()
+    {
         try {
             $request = new Request(array_merge($_GET, $_POST));
 
@@ -24,8 +25,7 @@ class Router
                 }
             }
             $controller->executeAction($action, $parameters);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $this->generateError($e);
         }
     }
@@ -39,7 +39,8 @@ class Router
      * @return string
      * @throws \Exception
      */
-    private function createController(Request $request) {
+    private function createController(Request $request)
+    {
         $controller = "Login";
         if ($request->parametersExist('controller')) {
             $controller = $request->getParameters('controller');
@@ -52,9 +53,9 @@ class Router
             $controller = new $class;
             $controller->setRequest($request);
             return $controller;
-        }
-        else
+        } else {
             throw new \Exception("Fichier '$fileController' introuvable");
+        }
     }
 
     /**
@@ -66,7 +67,8 @@ class Router
      * @param Request $request
      * @return string
      */
-    private function createAction(Request $request) {
+    private function createAction(Request $request)
+    {
         $action = "index";
         if ($request->parametersExist('action')) {
             $action = $request->getParameters('action');
@@ -79,7 +81,8 @@ class Router
      *
      * @param \Exception $exception
      */
-    private function generateError(\Exception $exception) {
+    private function generateError(\Exception $exception)
+    {
         echo $exception;
     }
 }

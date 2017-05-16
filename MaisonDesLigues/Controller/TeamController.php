@@ -9,12 +9,11 @@ use M2l\Model\Repository\EmployeeRepository;
 use M2l\Model\Repository\FormationRequirementRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
 
-
 class TeamController extends Controller
 {
     public function index()
     {
-        $this->redirect('Team','show');
+        $this->redirect('Team', 'show');
     }
 
     public function show()
@@ -27,7 +26,7 @@ class TeamController extends Controller
             $team = $employeeRepository->getEmployeeByTeam($employee->getTeam_id(), $employee->getId());
 
             foreach ($team as $member) {
-                if($member->getId() != $employee->getId()) {
+                if ($member->getId() != $employee->getId()) {
                     $member->setPendingFormations($employeeFormationsRepository->countPendingFormationsByEmployee($member->getId()));
                 }
             }
@@ -37,7 +36,7 @@ class TeamController extends Controller
                 'team' => $team,
                 'breadcrumb' => BreadcrumbManager::teamBreadcrumb()
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
@@ -68,7 +67,7 @@ class TeamController extends Controller
                 'member' => $member,
                 'breadcrumb' => BreadcrumbManager::manageTeamBreadcrumb()
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
@@ -91,7 +90,7 @@ class TeamController extends Controller
                 array(
                     'id' => $idTeamMember
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
@@ -107,7 +106,7 @@ class TeamController extends Controller
             $employeeFormationsRepository->refuseFormation($idTeamMember, $idFormation);
 
             $this->redirect('Team', 'manage', $idTeamMember);
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }

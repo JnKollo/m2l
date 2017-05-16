@@ -13,7 +13,6 @@ class EmployeeRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($team_id, $id_employee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateEntityForEachResult($result, 'Employee');
-
     }
 
     public function getOneEmployeeByTeam($id_employee)
@@ -36,6 +35,8 @@ class EmployeeRepository extends BaseRepository
 
         if ((int)$result['days_accumulated'] + $daysToSusbstract < 15) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
-} 
+}

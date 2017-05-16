@@ -35,9 +35,8 @@ class HomeController extends Controller
                 'formations' => array_slice($formations, 0, 6, true),
                 'team' => $team
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
-
 }

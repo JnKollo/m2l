@@ -108,7 +108,7 @@ class Formation extends BaseEntity
 
     public function setId($id)
     {
-        if(!is_int($id)) {
+        if (!is_int($id)) {
             $id = (int)$id;
         }
         $this->id = $id;
@@ -129,7 +129,7 @@ class Formation extends BaseEntity
 
     public function setDays($days)
     {
-        if(!is_int($days)) {
+        if (!is_int($days)) {
             $days = (int)$days;
         }
         $this->days = $days;
@@ -144,7 +144,7 @@ class Formation extends BaseEntity
 
     public function setCredits($credits)
     {
-        if(!is_int($credits)) {
+        if (!is_int($credits)) {
             $credits = (int)$credits;
         }
         $this->credits = $credits;
@@ -153,7 +153,7 @@ class Formation extends BaseEntity
 
     public function setDuration($duration)
     {
-        if(!is_int($duration)) {
+        if (!is_int($duration)) {
             $duration = (int)$duration;
         }
         $this->duration = $duration;
@@ -172,7 +172,9 @@ class Formation extends BaseEntity
             foreach ($requirements as $requirement) {
                 $this->requirement[] = $requirement;
             }
-        } else $this->requirement[] = $requirements;
+        } else {
+            $this->requirement[] = $requirements;
+        }
         return $this;
     }
 

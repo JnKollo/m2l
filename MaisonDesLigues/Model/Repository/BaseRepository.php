@@ -6,7 +6,8 @@ use M2l\Kernel\Model;
 
 class BaseRepository extends Model
 {
-    public function getObjectByEntity($entity = null) {
+    public function getObjectByEntity($entity = null)
+    {
         switch (ucfirst($entity)) {
             case 'Employee':
                 return new \M2l\Model\Entity\Employee();
@@ -18,7 +19,8 @@ class BaseRepository extends Model
         return 0;
     }
 
-    public function hydrateOneEntity($result, $name) {
+    public function hydrateOneEntity($result, $name)
+    {
         $entity = array('');
         if ($result) {
             $entity = $this->getObjectByEntity($name);
@@ -27,9 +29,10 @@ class BaseRepository extends Model
         return $entity;
     }
 
-    public function hydrateEntityForEachResult(array $result, $name) {
+    public function hydrateEntityForEachResult(array $result, $name)
+    {
         $entities = [];
-        foreach($result as $formation) {
+        foreach ($result as $formation) {
             $entity = $this->getObjectByEntity($name);
             $entity->hydrate($formation);
             $entities[] = $entity;
@@ -37,12 +40,14 @@ class BaseRepository extends Model
         return $entities;
     }
 
-    private function getTableFromCallingClass() {
+    private function getTableFromCallingClass()
+    {
         $table = explode('\\', substr(strtolower(get_class($this)), 0, strlen('repository')*-1));
         return end($table);
     }
 
-    public function getOneBy(array $field) {
+    public function getOneBy(array $field)
+    {
         $table = $this->getTableFromCallingClass();
         $entity = $this->getObjectByEntity($table);
         $key = key($field);
@@ -70,7 +75,8 @@ class BaseRepository extends Model
         return $entity;
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $table = $this->getTableFromCallingClass();
         $sql = "select *
                 from $table";
@@ -78,5 +84,4 @@ class BaseRepository extends Model
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateForEachResult($result, ucfirst($table));
     }
-
-} 
+}

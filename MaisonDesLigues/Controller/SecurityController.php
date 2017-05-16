@@ -11,10 +11,11 @@ class SecurityController extends Controller
     {
     }
 
-    public function loginCheck() {
+    public function loginCheck()
+    {
         if (isset($_SESSION['employee'])) {
             $this->redirect('home', 'home');
-        }else {
+        } else {
             $email = $this->request->getParameters("email");
             $password = $this->request->getParameters("password");
             $submit = $this->request->getParameters("submit");
@@ -22,7 +23,7 @@ class SecurityController extends Controller
             if (isset($submit, $email, $password)) {
                 $securityRepository = new SecurityRepository();
 
-                if($securityRepository->emailChecker($email)) {
+                if ($securityRepository->emailChecker($email)) {
                     $hash = crypt($password, 'rl');
 
                     if ($securityRepository->loginChecker($email, $hash)) {

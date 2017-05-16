@@ -16,11 +16,11 @@ abstract class Model
      * @param null $parameters
      * @return \PDOStatement
      */
-    protected function executeRequest($sql, $parameters = null) {
+    protected function executeRequest($sql, $parameters = null)
+    {
         if ($parameters === null) {
             $result = self::getBdd()->query($sql);
-        }
-        else {
+        } else {
             $result = self::getBdd()->prepare($sql);
             $result->execute($parameters);
         }
@@ -33,7 +33,8 @@ abstract class Model
      *
      * @return \PDO
      */
-    private static function getBdd() {
+    private static function getBdd()
+    {
         if (self::$bdd === null) {
             $dsn = Configuration::get("dsn");
             $login = Configuration::get("login");
@@ -43,5 +44,4 @@ abstract class Model
         }
         return self::$bdd;
     }
-
 }

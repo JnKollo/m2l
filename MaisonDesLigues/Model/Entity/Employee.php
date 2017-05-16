@@ -104,7 +104,7 @@ class Employee extends BaseEntity
 
     public function setId($id)
     {
-        if(!is_int($id)) {
+        if (!is_int($id)) {
             $id = (int)$id;
         }
         $this->id = $id;
@@ -119,7 +119,7 @@ class Employee extends BaseEntity
 
     public function setPassword($plainPassword)
     {
-        $hashPassword = password_hash($plainPassword,PASSWORD_BCRYPT);
+        $hashPassword = password_hash($plainPassword, PASSWORD_BCRYPT);
         $this->password = $hashPassword;
         return $this;
     }
@@ -138,7 +138,7 @@ class Employee extends BaseEntity
 
     public function setDays_left($days_left)
     {
-        if(!is_int($days_left)) {
+        if (!is_int($days_left)) {
             $days_left = (int)$days_left;
         }
         $this->days_left = $days_left;
@@ -147,7 +147,7 @@ class Employee extends BaseEntity
 
     public function setCredits_left($credits_left)
     {
-        if(!is_int($credits_left)) {
+        if (!is_int($credits_left)) {
             $credits_left = (int)$credits_left;
         }
         $this->credits_left = $credits_left;
@@ -156,7 +156,7 @@ class Employee extends BaseEntity
 
     public function setCounter_Formation_Days_By_Year($counter_formation_days_by_year)
     {
-        if(!is_int($counter_formation_days_by_year)) {
+        if (!is_int($counter_formation_days_by_year)) {
             $counter_formation_days_by_year = (int)$counter_formation_days_by_year;
         }
         $this->counter_formation_days_by_year = $counter_formation_days_by_year;
@@ -165,7 +165,7 @@ class Employee extends BaseEntity
 
     public function setManager_status($manager_status)
     {
-        if(!is_int($manager_status)) {
+        if (!is_int($manager_status)) {
             $manager_status = (int)$manager_status;
         }
         $this->manager_status = $manager_status;
@@ -174,7 +174,7 @@ class Employee extends BaseEntity
 
     public function setTeam_id($team_id)
     {
-        if(!is_int($team_id)) {
+        if (!is_int($team_id)) {
             $team_id = (int)$team_id;
         }
         $this->team_id = $team_id;
@@ -183,7 +183,7 @@ class Employee extends BaseEntity
 
     public function setOnline($online)
     {
-        if(!is_int($online)) {
+        if (!is_int($online)) {
             $online = (int)$online;
         }
         $this->online = $online;
@@ -207,7 +207,9 @@ class Employee extends BaseEntity
             foreach ($formations as $formation) {
                 $this->formations[] = $formation;
             }
-        } else $this->formations[] = $formations;
+        } else {
+            $this->formations[] = $formations;
+        }
         return $this;
     }
 

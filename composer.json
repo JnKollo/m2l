@@ -6,11 +6,15 @@
         "behat/mink-extension": "*",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-goutte-driver": "*",
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
             "M2l\\": "MaisonDesLigues/"
         }
+    },
+    "config": {
+        "bin-dir" : "bin"
     }
 }

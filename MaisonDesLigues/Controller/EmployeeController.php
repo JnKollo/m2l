@@ -34,7 +34,7 @@ class EmployeeController extends Controller
             $employeeFormationsRepository->subscribeToFormation($employee->getId(), $idFormation);
 
             //Si l'employé est un manager alors la demande d'ajout est acceptée
-            if ($employee->getManager_status() && $employeeRepository->hasEnoughDays($employee->getId(), $formation->getDays())){
+            if ($employee->getManager_status() && $employeeRepository->hasEnoughDays($employee->getId(), $formation->getDays())) {
                 $employeeFormationsRepository->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
             }
         }
@@ -64,7 +64,7 @@ class EmployeeController extends Controller
         $employeeFormationRepository->unsubscribeToFormation($employee->getId(), $idFormation);
 
         //Si l'employé est un manager alors la demande de retrait est acceptée
-        if ($employee->getManager_status()){
+        if ($employee->getManager_status()) {
             $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
             $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
             $employeeFormationRepository->updateCounterFormationByYearForEmployeeAfterRemove($employee->getId(), $formation->getDays(), $formation->getCredits());

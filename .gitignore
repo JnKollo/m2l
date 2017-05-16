@@ -3,3 +3,4 @@ Config/dev.ini
 .vagrant
 vendor/
 composer.lock
+bin/

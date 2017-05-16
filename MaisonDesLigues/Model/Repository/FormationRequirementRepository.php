@@ -6,7 +6,8 @@ use M2l\Kernel\Model;
 
 class FormationRequirementRepository extends Model
 {
-    public function getAllByFormationId($formation_id) {
+    public function getAllByFormationId($formation_id)
+    {
         $sql = "select *
                 from formation_requirement
                 INNER join requirement

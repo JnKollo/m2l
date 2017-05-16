@@ -34,4 +34,4 @@ class FormationRepository extends BaseRepository
         $result = $req->rowCount(\PDO::FETCH_ASSOC);
         return $result;
     }
-} 
+}
