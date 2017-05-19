@@ -86,7 +86,7 @@ echo -e "${bold}${yellow}Installing Composer${normal}${nc}"
     php -r "unlink('composer-setup.php');"
     sudo mv composer.phar /usr/local/bin/composer
 
-echo -e "${bold}${yellow}Adding dependencies to composer_template${normal}${nc}"
+echo -e "${bold}${yellow}Adding dependencies${normal}${nc}"
     cd /var/www/html/m2l
     composer require --dev --no-update "phpunit/phpunit:*"
     composer require --dev --no-update "behat/behat:*"

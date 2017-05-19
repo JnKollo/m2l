@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Recherche de Formations{% endblock %}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h5><a href="index.php?controller=Home&action=home">Accueil</a></h5>
+        </section>
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title" >Critères de recherche</h3>
+                        </div>
+                        <form action="index.php?controller=search&action=result" method="post">
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control" placeholder="Nom de la formation" name="name">
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="date" class="form-control" name="days">
+                            </div>
+                            <div class="row">
+                                <!-- /.col -->
+                                <div class="col-xs-4 col-xs-offset-4">
+                                    <input  type="submit" class="btn btn-primary btn-block btn-flat" name="submit" value="Rechercher">
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+{% endblock %}
+
+{% block script %}<script src="Web/script/Formation/searchFormation.js"></script>{% endblock %}
