@@ -98,6 +98,6 @@ echo -e "${bold}${yellow}Adding dependencies${normal}${nc}"
     composer require --dev --no-update "squizlabs/php_codesniffer:*"
 
 echo -e "${bold}${yellow}Installing dependencies${normal}${nc}"
-    composer install
+    composer update
 
 touch /var/vagrant_provision_bootstrap

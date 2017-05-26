@@ -39,25 +39,17 @@ class FormationRepository extends BaseRepository
     {
         $name = '';
         $dayRange = '';
-        $creditRange = '';
-        $dateRange = '';
-        if(isset($parameters['name'])) {
+        if(isset($parameters['name']) && $parameters['name'] != '') {
             $name = " and name like '%".$parameters['name']."%'";
         }
-        if(isset($parameters['days'])) {
+        if(isset($parameters['days']) && $parameters['days'] != '') {
             $dayRange = " and days = ".$parameters['days'];
-        }
-        if(isset($parameters['creditMin']) && isset($parameters['creditMax'])) {
-            $creditRange = " and credits between ".$parameters['creditMin']." and ".$parameters['creditMax'];
-        }
-        if(isset($parameters['dateMin']) && isset($parameters['dateMax'])) {
-            $dateRange = " and date between ".$parameters['dateMin']." and ".$parameters['dateMax'];
         }
         $orderByDate = ' order by date desc';
         $sql = "select *
                 from formation
                 where 1";
-        $sql = $sql.$name.$dayRange.$creditRange.$dateRange.$orderByDate;
+        $sql = $sql.$name.$dayRange.$orderByDate;
         $req = $this->executeRequest($sql);
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateEntityForEachResult($result, $this->entity);

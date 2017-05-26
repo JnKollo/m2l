@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 11 Avril 2017 à 17:03
--- Version du serveur: 5.5.54-0ubuntu0.14.04.1
+-- Généré le: Ven 26 Mai 2017 à 00:27
+-- Version du serveur: 5.5.55-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 --
 
 INSERT INTO `employee` (`id`, `username`, `password`, `email`, `image`, `days_left`, `credits_left`, `team_id`, `manager_status`, `online`, `last_login`) VALUES
-(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 'Web/dist/img/user2.jpg', 22, 3758, 1, 1, 1, '2017-04-11 16:42:14'),
+(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 'Web/dist/img/user2.jpg', 22, 3758, 1, 1, 1, '2017-05-25 22:55:56'),
 (2, 'fiston', 'rl4nYQV5i.PvA', 'fiston@gmail.com', 'Web/dist/img/user1.jpg', 28, 1540, 1, 0, 0, '2017-04-10 20:10:40'),
 (3, 'Addison', 'QRX09NDC1CS', 'neque@Curabiturvellectus.edu', 'Web/dist/img/user3.jpg', 26, 804, 4, 1, 0, '2016-01-24 03:58:29'),
 (4, 'Carly', 'ZFN16WHU8AD', 'Integer.vulputate.risus@accumsan.org', 'Web/dist/img/user3.jpg', 20, 4994, 4, 1, 0, '2016-08-18 23:47:29'),
@@ -242,24 +242,24 @@ CREATE TABLE IF NOT EXISTS `formation` (
 --
 
 INSERT INTO `formation` (`id`, `name`, `description`, `date`, `duration`, `days`, `credits`, `place`, `provider`) VALUES
-(1, 'Phasellus Ornare Fusce Ltd', 'tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada', '2016-09-15 18:45:34', 14, 7, 1282, 'Patalillo', 'Microsoft'),
-(2, 'Odio LLC', 'Curabitur egestas nunc sed libero. Proin sed turpis nec mauris', '2017-06-07 21:50:36', 6, 6, 1436, 'Talagante', 'Yahoo'),
-(3, 'Posuere Cubilia Curae; Foundation', 'sit amet ante. Vivamus non', '2017-06-29 17:06:10', 19, 16, 1106, 'Gateshead', 'Lavasoft'),
-(4, 'Quisque Associates', 'dictum', '2016-08-30 01:04:29', 3, 11, 1640, 'Rechnitz', 'Altavista'),
-(5, 'Elit Sed Inc.', 'id enim. Curabitur massa. Vestibulum accumsan neque et nunc. Quisque', '2017-05-18 21:32:13', 6, 13, 738, 'Fontanellato', 'Sibelius'),
-(6, 'Nulla Eu Neque LLP', 'sociis natoque penatibus et magnis dis parturient', '2017-05-10 11:48:05', 10, 14, 671, 'Ligosullo', 'Adobe'),
-(7, 'Aliquam Iaculis Lacus Foundation', 'vel lectus. Cum sociis natoque', '2017-03-22 11:35:57', 19, 6, 1012, 'Meldert', 'Microsoft'),
-(8, 'Fusce Mollis Duis Institute', 'diam at pretium aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus', '2017-05-06 03:49:18', 29, 9, 1402, 'Preston', 'Sibelius'),
-(9, 'Sollicitudin Consulting', 'euismod in, dolor. Fusce feugiat. Lorem ipsum', '2017-05-07 14:58:10', 21, 5, 1514, 'Neudörfl', 'Adobe'),
-(10, 'Velit Industries', 'at, libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit', '2016-09-26 21:36:58', 5, 11, 1538, 'Torres del Paine', 'Macromedia'),
-(11, 'Ut PC', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices', '2016-12-10 13:06:16', 3, 11, 1498, 'Wolfurt', 'Adobe'),
-(12, 'Hendrerit Consectetuer Institute', 'et libero. Proin mi. Aliquam gravida mauris ut mi.', '2017-03-22 18:02:10', 25, 12, 617, 'College', 'Chami'),
-(13, 'Mi Fringilla Incorporated', 'Sed nec metus facilisis lorem tristique aliquet. Phasellus', '2016-10-18 20:52:20', 24, 8, 1638, 'Monacilioni', 'Finale'),
-(14, 'Vel Foundation', 'leo. Cras vehicula aliquet libero. Integer in magna. Phasellus dolor', '2016-12-18 17:42:21', 5, 8, 1253, 'Rock Springs', 'Lycos'),
-(15, 'Integer Mollis Integer Industries', 'nec, cursus a,', '2017-06-11 15:08:17', 19, 11, 1101, 'Vinci', 'Altavista'),
-(16, 'Et Ultrices Ltd', 'vel, vulputate eu, odio. Phasellus at', '2017-04-14 12:42:32', 24, 14, 1318, 'Saint-Eug�ne-de-Ladri�re', 'Altavista'),
-(17, 'Rutrum Ltd', 'nec tempus mauris erat', '2016-08-30 10:34:10', 27, 15, 1700, 'Futrono', 'Lavasoft'),
-(18, 'Pede Ltd', 'amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque,', '2017-04-22 04:28:34', 29, 13, 1640, 'Ghlin', 'Altavista'),
+(1, 'Microsoft Office', 'Formation aux différents outils du pack Microsoft Office', '2017-11-01 08:00:00', 50, 7, 1282, 'Paris', 'Microsoft'),
+(2, 'Suites Adobe ', 'Formation aux différents outils de la suite Adobe', '2017-09-07 08:00:00', 70, 9, 1436, 'Lyon', 'Adobe'),
+(3, 'Anglais débutant', 'Initiation à l''anglais', '2017-08-29 08:00:00', 60, 4, 800, 'Strasbourg', 'CFA Alsace'),
+(4, 'Anglais intermédiaire', 'Cours d''anglais intermédiaire', '2017-10-28 08:00:00', 120, 8, 1000, 'Strasbourg', 'CFA Alsace'),
+(5, 'Anglais expert', 'Préparation aux concours TOEIC', '2018-01-01 08:00:00', 180, 12, 1200, 'Strasbourg', 'CFA Alsace'),
+(6, 'Allemand débutant', 'Initiation à l''allemand', '2017-08-28 08:00:00', 50, 4, 800, 'Strasbourg', 'CFA Alsace'),
+(7, 'Allemand intermédiaire', 'Cours d''allemand intermédiaire', '2017-10-28 08:00:00', 100, 8, 1000, 'Strasbourg', 'CFA Alsace'),
+(8, 'Allemand expert', 'Préparation à la certification Deutsch', '2018-01-06 08:00:00', 150, 12, 1200, 'Strasbourg', 'CFA Alsace'),
+(9, 'HTML/CSS débutant', 'Initiation au langage HTML et au CSS', '2017-11-07 08:00:00', 20, 2, 1000, 'Strasbourg', 'One Technologie'),
+(10, 'HTML/CSS avancé', 'Approfondissement du langage HTML et CSS', '2018-01-01 08:00:00', 50, 5, 1500, 'Strasbourg', 'One Technologie'),
+(11, 'PHP/MySQL débutant', 'Initiation aux langages PHP et MySQL', '2017-09-01 08:00:00', 80, 5, 1000, 'Strasbourg', 'Server4U'),
+(12, 'PHP/MySQL avancé', 'Approfondissement du langage PHP et MySQL', '2018-02-01 08:00:00', 160, 11, 1500, 'Strasbourg', 'Server4U'),
+(13, 'Javascript/NodeJS intermédiaire', 'Initiation au langage Javascript et au Framework Node Js', '2017-11-01 08:00:00', 120, 8, 1500, 'Paris', 'Netbird'),
+(14, 'Javascript/NodeJS avancé', 'Approfondissement du langage Javascript et du Framework NodeJS', '2018-03-01 08:00:00', 170, 13, 1700, 'Paris', 'Netbird'),
+(15, 'Internet bases', 'Initiation aux bases d''Internet', '2017-07-01 08:00:00', 20, 2, 600, 'Strasbourg', 'DigitalVision'),
+(16, 'Réseaux TCP/IP bases', 'Initiation aux réseaux et au modèle TCP/IP', '2017-04-14 08:00:00', 40, 6, 900, 'Rennes', 'Server4U'),
+(17, 'Premier Secours', 'Formation aux premiers secours et certifications', '2017-10-01 10:00:00', 15, 3, 300, 'Strasbourg', '2eme régiment de Strasbourg'),
+(18, 'CQP Animateur/trice sportif/ve', 'L''animateur de vacances accueille les vacanciers dans des clubs ou des centres de vacances. Il propose aux adultes et aux enfants des activités de loisirs, culturelles, manuelles ou sportives. il conçoit et organise toutes ces activités avec les autres animateurs de la structure où il travaille.', '2017-11-01 08:00:00', 12, 3, 700, 'Strasbourg', 'CREPS Strasbourg'),
 (19, 'Enim Nunc Ut Ltd', 'Morbi non sapien molestie orci tincidunt adipiscing. Mauris', '2016-10-25 15:07:56', 20, 6, 1480, 'Waterbury', 'Borland'),
 (20, 'Sapien Nunc Pulvinar Institute', 'eleifend non, dapibus rutrum, justo. Praesent luctus.', '2017-01-07 14:16:47', 17, 11, 1017, 'Beausejour', 'Google'),
 (21, 'Donec Tempus Inc.', 'Aliquam ultrices', '2016-10-28 19:31:05', 24, 5, 619, 'Värnamo', 'Apple Systems'),
@@ -394,8 +394,8 @@ ALTER TABLE `formation_employee_counter`
 -- Contraintes pour la table `formation_requirement`
 --
 ALTER TABLE `formation_requirement`
-  ADD CONSTRAINT `formation_requirement_ibfk_1` FOREIGN KEY (`id_requirement`) REFERENCES `requirement` (`id`),
-  ADD CONSTRAINT `FK_FormationRequirement` FOREIGN KEY (`id_formation`) REFERENCES `formation` (`id`);
+  ADD CONSTRAINT `FK_FormationRequirement` FOREIGN KEY (`id_formation`) REFERENCES `formation` (`id`),
+  ADD CONSTRAINT `formation_requirement_ibfk_1` FOREIGN KEY (`id_requirement`) REFERENCES `requirement` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -2,5 +2,4 @@ Config/dev.ini
 .idea/
 .vagrant
 vendor/
-composer.lock
 bin/
