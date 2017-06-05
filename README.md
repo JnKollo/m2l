@@ -35,7 +35,7 @@ mdp = 'm2l'
 
 ### 3. Monter la machine virtuelle
 - Lancer la console (invité de commande sur Windows ou gitbash)
-- Se rendre dans le dossier du projet
+- Se rendre à la racine du projet
 - Lancer la machine virtuelle
 
 ```
@@ -47,7 +47,7 @@ ou
 
 vagrant reload --provision
 ```
-- Attendre la fin du script puis se rendre sur [http://localhost:4582/](http://localhost:4582/) ( ou [http://127.0.0.1:4582/m2l](http://127.0.0.1:4582/m2l) )
+- Attendre la fin du script puis se rendre sur [http://localhost:4582/](http://localhost:4582/)
 
 
 # ***Mise en recette*** #
