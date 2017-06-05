@@ -29,7 +29,7 @@ git clone https://jnkollo@bitbucket.org/jnkollo/m2l.git
 [BD]
 dsn = 'mysql:host=127.0.0.1;dbname=m2l;charset=utf8'
 login = 'root'
-mdp = ''
+mdp = 'm2l'
 ```
 
 
@@ -108,9 +108,9 @@ sudo tail -f /var/log/apache2/error.m2l.log
 # ***Tester sur le site avec le compte manager et le compte employé*** #
 
 ### chef d'équipe
-*  id : papa
+*  mail : papa@gmail.com
 * mdp : papa
 
 ### employé
-* id : fiston
+* id : fiston@gmail.com
 * mdp : fiston
