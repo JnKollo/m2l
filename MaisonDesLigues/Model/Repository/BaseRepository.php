@@ -6,6 +6,10 @@ use M2l\Kernel\Model;
 
 class BaseRepository extends Model
 {
+    /**
+     * @param null $entity
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
     public function getObjectByEntity($entity = null)
     {
         switch (ucfirst($entity)) {
@@ -19,6 +23,11 @@ class BaseRepository extends Model
         return 0;
     }
 
+    /**
+     * @param $result
+     * @param $name
+     * @return array|int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
     public function hydrateOneEntity($result, $name)
     {
         $entity = array('');
@@ -29,6 +38,11 @@ class BaseRepository extends Model
         return $entity;
     }
 
+    /**
+     * @param array $result
+     * @param $name
+     * @return array
+     */
     public function hydrateEntityForEachResult(array $result, $name)
     {
         $entities = [];
@@ -40,12 +54,19 @@ class BaseRepository extends Model
         return $entities;
     }
 
+    /**
+     * @return mixed
+     */
     private function getTableFromCallingClass()
     {
         $table = explode('\\', substr(strtolower(get_class($this)), 0, strlen('repository')*-1));
         return end($table);
     }
 
+    /**
+     * @param array $field
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
     public function getOneBy(array $field)
     {
         $table = $this->getTableFromCallingClass();
@@ -61,6 +82,10 @@ class BaseRepository extends Model
         return $entity;
     }
 
+    /**
+     * @param $id
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
     public function getOneById($id)
     {
         $id = (int)$id;
@@ -75,6 +100,9 @@ class BaseRepository extends Model
         return $entity;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAll()
     {
         $table = $this->getTableFromCallingClass();

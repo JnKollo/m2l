@@ -11,6 +11,9 @@ abstract class Controller
 
     protected $request;
 
+    /**
+     * @param Request $request
+     */
     public function setRequest(Request $request)
     {
         $this->request = $request;
@@ -73,10 +76,9 @@ abstract class Controller
     }
 
     /**
-     *
      * @param $controller
      * @param string $action
-     * @param null $parameters
+     * @param array $parameters
      */
     public function redirect($controller, $action = "index", array $parameters = [])
     {

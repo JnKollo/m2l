@@ -2,13 +2,15 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block breadcrumb %}
+    <section class="content-header">
+        <h5><a href="index.php?controller=Home&action=home">Accueil</a></h5>
+    </section>
+{% endblock %}
+
 {% block content %}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h5><a href="index.php?controller=Home&action=home">Accueil</a></h5>
-        </section>
         <!-- Main content -->
         <section class="content">
             <!-- Small boxes (Stat box) -->
@@ -18,7 +20,7 @@
                     <div class="small-box bg-maroon">
                         <div class="inner">
                             <h3>{{ employee.credits_left }}</h3>
-                            <p>Crédits formation</p>
+                            <p>Crédits de formation restant</p>
                         </div>
                     </div>
                 </div>
@@ -28,7 +30,7 @@
                     <div class="small-box bg-purple">
                         <div class="inner">
                             <h3>{{ employee.days_left }}</h3>
-                            <p>Jours restants</p>
+                            <p>Jours de formation restant</p>
                         </div>
                     </div>
                 </div>
@@ -60,7 +62,7 @@
                 <div class="col-md-6">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Les nouvelles formations</h3>
+                            <h3 class="box-title">Dernières formations</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
@@ -102,7 +104,7 @@
                 <div class="col-md-6">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">Formations demandées</h3>
+                            <h3 class="box-title">Mes formations</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>

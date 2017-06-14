@@ -23,12 +23,10 @@
     <header class="main-header">
         <!-- Logo -->
         <a class="logo navbar-fixed-top" href="index.php?controller=home&action=home"><!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>M2l</b></span> <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>M2l</b></span>
         </a> <!-- Header Navbar -->
         <nav class="navbar navbar-fixed-top" role="navigation">
             <!-- Sidebar toggle button-->
-            <a class="sidebar-toggle" data-toggle="offcanvas" href="#" role="button"><span class="sr-only">Toggle navigation</span></a> <!-- Navbar Right Menu -->
             <div id="disconnect">
                 <a href="index.php?controller=security&action=logout"><i class="fa fa-fw fa-sign-out"></i>Déconnexion</a>
             </div>
@@ -49,7 +47,6 @@
             </div><!-- search form (Optional) -->
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <li class="header"></li><!-- Optionally, you can add icons to the links -->
                 <li>
                     <a href="index.php?controller=home&action=home"><i class="fa fa-home"></i> <span>Page d'accueil</span></a>
                 </li>
@@ -63,7 +60,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="index.php?controller=formation&action=lists&filter=all"><i class="fa fa-circle-o"></i> Formations disponibles</a></li>
-                        <li><a href="index.php?controller=formation&action=lists&filter=registered"><i class="fa fa-circle-o"></i> Formations demandées</a></li>
+                        <li><a href="index.php?controller=formation&action=lists&filter=registered"><i class="fa fa-circle-o"></i> Historique des formations {{ "now"|date('Y') }}</a></li>
                         <li><a href="index.php?controller=search&action=index"><i class="fa fa-circle-o"></i> Rechercher une formation</a></li>
                     </ul>
                 </li>
@@ -76,8 +73,8 @@
         </section><!-- /.sidebar -->
     </aside>
 
-    {% block content %}
-    {% endblock %}
+    {% block breadcrumb %}{% endblock %}
+    {% block content %}{% endblock %}
 
     <script src="Web/plugins/jQuery/jquery-2.2.3.min.js"></script> <!-- Bootstrap 3.3.6 -->
     <script src="Web/bootstrap/js/bootstrap.min.js"></script> <!-- AdminLTE App -->

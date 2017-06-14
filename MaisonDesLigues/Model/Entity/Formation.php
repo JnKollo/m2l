@@ -16,6 +16,9 @@ class Formation extends BaseEntity
     private $provider;
     private $status;
 
+    /**
+     * @param array|null $data
+     */
     public function hydrate(array $data = null)
     {
         parent::hydrate($data);
@@ -101,11 +104,18 @@ class Formation extends BaseEntity
         return $this->name;
     }
 
+    /**
+     * @return mixed
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setId($id)
     {
         if (!is_int($id)) {
@@ -115,18 +125,30 @@ class Formation extends BaseEntity
         return $this;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * @param $description
+     * @return $this
+     */
     public function setDescription($description)
     {
         $this->description = $description;
         return $this;
     }
 
+    /**
+     * @param $days
+     * @return $this
+     */
     public function setDays($days)
     {
         if (!is_int($days)) {
@@ -136,12 +158,20 @@ class Formation extends BaseEntity
         return $this;
     }
 
+    /**
+     * @param $date
+     * @return $this
+     */
     public function setDate($date)
     {
         $this->date = $date;
         return $this;
     }
 
+    /**
+     * @param $credits
+     * @return $this
+     */
     public function setCredits($credits)
     {
         if (!is_int($credits)) {
@@ -151,6 +181,10 @@ class Formation extends BaseEntity
         return $this;
     }
 
+    /**
+     * @param $duration
+     * @return $this
+     */
     public function setDuration($duration)
     {
         if (!is_int($duration)) {
@@ -160,12 +194,20 @@ class Formation extends BaseEntity
         return $this;
     }
 
+    /**
+     * @param $place
+     * @return $this
+     */
     public function setPlace($place)
     {
         $this->place = $place;
         return $this;
     }
 
+    /**
+     * @param $requirements
+     * @return $this
+     */
     public function setRequirement($requirements)
     {
         if (is_array($requirements)) {
@@ -178,23 +220,39 @@ class Formation extends BaseEntity
         return $this;
     }
 
+    /**
+     * @param $provider
+     * @return $this
+     */
     public function setProvider($provider)
     {
         $this->provider = $provider;
         return $this;
     }
 
+    /**
+     * @param $status
+     * @return $this
+     */
     public function setStatus($status)
     {
         $this->status = $status;
         return $this;
     }
 
+    /**
+     * @param $attribute
+     * @return bool
+     */
     public function __isset($attribute)
     {
         return (bool)isset($this->$attribute);
     }
 
+    /**
+     * @param $attribute
+     * @return false|string
+     */
     public function __get($attribute)
     {
         if ('date' == $attribute) {
