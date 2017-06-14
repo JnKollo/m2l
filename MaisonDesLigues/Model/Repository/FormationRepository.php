@@ -34,4 +34,24 @@ class FormationRepository extends BaseRepository
         $result = $req->rowCount(\PDO::FETCH_ASSOC);
         return $result;
     }
-} 
+
+    public function getFormationsBySearchQuery($parameters)
+    {
+        $name = '';
+        $dayRange = '';
+        if(isset($parameters['name']) && $parameters['name'] != '') {
+            $name = " and name like '%".$parameters['name']."%'";
+        }
+        if(isset($parameters['days']) && $parameters['days'] != '') {
+            $dayRange = " and days = ".$parameters['days'];
+        }
+        $orderByDate = ' order by date desc';
+        $sql = "select *
+                from formation
+                where 1";
+        $sql = $sql.$name.$dayRange.$orderByDate;
+        $req = $this->executeRequest($sql);
+        $result = $req->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->hydrateEntityForEachResult($result, $this->entity);
+    }
+}

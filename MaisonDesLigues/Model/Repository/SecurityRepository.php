@@ -6,7 +6,8 @@ use M2l\Kernel\Model;
 
 class SecurityRepository extends Model
 {
-    public function emailChecker($email) {
+    public function emailChecker($email)
+    {
         $sql = "select count(*)
                 from employee
                 where email = ?";
@@ -17,7 +18,8 @@ class SecurityRepository extends Model
         return $hasEmail;
     }
 
-    public function loginChecker($email, $password) {
+    public function loginChecker($email, $password)
+    {
         $sql = "select count(*)
                 from employee
                 where email = ? and password = ?";
@@ -49,5 +51,4 @@ class SecurityRepository extends Model
         $sql = "UPDATE employee SET online = 0 WHERE id=?";
         $this->executeRequest($sql, array($id));
     }
-
 }

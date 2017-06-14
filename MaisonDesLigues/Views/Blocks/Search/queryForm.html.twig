@@ -1,0 +1,30 @@
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title" >Critères de recherche</h3>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <form action="index.php?controller=search&action=result" method="post">
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control" placeholder="Nom de la formation" name="name">
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="date" class="form-control" name="days">
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input  type="submit" class="btn btn-primary btn-block btn-flat" name="submit" value="Rechercher">
+                            </div>
+                            <!-- /.col -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+<!-- /.content -->

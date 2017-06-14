@@ -6,7 +6,12 @@ use M2l\Kernel\Model;
 
 class BaseRepository extends Model
 {
-    public function getObjectByEntity($entity = null) {
+    /**
+     * @param null $entity
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
+    public function getObjectByEntity($entity = null)
+    {
         switch (ucfirst($entity)) {
             case 'Employee':
                 return new \M2l\Model\Entity\Employee();
@@ -18,7 +23,13 @@ class BaseRepository extends Model
         return 0;
     }
 
-    public function hydrateOneEntity($result, $name) {
+    /**
+     * @param $result
+     * @param $name
+     * @return array|int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
+    public function hydrateOneEntity($result, $name)
+    {
         $entity = array('');
         if ($result) {
             $entity = $this->getObjectByEntity($name);
@@ -27,9 +38,15 @@ class BaseRepository extends Model
         return $entity;
     }
 
-    public function hydrateEntityForEachResult(array $result, $name) {
+    /**
+     * @param array $result
+     * @param $name
+     * @return array
+     */
+    public function hydrateEntityForEachResult(array $result, $name)
+    {
         $entities = [];
-        foreach($result as $formation) {
+        foreach ($result as $formation) {
             $entity = $this->getObjectByEntity($name);
             $entity->hydrate($formation);
             $entities[] = $entity;
@@ -37,12 +54,21 @@ class BaseRepository extends Model
         return $entities;
     }
 
-    private function getTableFromCallingClass() {
+    /**
+     * @return mixed
+     */
+    private function getTableFromCallingClass()
+    {
         $table = explode('\\', substr(strtolower(get_class($this)), 0, strlen('repository')*-1));
         return end($table);
     }
 
-    public function getOneBy(array $field) {
+    /**
+     * @param array $field
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
+    public function getOneBy(array $field)
+    {
         $table = $this->getTableFromCallingClass();
         $entity = $this->getObjectByEntity($table);
         $key = key($field);
@@ -56,6 +82,10 @@ class BaseRepository extends Model
         return $entity;
     }
 
+    /**
+     * @param $id
+     * @return int|\M2l\Model\Entity\Employee|\M2l\Model\Entity\Formation
+     */
     public function getOneById($id)
     {
         $id = (int)$id;
@@ -70,7 +100,11 @@ class BaseRepository extends Model
         return $entity;
     }
 
-    public function getAll() {
+    /**
+     * @return mixed
+     */
+    public function getAll()
+    {
         $table = $this->getTableFromCallingClass();
         $sql = "select *
                 from $table";
@@ -78,5 +112,4 @@ class BaseRepository extends Model
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateForEachResult($result, ucfirst($table));
     }
-
-} 
+}

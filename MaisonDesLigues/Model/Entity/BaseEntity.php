@@ -4,6 +4,9 @@ namespace M2l\Model\Entity;
 
 abstract class BaseEntity
 {
+    /**
+     * @param array|null $data
+     */
     public function hydrate(array $data = null)
     {
         if (null != $data) {
@@ -15,6 +18,4 @@ abstract class BaseEntity
             }
         }
     }
-
-
 }

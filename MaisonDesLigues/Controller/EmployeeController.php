@@ -12,10 +12,6 @@ use M2l\Model\Repository\EmployeeRepository;
  */
 class EmployeeController extends Controller
 {
-    public function index()
-    {
-    }
-
     /**
      * Ajoute une formation à la liste des formations demandées par l'employé
      */
@@ -34,11 +30,17 @@ class EmployeeController extends Controller
             $employeeFormationsRepository->subscribeToFormation($employee->getId(), $idFormation);
 
             //Si l'employé est un manager alors la demande d'ajout est acceptée
-            if ($employee->getManager_status() && $employeeRepository->hasEnoughDays($employee->getId(), $formation->getDays())){
+            if ($employee->getManager_status() && $employeeRepository->hasEnoughDays($employee->getId(), $formation->getDays())) {
                 $employeeFormationsRepository->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
             }
         }
-        $this->redirect('formation', 'show', $idFormation);
+
+        $this->redirect(
+            'formation',
+            'show',
+            array(
+                'id' => $idFormation
+            ));
     }
 
     /**
@@ -58,11 +60,18 @@ class EmployeeController extends Controller
         $employeeFormationRepository->unsubscribeToFormation($employee->getId(), $idFormation);
 
         //Si l'employé est un manager alors la demande de retrait est acceptée
-        if ($employee->getManager_status()){
+        if ($employee->getManager_status()) {
             $employeeFormationRepository->updateCreditsForManagerAfterUnsubscribe($employee->getId(), $formation->getCredits());
             $employeeFormationRepository->updateDaysForManageAfterUnsubscribe($employee->getId(), $formation->getDays());
+            $employeeFormationRepository->updateCounterFormationByYearForEmployeeAfterRemove($employee->getId(), $formation->getDays(), $formation->getCredits());
         }
-        $this->redirect('formation', 'show', $idFormation);
+
+        $this->redirect(
+            'formation',
+            'show',
+            array(
+                'id' => $idFormation
+            ));
     }
 
     public function hasEnoughDays()
@@ -71,7 +80,9 @@ class EmployeeController extends Controller
 
         $days = $this->request->getParameters('days');
 
-        $hasEnoughDays = $employeeRepository->hasEnoughDays($_SESSION['employee'], $days);
+        $id_employee = $this->request->parametersExist('id') ? $this->request->getParameters('id') : $_SESSION['employee'];
+
+        $hasEnoughDays = $employeeRepository->hasEnoughDays($id_employee, $days);
 
         $this->jsonRender(array(
             'response' => $hasEnoughDays

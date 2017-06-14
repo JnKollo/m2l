@@ -6,6 +6,7 @@ use M2l\Kernel\Controller;
 use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
+use M2l\Model\Repository\FormationRequirementRepository;
 use M2l\Service\Breadcrumb\BreadcrumbManager;
 use M2l\Service\Status\StatusFormationManager;
 
@@ -14,7 +15,8 @@ use M2l\Service\Status\StatusFormationManager;
  */
 class FormationController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         if (isset($_SESSION['employee'])) {
             $this->redirect('Formation', 'lists');
         } else {
@@ -25,7 +27,8 @@ class FormationController extends Controller
     /**
      * Action renvoyant les données de la page d'acceuil des formations
      */
-    public function lists() {
+    public function lists()
+    {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
@@ -52,7 +55,7 @@ class FormationController extends Controller
                 'formations' => $formations,
                 'breadcrumb' => BreadcrumbManager::formationBreadcrumb()
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
@@ -60,19 +63,25 @@ class FormationController extends Controller
     /**
      *
      */
-    public function show() {
+    public function show()
+    {
         if (isset($_SESSION["employee"])) {
             $idFormation = $this->request->getParameters('id');
 
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
+            $formationRequirementRepository = new FormationRequirementRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
             $formation = $formationRepository->getOneById($idFormation);
 
             $employee->hydrate(array(
                 'Formations' => $employeeFormationsRepository->getOneFormationByEmployee($employee->getId(), $formation->getId())
+            ));
+
+            $formation->hydrate(array(
+                'requirement' => $formationRequirementRepository->getAllByFormationId($formation->getId())
             ));
 
             $isSubscribable = 1;
@@ -84,7 +93,7 @@ class FormationController extends Controller
                 'isSubscribable' => $isSubscribable,
                 'breadcrumb' => BreadcrumbManager::editFormationBreadcrumb()
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
@@ -92,7 +101,8 @@ class FormationController extends Controller
     /**
      *
      */
-    public function search() {
+    public function search()
+    {
         if (isset($_SESSION["employee"])) {
             $employeeRepository = new EmployeeRepository();
             $formationRepository = new FormationRepository();
@@ -112,9 +122,8 @@ class FormationController extends Controller
                 'formations' => $formations,
                 'breadcrumb' => BreadcrumbManager::searchFormationBreadcrumb()
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
-
 }

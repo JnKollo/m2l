@@ -10,10 +10,6 @@ use M2l\Service\Status\StatusFormationManager;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function home()
     {
         if (isset($_SESSION["employee"])) {
@@ -39,9 +35,8 @@ class HomeController extends Controller
                 'formations' => array_slice($formations, 0, 6, true),
                 'team' => $team
             ));
-        }else {
+        } else {
             $this->redirect('Security', 'logout');
         }
     }
-
 }

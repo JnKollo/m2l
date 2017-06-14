@@ -4,22 +4,6 @@ namespace M2l\Model\Repository;
 
 class EmployeeRepository extends BaseRepository
 {
-    public function updateCreditsForManagerAfterUnsubscribe($idEmployee, $creditsFormation)
-    {
-        $sql = "update employee
-        set credits_left = credits_left + $creditsFormation
-        where id = ?";
-        $this->executeRequest($sql, array($idEmployee));
-    }
-
-    public function updateDaysForManageAfterUnsubscribe($idEmployee, $daysFormation)
-    {
-        $sql = "update employee
-        set days_left = days_left + $daysFormation
-        where id = ?";
-        $this->executeRequest($sql, array($idEmployee));
-    }
-
     public function getEmployeeByTeam($team_id, $id_employee)
     {
         $sql = "select id, username, credits_left, days_left, image
@@ -29,7 +13,6 @@ class EmployeeRepository extends BaseRepository
         $req = $this->executeRequest($sql, array($team_id, $id_employee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);
         return $this->hydrateEntityForEachResult($result, 'Employee');
-
     }
 
     public function getOneEmployeeByTeam($id_employee)
@@ -44,13 +27,16 @@ class EmployeeRepository extends BaseRepository
 
     public function hasEnoughDays($id_employee, $daysToSusbstract)
     {
-        $sql = "select counter_formation_days_by_year
-                from employee 
-                where id = ?";
-        $counter_formation_days_by_year = $this->executeRequest($sql, array($id_employee));
+        $sql = "select days_accumulated
+                from formation_employee_counter 
+                where id_employee = ?";
+        $req = $this->executeRequest($sql, array($id_employee));
+        $result = $req->fetch(\PDO::FETCH_ASSOC);
 
-        if ($counter_formation_days_by_year + $daysToSusbstract < 15) {
+        if (((int)$result['days_accumulated'] + $daysToSusbstract) < 15) {
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
-} 
+}

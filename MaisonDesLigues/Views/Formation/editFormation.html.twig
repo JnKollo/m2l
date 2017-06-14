@@ -32,6 +32,12 @@
                                     <span class="product-description">{{ formation.description }}</span>
                                 </div>
                             </li>
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Durée</p>
+                                    <span class="product-description">{{ formation.duration ~ ' heures' }}</span>
+                                </div>
+                            </li>
                             <!-- /.item -->
                             <li class="item">
                                 <div class="product-info">
@@ -42,21 +48,13 @@
                             <!-- /.item -->
                             <li class="item">
                                 <div id="formation_days" class="product-info">
-                                    <p class="product-title">Jours requis</p>
+                                    <p class="product-title">Nombre de jours</p>
                                     <span class="product-description">{{ formation.days }}</span>
                                 </div>
                             </li>
-                            <!-- /.item -->
                             <li class="item">
                                 <div class="product-info">
-                                    <p class="product-title">Points requis</p>
-                                    <span class="product-description">{{ formation.credits }}</span>
-                                </div>
-                            </li>
-                            <!-- /.item -->
-                            <li class="item">
-                                <div class="product-info">
-                                    <p class="product-title">Localisation</p>
+                                    <p class="product-title">Lieu</p>
                                     <span class="product-description">{{ formation.place }}</span>
                                 </div>
                             </li>
@@ -64,10 +62,28 @@
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Prérequis</p>
-                                    <span class="product-description">{{ formation.requirement }}</span>
+                                    {% if formation.requirement is not null %}
+                                        {% for requirement in formation.requirement %}
+                                            <span class="product-description">
+                                                    - {{ requirement.value }}
+                                                </span>
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             </li>
                             <!-- /.item -->
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Prestataire</p>
+                                    <span class="product-description">{{ formation.provider }}</span>
+                                </div>
+                            </li>
+                            <li class="item">
+                                <div class="product-info">
+                                    <p class="product-title">Points requis</p>
+                                    <span class="product-description">{{ formation.credits }}</span>
+                                </div>
+                            </li>
                             <li class="item">
                                 <div class="product-info">
                                     <p class="product-title">Statut</p>

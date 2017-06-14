@@ -6,7 +6,8 @@ use M2l\Kernel\Controller;
 
 class LoginController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         if (isset($_SESSION['employee'])) {
             $this->redirect('Home', 'home');
         } else {
