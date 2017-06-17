@@ -5,13 +5,19 @@ $(document).ready(function(){
     });
 
     $('#subscribe').on('click', function(event) {
-        $.get('index.php?controller=employee&action=hasEnoughDays&days=' + $('#formation_days span').html(), function(data, status) {
+        $.get('index.php?' +
+            'controller=employee&' +
+            'action=validateEmployeeFormationChoice&' +
+            'days=' + $('#formation_days span').html() +
+            '&credits=' + $('#formation_credits span').html()
+            , function(data, status) {
             if (status === 'success') {
                 $.each( data, function( key, value ) {
+                    console.log(data);
                     if (value === true) {
                         window.location.href = 'index.php?controller=employee&action=addFormation&id=' + getUrlVars()['id'];
                     } else {
-                        alert("\nVous avez plus de 15 jours de formations pour l'année en cours.");
+                        alert("\nPas assez de jours et/ou de credits pour la formation demandée.");
                     }
                 });
             }

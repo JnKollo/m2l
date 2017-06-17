@@ -11,7 +11,6 @@ class Employee extends BaseEntity
     private $image;
     private $days_left;
     private $credits_left;
-    private $counter_formation_days_by_year;
     private $manager_status;
     private $team_id;
     private $online;
@@ -74,14 +73,6 @@ class Employee extends BaseEntity
     public function getCreditsLeft()
     {
         return $this->credits_left;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCounter_Formation_Days_By_Year()
-    {
-        return $this->counter_formation_days_by_year;
     }
 
     /**
@@ -229,19 +220,6 @@ class Employee extends BaseEntity
             $credits_left = (int)$credits_left;
         }
         $this->credits_left = $credits_left;
-        return $this;
-    }
-
-    /**
-     * @param $counter_formation_days_by_year
-     * @return $this
-     */
-    public function setCounter_Formation_Days_By_Year($counter_formation_days_by_year)
-    {
-        if (!is_int($counter_formation_days_by_year)) {
-            $counter_formation_days_by_year = (int)$counter_formation_days_by_year;
-        }
-        $this->counter_formation_days_by_year = $counter_formation_days_by_year;
         return $this;
     }
 

@@ -3,9 +3,11 @@
 namespace M2l\Controller;
 
 use M2l\Kernel\Controller;
+use M2l\Model\Repository\EmployeeCounterRepository;
 use M2l\Model\Repository\FormationRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\EmployeeRepository;
+use M2l\Service\Validation\EmployeeFormationChoice;
 
 /**
  * Class EmployeeController
@@ -74,18 +76,32 @@ class EmployeeController extends Controller
             ));
     }
 
-    public function hasEnoughDays()
+    public function validateEmployeeFormationChoice()
     {
         $employeeRepository = new EmployeeRepository();
+        $employeeFormationChoice = new EmployeeFormationChoice();
+        $employeeCounterRepository = new EmployeeCounterRepository();
 
-        $days = $this->request->getParameters('days');
-
+        $formation['days'] = $this->request->getParameters('days');
+        $formation['credits'] = $this->request->getParameters('credits');
         $id_employee = $this->request->parametersExist('id') ? $this->request->getParameters('id') : $_SESSION['employee'];
 
-        $hasEnoughDays = $employeeRepository->hasEnoughDays($id_employee, $days);
+        $employee = $employeeRepository->getOneById($id_employee);
+
+        $isEligibleForFormation = $employeeFormationChoice->isEligibleForFormation(
+            array(
+                'days_accumulated' => $employeeCounterRepository->getDaysAccumulated($id_employee),
+                'credits_accumulated' => $employeeCounterRepository->getCreditsAccumulated($id_employee)
+            ),
+            $formation,
+            array(
+                'days_left' => $employee->getDaysLeft(),
+                'credits_left' => $employee->getCreditsLeft()
+            )
+        );
 
         $this->jsonRender(array(
-            'response' => $hasEnoughDays
+            'response' => $isEligibleForFormation
         ));
     }
 }

@@ -105,7 +105,7 @@ class TeamController extends Controller
 
             $employeeFormationsRepository->refuseFormation($idTeamMember, $idFormation);
 
-            $this->redirect('Team', 'manage', $idTeamMember);
+            $this->redirect('Team', 'manage', array('id' => $idTeamMember));
         } else {
             $this->redirect('Security', 'logout');
         }
