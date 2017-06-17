@@ -18,6 +18,8 @@ class Employee extends BaseEntity
     private $formations;
     private $pendingFormations;
     private $performedFormations;
+    private $days_accumulated;
+    private $credits_accumulated;
 
     /**
      * @return mixed
@@ -294,6 +296,22 @@ class Employee extends BaseEntity
             $this->formations[] = $formations;
         }
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDaysAccumulated()
+    {
+        return $this->days_accumulated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreditsAccumulated()
+    {
+        return $this->credits_accumulated;
     }
 
     /**

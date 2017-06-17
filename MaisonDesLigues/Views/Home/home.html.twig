@@ -39,8 +39,14 @@
                     <!-- small box -->
                     <div class="small-box bg-green">
                         <div class="inner">
-                            <h3>{{ employee.performedFormations }}</h3>
-                            <p>Formations effectuées</p>
+                            <h3>
+                                {% if employee.daysAccumulated is not null%}
+                                    employee.daysAccumulated
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </h3>
+                            <p>Jours de formation cumulés en {{ "now"|date('Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -49,8 +55,14 @@
                     <!-- small box -->
                     <div class="small-box bg-yellow">
                         <div class="inner">
-                            <h3>{{ employee.pendingFormations }}</h3>
-                            <p>Formations en cours de validation</p>
+                            <h3>
+                                {% if employee.creditsAccumulated is not null%}
+                                    employee.creditsAccumulated
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </h3>
+                            <p>Crédits de formation cumulés en {{ "now"|date('Y') }}</p>
                         </div>
                     </div>
                 </div>
@@ -130,6 +142,10 @@
                                                 <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                             </tr>
                                         {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4" >Aucune formation en cours</td>
+                                        </tr>
                                     {% endif %}
                                 </table>
                             </table>

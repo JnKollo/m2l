@@ -3,6 +3,7 @@
 namespace M2l\Controller;
 
 use M2l\Kernel\Controller;
+use M2l\Model\Repository\EmployeeCounterRepository;
 use M2l\Model\Repository\EmployeeRepository;
 use M2l\Model\Repository\EmployeeFormationsRepository;
 use M2l\Model\Repository\FormationRepository;
@@ -16,6 +17,7 @@ class HomeController extends Controller
             $employeeRepository = new EmployeeRepository();
             $employeeFormationsRepository = new EmployeeFormationsRepository();
             $formationRepository = new FormationRepository();
+            $employeeCounterRepository = new EmployeeCounterRepository();
 
             $employee = $employeeRepository->getOneById($_SESSION['employee']);
 
@@ -25,7 +27,10 @@ class HomeController extends Controller
             $employee->hydrate(array(
                 'Formations' => $employeeFormationsRepository->getFormationsByEmployee($employee->getId()),
                 'PendingFormations' => $employeeFormationsRepository->countPerformedFormationsByEmployee($employee->getId()),
-                'PerformedFormations' => $employeeFormationsRepository->countPerformedFormationsByEmployee($employee->getId())
+                'PerformedFormations' => $employeeFormationsRepository->countPerformedFormationsByEmployee($employee->getId()),
+                'daysAccumulated' => $employeeCounterRepository->getDaysAccumulated($employee->getId()),
+                'creditsAccumulated' => $employeeCounterRepository->getCreditsAccumulated($employee->getId()),
+
             ));
 
             StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());

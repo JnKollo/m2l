@@ -25,7 +25,7 @@
                             <th style="width: 185px">Statut</th>
                             <th style="width: 80px"></th>
                         </tr>
-                        {% if formations is not null %}
+                        {% if formations is not empty %}
                             {% for formation in formations %}
                                 <tr>
                                     <td><a href="index.php?controller=formation&action=show&id={{ formation.id }}">{{ formation.name }}</a></td>
@@ -42,6 +42,10 @@
                                     <td><a><i class="fa fa-fw fa-pencil-square-o"></i></a></td>
                                 </tr>
                             {% endfor %}
+                        {% else%}
+                            <tr>
+                                <td colspan="7">Aucune formation trouvée</td>
+                            </tr>
                         {% endif %}
                     </table>
                 </div>
