@@ -23,17 +23,26 @@ class EmployeeController extends Controller
         $employeeRepository = new EmployeeRepository();
         $employeeFormationsRepository = new EmployeeFormationsRepository();
         $formationRepository = new FormationRepository();
+        $employeeFormationChoice = new EmployeeFormationChoice();
+        $employeeCounterRepository = new EmployeeCounterRepository();
 
         $employee = $employeeRepository->getOneById($_SESSION['employee']);
         $formation = $formationRepository->getOneById($idFormation);
 
+        $isEligibleForFormation = $employeeFormationChoice->isEligibleForFormation(
+            array(
+                'days_accumulated' => $employeeCounterRepository->getDaysAccumulated($employee->getId()),
+                'credits_accumulated' => $employeeCounterRepository->getCreditsAccumulated($employee->getId())
+            ),$formation, $employee
+        );
+
         //Si les crédits et les jours de l'employé suffisent alors la souscription a la formation est validé
-        if ($employee->getCreditsLeft() > $formation->getCredits() && $employee->getDaysLeft() > $formation->getDays()) {
-            $employeeFormationsRepository->subscribeToFormation($employee->getId(), $idFormation);
+        if ($isEligibleForFormation) {
+            $employeeFormationsRepository->subscribeToFormation($employee->getId(), $formation->getId());
 
             //Si l'employé est un manager alors la demande d'ajout est acceptée
-            if ($employee->getManager_status() && $employeeRepository->hasEnoughDays($employee->getId(), $formation->getDays())) {
-                $employeeFormationsRepository->acceptFormation($employee->getId(), $idFormation, $formation->getCredits(), $formation->getDays());
+            if ($employee->getManager_status()) {
+                $employeeFormationsRepository->acceptFormation($employee->getId(), $formation->getId(), $formation->getCredits(), $formation->getDays());
             }
         }
 
@@ -41,7 +50,7 @@ class EmployeeController extends Controller
             'formation',
             'show',
             array(
-                'id' => $idFormation
+                'id' => $formation->getId()
             ));
     }
 
@@ -81,23 +90,19 @@ class EmployeeController extends Controller
         $employeeRepository = new EmployeeRepository();
         $employeeFormationChoice = new EmployeeFormationChoice();
         $employeeCounterRepository = new EmployeeCounterRepository();
+        $formationRepository = new FormationRepository();
 
-        $formation['days'] = $this->request->getParameters('days');
-        $formation['credits'] = $this->request->getParameters('credits');
+        $formation_id = $this->request->getParameters('formation_id');
         $id_employee = $this->request->parametersExist('id') ? $this->request->getParameters('id') : $_SESSION['employee'];
 
         $employee = $employeeRepository->getOneById($id_employee);
+        $formation = $formationRepository->getOneById($formation_id);
 
         $isEligibleForFormation = $employeeFormationChoice->isEligibleForFormation(
             array(
-                'days_accumulated' => $employeeCounterRepository->getDaysAccumulated($id_employee),
-                'credits_accumulated' => $employeeCounterRepository->getCreditsAccumulated($id_employee)
-            ),
-            $formation,
-            array(
-                'days_left' => $employee->getDaysLeft(),
-                'credits_left' => $employee->getCreditsLeft()
-            )
+                'days_accumulated' => $employeeCounterRepository->getDaysAccumulated($employee->getId()),
+                'credits_accumulated' => $employeeCounterRepository->getCreditsAccumulated($employee->getId())
+            ),$formation, $employee
         );
 
         $this->jsonRender(array(

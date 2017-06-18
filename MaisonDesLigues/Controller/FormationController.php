@@ -46,6 +46,9 @@ class FormationController extends Controller
             if ($filter === 'all') {
                 $formations = $formationRepository->getAllFormationsOrderByDate();
                 StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
+            } elseif($filter === 'registered') {
+                $formations = $employeeFormationsRepository->getEmployeeRegisteredFormationsForCurrentYear($employee->getId());
+                StatusFormationManager::setStatusForEachFormation($formations, $employee->getFormations());
             } else {
                 $formations = $employee->getFormations();
             }

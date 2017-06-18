@@ -4,8 +4,7 @@ $(document).ready(function(){
         $.get('index.php?' +
             'controller=employee&' +
             'action=validateEmployeeFormationChoice&' +
-            'days=' + $('#formation_days span').html() +
-            '&credits=' + $('#formation_credits span').html() +
+            'formation_id=' + $('#formation_id span').html() +
             '&id=' + getUrlVars()['id']
             , function(data, status) {
             if (status === 'success') {

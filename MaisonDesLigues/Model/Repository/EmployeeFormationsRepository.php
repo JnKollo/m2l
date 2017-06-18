@@ -46,16 +46,19 @@ class EmployeeFormationsRepository extends BaseRepository
      * @param $idEmployee
      * @return array
      */
-    public function getEmployeeRegisteredFormations($idEmployee)
+    public function getEmployeeRegisteredFormationsForCurrentYear($idEmployee)
     {
         $sql = "select formation.*
                 from formation
                 inner join employee_formation
                     on formation.id = employee_formation.id_formation
                 where employee_formation.id_employee = ?
-                and employee_formation.id_formation_status = 1
+                and YEAR(formation.date) = YEAR(CURDATE())
+                and ( 
+                employee_formation.id_formation_status = 1
                 or employee_formation.id_formation_status = 2
-                or employee_formation.id_formation_status = 5
+                or employee_formation.id_formation_status = 5 
+                )
                 order by date desc";
         $req = $this->executeRequest($sql, array($idEmployee));
         $result = $req->fetchAll(\PDO::FETCH_ASSOC);

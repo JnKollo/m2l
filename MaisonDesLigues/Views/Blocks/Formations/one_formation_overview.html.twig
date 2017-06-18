@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3" style="margin-top:50px">
+        <!-- PRODUCT LIST -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Formation : {{ formation.name }}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <ul class="products-list product-list-in-box">
+                    <li class="item">
+                        <div id="formation_id" class="product-info">
+                            <p class="product-title">Référence n°</p>
+                            <span class="product-description">{{ formation.id }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Nom</p>
+                            <span class="product-description">{{ formation.name }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Nom</p>
+                            <span class="product-description">{{ formation.name }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Contenu</p>
+                            <span class="product-description">{{ formation.description }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Durée</p>
+                            <span class="product-description">{{ formation.duration ~ ' heures' }}</span>
+                        </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Date</p>
+                            <span class="product-description">{{ formation.date }}</span>
+                        </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                        <div id="formation_days" class="product-info">
+                            <p class="product-title">Nombre de jours</p>
+                            <span class="product-description">{{ formation.days }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Lieu</p>
+                            <span class="product-description">{{ formation.place }}</span>
+                        </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Prérequis</p>
+                            {% if formation.requirement is not null %}
+                                {% for requirement in formation.requirement %}
+                                    <span class="product-description">
+                                                    - {{ requirement.value }}
+                                                </span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Prestataire</p>
+                            <span class="product-description">{{ formation.provider }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div id="formation_credits" class="product-info">
+                            <p class="product-title">Points requis</p>
+                            <span class="product-description">{{ formation.credits }}</span>
+                        </div>
+                    </li>
+                    <li class="item">
+                        <div class="product-info">
+                            <p class="product-title">Statut</p>
+                            <span class="badge bg-green">{{ formation.status }}</span>
+                        </div>
+                    </li>
+                    <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- ./col -->
+</div>
+<!-- /.row -->
