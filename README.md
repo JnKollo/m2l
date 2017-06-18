@@ -75,7 +75,7 @@ git checkout recette
 
 ```
 git fetch
-git reset --hard origin/master
+git reset --hard origin/recette
 git merge origin/(branche à merger)
 git push origin recette
 
