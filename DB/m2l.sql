@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 26 Mai 2017 à 00:27
+-- Généré le: Dim 18 Juin 2017 à 12:55
 -- Version du serveur: 5.5.55-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.21
 
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
 --
 
 INSERT INTO `employee` (`id`, `username`, `password`, `email`, `image`, `days_left`, `credits_left`, `team_id`, `manager_status`, `online`, `last_login`) VALUES
-(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 'Web/dist/img/user2.jpg', 22, 3758, 1, 1, 1, '2017-05-25 22:55:56'),
-(2, 'fiston', 'rl4nYQV5i.PvA', 'fiston@gmail.com', 'Web/dist/img/user1.jpg', 28, 1540, 1, 0, 0, '2017-04-10 20:10:40'),
+(1, 'papa', 'rl.T1g5bgHjXg', 'papa@gmail.com', 'Web/dist/img/user2.jpg', 22, 3758, 1, 1, 1, '2017-06-18 12:31:03'),
+(2, 'fiston', 'rl4nYQV5i.PvA', 'fiston@gmail.com', 'Web/dist/img/user1.jpg', 17, 2100, 1, 0, 0, '2017-06-18 12:05:32'),
 (3, 'Addison', 'QRX09NDC1CS', 'neque@Curabiturvellectus.edu', 'Web/dist/img/user3.jpg', 26, 804, 4, 1, 0, '2016-01-24 03:58:29'),
 (4, 'Carly', 'ZFN16WHU8AD', 'Integer.vulputate.risus@accumsan.org', 'Web/dist/img/user3.jpg', 20, 4994, 4, 1, 0, '2016-08-18 23:47:29'),
 (5, 'Callie', 'RAT44OHF0RR', 'Nam@ornareFusce.co.uk', 'Web/dist/img/user3.jpg', 16, 2899, 5, 1, 0, '2017-03-02 14:49:19'),
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `employee_formation` (
   KEY `fk_employee_id` (`id_employee`),
   KEY `fk_formation_id` (`id_formation`),
   KEY `fk_formation_status_id` (`id_formation_status`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=187 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=197 ;
 
 --
 -- Contenu de la table `employee_formation`
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `employee_formation` (
 INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `id_formation_status`) VALUES
 (157, 22, 7, 1),
 (158, 20, 6, 2),
-(159, 1, 29, 2),
+(159, 1, 29, 3),
 (160, 6, 28, 2),
 (161, 21, 4, 2),
 (162, 28, 19, 1),
@@ -205,7 +205,7 @@ INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `id_forma
 (172, 2, 17, 1),
 (173, 20, 14, 1),
 (174, 22, 4, 2),
-(175, 23, 18, 2),
+(175, 23, 18, 3),
 (176, 3, 26, 3),
 (177, 6, 12, 1),
 (178, 17, 8, 1),
@@ -216,7 +216,8 @@ INSERT INTO `employee_formation` (`id`, `id_formation`, `id_employee`, `id_forma
 (183, 11, 23, 1),
 (184, 8, 9, 3),
 (185, 20, 25, 3),
-(186, 18, 21, 1);
+(186, 18, 21, 1),
+(196, 9, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -286,7 +287,43 @@ CREATE TABLE IF NOT EXISTS `formation_employee_counter` (
   `credits_accumulated` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_employee` (`id_employee`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Contenu de la table `formation_employee_counter`
+--
+
+INSERT INTO `formation_employee_counter` (`id`, `id_employee`, `days_accumulated`, `credits_accumulated`) VALUES
+(1, 1, 0, 0),
+(2, 2, 0, 0),
+(3, 3, 0, 0),
+(4, 4, 0, 0),
+(5, 5, 0, 0),
+(6, 6, 0, 0),
+(7, 7, 0, 0),
+(8, 8, 0, 0),
+(9, 9, 0, 0),
+(10, 10, 0, 0),
+(11, 11, 0, 0),
+(12, 12, 0, 0),
+(13, 13, 0, 0),
+(14, 14, 0, 0),
+(15, 15, 0, 0),
+(16, 16, 0, 0),
+(17, 17, 0, 0),
+(18, 18, 0, 0),
+(19, 19, 0, 0),
+(20, 20, 0, 0),
+(21, 21, 0, 0),
+(22, 22, 0, 0),
+(23, 23, 0, 0),
+(24, 24, 0, 0),
+(25, 25, 0, 0),
+(26, 26, 0, 0),
+(27, 27, 0, 0),
+(28, 28, 0, 0),
+(29, 29, 0, 0),
+(30, 30, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -301,7 +338,113 @@ CREATE TABLE IF NOT EXISTS `formation_requirement` (
   PRIMARY KEY (`id`),
   KEY `FK_FormationRequirement` (`id_formation`),
   KEY `id_requirement` (`id_requirement`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
+
+--
+-- Contenu de la table `formation_requirement`
+--
+
+INSERT INTO `formation_requirement` (`id`, `id_formation`, `id_requirement`) VALUES
+(1, 26, 19),
+(2, 15, 7),
+(3, 7, 4),
+(4, 9, 6),
+(5, 12, 25),
+(6, 14, 10),
+(7, 18, 8),
+(8, 17, 15),
+(9, 3, 13),
+(10, 24, 20),
+(11, 27, 4),
+(12, 28, 14),
+(13, 9, 26),
+(14, 17, 3),
+(15, 13, 6),
+(16, 16, 1),
+(17, 22, 12),
+(18, 10, 17),
+(19, 9, 30),
+(20, 13, 27),
+(21, 15, 11),
+(22, 19, 12),
+(23, 20, 5),
+(24, 29, 13),
+(25, 7, 1),
+(26, 15, 8),
+(27, 27, 9),
+(28, 9, 2),
+(29, 19, 13),
+(30, 29, 1),
+(31, 28, 8),
+(32, 8, 5),
+(33, 28, 11),
+(34, 20, 13),
+(35, 6, 28),
+(36, 19, 1),
+(37, 6, 6),
+(38, 25, 27),
+(39, 2, 6),
+(40, 14, 2),
+(41, 28, 26),
+(42, 1, 22),
+(43, 22, 20),
+(44, 18, 7),
+(45, 21, 22),
+(46, 30, 1),
+(47, 17, 20),
+(48, 23, 27),
+(49, 25, 28),
+(50, 17, 25),
+(51, 9, 15),
+(52, 28, 16),
+(53, 27, 3),
+(54, 1, 28),
+(55, 23, 18),
+(56, 10, 14),
+(57, 21, 6),
+(58, 16, 1),
+(59, 11, 17),
+(60, 22, 2),
+(61, 13, 6),
+(62, 17, 23),
+(63, 29, 8),
+(64, 17, 5),
+(65, 6, 4),
+(66, 23, 3),
+(67, 16, 4),
+(68, 23, 12),
+(69, 8, 3),
+(70, 29, 29),
+(71, 19, 17),
+(72, 22, 25),
+(73, 24, 7),
+(74, 29, 9),
+(75, 9, 16),
+(76, 10, 16),
+(77, 1, 17),
+(78, 1, 9),
+(79, 19, 19),
+(80, 24, 27),
+(81, 15, 19),
+(82, 12, 12),
+(83, 9, 20),
+(84, 29, 11),
+(85, 11, 2),
+(86, 18, 16),
+(87, 4, 20),
+(88, 29, 14),
+(89, 25, 13),
+(90, 8, 26),
+(91, 25, 14),
+(92, 18, 3),
+(93, 25, 19),
+(94, 28, 2),
+(95, 1, 24),
+(96, 27, 18),
+(97, 3, 3),
+(98, 10, 11),
+(99, 15, 19),
+(100, 2, 18);
 
 -- --------------------------------------------------------
 
@@ -336,7 +479,43 @@ CREATE TABLE IF NOT EXISTS `requirement` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+
+--
+-- Contenu de la table `requirement`
+--
+
+INSERT INTO `requirement` (`id`, `value`) VALUES
+(1, 'Microsoft Office'),
+(2, 'Suites Adobe '),
+(3, 'Anglais débutant'),
+(4, 'Anglais intermédiaire'),
+(5, 'Anglais expert'),
+(6, 'Allemand débutant'),
+(7, 'Allemand intermédiaire'),
+(8, 'Allemand expert'),
+(9, 'HTML/CSS débutant'),
+(10, 'HTML/CSS avancé'),
+(11, 'PHP/MySQL débutant'),
+(12, 'PHP/MySQL avancé'),
+(13, 'Javascript/NodeJS intermédiaire'),
+(14, 'Javascript/NodeJS avancé'),
+(15, 'Internet bases'),
+(16, 'Réseaux TCP/IP bases'),
+(17, 'Premier Secours'),
+(18, 'CQP Animateur/trice sportif/ve'),
+(19, 'Enim Nunc Ut Ltd'),
+(20, 'Sapien Nunc Pulvinar Institute'),
+(21, 'Donec Tempus Inc.'),
+(22, 'Justo Sit LLC'),
+(23, 'Donec Porttitor Tellus Foundation'),
+(24, 'Sodales Purus In Consulting'),
+(25, 'Nunc Nulla PC'),
+(26, 'Vel Corp.'),
+(27, 'At Consulting'),
+(28, 'Ridiculus Mus Ltd'),
+(29, 'Ultrices Mauris Ipsum Limited'),
+(30, 'Eu Dolor Limited');
 
 -- --------------------------------------------------------
 
