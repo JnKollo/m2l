@@ -94,8 +94,8 @@ echo -e "${bold}${yellow}Adding dependencies${normal}${nc}"
     composer require --dev --no-update "behat/mink-extension:*"
     composer require --dev --no-update "behat/mink-selenium2-driver:*"
     composer require --dev --no-update "behat/mink-goutte-driver:*"
-    composer require --dev --no-update "twig/twig:~1.0"
     composer require --dev --no-update "squizlabs/php_codesniffer:*"
+    composer require --no-update "twig/twig:~1.0"
 
 echo -e "${bold}${yellow}Installing dependencies${normal}${nc}"
     composer update
