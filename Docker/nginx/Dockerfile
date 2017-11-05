@@ -3,8 +3,8 @@ FROM debian:jessie
 RUN apt-get update && apt-get install -y \
     nginx
 
-ADD nginx.conf /etc/nginx/
-ADD m2l.conf /etc/nginx/sites-available/
+ADD Docker/nginx/nginx.conf /etc/nginx/
+ADD Docker/nginx/m2l /etc/nginx/sites-available/m2l.conf
 
 RUN ln -s /etc/nginx/sites-available/m2l.conf /etc/nginx/sites-enabled/m2l
 RUN rm /etc/nginx/sites-enabled/default
