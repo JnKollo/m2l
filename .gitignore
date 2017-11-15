@@ -3,3 +3,6 @@ Config/dev.ini
 .vagrant
 vendor/
 bin/
+var/
+logs/
+DB/

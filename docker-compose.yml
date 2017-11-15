@@ -1,0 +1,31 @@
+version: "3"
+services:
+    php:
+      build: docker/php
+      container_name: php
+      volumes:
+        - ./:/var/www/html/m2l
+    mariadb:
+      build: docker/mariadb
+      container_name: mariadb
+      volumes:
+        - ./:/var/www/html/m2l
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=m2l
+      ports:
+       - "8091:3306"
+    nginx:
+      build:
+        context: .
+        dockerfile: Docker/nginx/Dockerfile
+      container_name: nginx
+      ports:
+        - 80:80
+      volumes:
+        - ./:/var/www/html/m2l
+    composer:
+      build: docker/composer
+      container_name: composer
+      volumes:
+        - ./:/var/www/html/m2l
