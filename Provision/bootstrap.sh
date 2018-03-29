@@ -25,9 +25,6 @@ echo -e "${bold}${yellow}Looking for update and upgrade... ${normal}${nc}"
 echo -e "${bold}${yellow}Installing Git ${normal}${nc}"
     sudo apt-get install git -y
 
-echo -e "${bold}${yellow}Installing Vim ${normal}${nc}"
-    sudo apt-get install vim -y
-
 echo -e "${bold}${yellow}Installing MySQL ${normal}${nc}"
     echo "mysql-server mysql-server/root_password password $PASSWORD" | sudo debconf-set-selections
     echo "mysql-server mysql-server/root_password_again password $PASSWORD" | sudo debconf-set-selections
@@ -78,26 +75,5 @@ echo -e "${bold}${yellow}Enable swap ${normal}${nc}"
     sudo chmod +x /var/www/html/m2l/Provision/increase_swap.sh
     dos2unix /var/www/html/m2l/Provision/increase_swap.sh
     sudo sh /var/www/html/m2l/Provision/increase_swap.sh
-
-echo -e "${bold}${yellow}Installing Composer${normal}${nc}"
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7506b8cb2d1c292f042046c5a994c43155c0be6190fa0355160742ab2e1c88d40d5be660b410') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    php composer-setup.php
-    php -r "unlink('composer-setup.php');"
-    sudo mv composer.phar /usr/local/bin/composer
-
-echo -e "${bold}${yellow}Adding dependencies${normal}${nc}"
-    cd /var/www/html/m2l
-    composer require --dev --no-update "phpunit/phpunit:*"
-    composer require --dev --no-update "behat/behat:*"
-    composer require --dev --no-update "behat/mink:*"
-    composer require --dev --no-update "behat/mink-extension:*"
-    composer require --dev --no-update "behat/mink-selenium2-driver:*"
-    composer require --dev --no-update "behat/mink-goutte-driver:*"
-    composer require --dev --no-update "squizlabs/php_codesniffer:*"
-    composer require --no-update "twig/twig:~1.0"
-
-echo -e "${bold}${yellow}Installing dependencies${normal}${nc}"
-    composer update
 
 touch /var/vagrant_provision_bootstrap
