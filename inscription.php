@@ -1,7 +1,13 @@
 <?php include 'config/gestionBase.php';
 
 if (isset($_POST['inscription'])) {
+    throw new exception ('Veuillez cliquer sur le bouton valider');
 
+}
+
+$fetchUser = "SELECT email FROM personnelassociatif";
+$bdd->exec($fetchUser);
+/*
     if (!empty($_POST['pseudo']) && !empty($_POST['mdp']) && !empty($_POST['mdpc']) && !empty($_POST['adresse']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['tel']) && !empty($_POST['codepostal']) && !empty($_POST['fonction']) && !empty($_POST['association'])) {
 
         $errors = []; //Tableau qui contient l'ensemble des erreurs
@@ -25,17 +31,17 @@ if (isset($_POST['inscription'])) {
                 $errors[] = " Veuillez remplir les champs mot de passe.";
             }
         }
-
-        //Si le pseudo est déja utilisé
-        if (is_already_in_use('pseudo' . $pseudo . 'users')) {
-            $errors[] = "Pseudo déja utilisé!";
+*/
+        //Si l'email est déja utilisé
+        if ($fetchUser['email']=== $_POST['email']) {
+            $display['email'] = "email déja utilisé!";
         } else {
-            $errors[] = "Veuillez remplir tous les champs";
+            $display['email'] = "Veuillez remplir tous les champs";
         }
         
-    }
-    echo 'ok';
-}
+    
+    
+
 ?>
 
 

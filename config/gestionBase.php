@@ -1,14 +1,13 @@
 
 <?php
 
-function connexionbdd() {
     try {
         $bdd = new PDO('mysql:host=localhost;dbname=m2l;charset=utf8', 'root', '');
         $bdd ->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     } catch (Exception $e) {
         die('Erreur : ' . $e->getMessage());
     }
-}
+
 
 /* inscription sur le site de la maison des ligues
 function inscriptionSite($nom,$prenom,$idAssociation,$fonction,$adresse,$codePostal,$email,$tel,$pseudogitg,$mdp){
